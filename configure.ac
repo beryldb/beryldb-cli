@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([algatorc], [0.1], [my_mail])
+AC_INIT([algatorc], [0.1], [cferry@beryldb.com])
 AC_CONFIG_SRCDIR([emerald/src/emerald.cpp])
 
 LT_INIT

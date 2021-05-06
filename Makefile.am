@@ -45,4 +45,5 @@ clean:
 	rm -rf beryl-cli
 	rm -rf config.log
 	rm -rf Makefile
-        
+	rm -rf autom4te.cache
+	rm -rf aclocal.m4
