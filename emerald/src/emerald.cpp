@@ -1,0 +1,117 @@
+/*
+ * Emerald - A POSIX client for BerylDB.
+ * http://www.beryldb.com
+ *
+ * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * 
+ * This file is part of BerylDB. BerylDB is free software: you can
+ * redistribute it and/or modify it under the terms of the BSD License
+ * version 3.
+ *
+ * More information about our licensing can be found at https://docs.beryl.dev
+ */
+ 
+#include "emerald.h"
+#include "methods.h"
+#include "engine.h"
+#include "exit.h"
+
+std::unique_ptr<Emerald> Kernel = nullptr;
+
+EmeraldStart
+{
+        Kernel = std::make_unique<Emerald>(argc, argv);
+        Kernel.reset();
+        return 1;
+}
+
+Emerald::Emerald(int argc, char** argv) : ConfigFile(DEFAULT_CONFIG)
+{        
+        Kernel = std::unique_ptr<Emerald>(this);
+        
+        /* Updates time. */
+        
+        this->Refresh();
+        
+        /* Startup time. */
+        
+        this->startup = this->Now();
+        
+        /* Configuration init. */
+        
+        this->Config = std::make_unique<Configuration>();
+
+        /* We must verify if a provided file actually exists. */
+        
+        if (!Daemon::ConfigFileExists(this->ConfigFile))
+        {
+                bprint(ERROR, "Unable to open config file: %s", Daemon::Welcome(this->ConfigFile).c_str());
+                this->Exit(EXIT_CODE_CONFIG, true);
+        }
+
+        /* Checks if we are running with a root */
+        
+        Daemon::CheckRoot();
+        
+        /* Keep a copy of arguments from main() */
+
+        this->Config->usercmd.argv = argv;
+
+        /* We must pass both, argv and argc */
+
+        this->Config->usercmd.argc = argc;
+        
+        /* Reads command line. */
+        
+        this->CommandLine();
+
+        /* Load configuration file. */
+
+        this->Config->Load();
+        
+        /* Sets configuration vars */
+        
+        this->Config->SetAll();
+        
+        /* We are not connected by default. */
+        
+        this->Connected = false;
+       
+        /* Clear screen on startup. */
+         
+        if (this->Config->clear)
+        {
+                Link->ClearScreen();
+        }
+
+        /* Inits client connection. */
+        
+        Link->Initialize();
+}
+
+void Emerald::Exit(int code, bool skip)
+{
+        this->Link->Shutdown();
+        
+        if (!skip)
+        {
+                realserver.clear();
+                displayserver.clear();
+                this->Link->HistoryWrite();
+                this->Link->ResetCache();
+                this->Link->PrepareExit();
+        }
+
+        /* Configuration class is not needed anymore, so we reset it. */
+
+        this->Config.reset();
+
+        /* Cleans up config file. */
+
+        this->ConfigFile.clear();
+        
+        this->displayserver.clear();
+                        
+        exit(code);
+}
+

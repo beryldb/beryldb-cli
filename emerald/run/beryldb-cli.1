@@ -1,0 +1,75 @@
+
+.TH "Beryldb-cli" "1" "January 2021" "Emerald-0.1" "BerylDB-cli Manual"
+
+.SH "NAME"
+\t\fBBerylDB-cli\fR - A POSIX client for BerylDB.
+.BR
+
+.SH "SYNOPSIS"
+\t\fBberyldb-cli\fR [--config <file>] [--login <login>] [--host <host>] [--pass <password>] [--port <port>] [--version]
+
+.SH "OPTIONS"
+.TP
+.B "--config <file>"
+.br
+Defines a full path to your configuration file. Defaults config file is \fIrun/beryldb-cli.conf\fR.
+.TP
+.B "--login <login>"
+.br
+Login to use to connect Default is \fIroot\fR.
+.TP
+.B "--port <port>"
+.br
+Sets a port tu use for connection. Default is \fI6378\fR.
+.TP
+.B "--host <host>"
+.br
+Sets a host to connect to. Defaults is \fIlocalhost\fR.
+.TP
+.B "--pass <pass>"
+.br
+Sets a password to use when connecting. Defaults is \fIdefault\fR.
+
+.TP
+.B "--version"
+.br
+Displays BerylDB-cli version and exits.
+
+.SH "EXIT CODES"
+.TP
+.B "0 (EXIT_CODE_OK)"
+.br
+The connection ended without errors.
+.TP
+.B "1 (EXIT_CODE_CORE)"
+.br
+The client exited because an error with the core.
+.TP
+.B "2 (EXIT_CODE_CONFIG)"
+.br
+The client exited because of an issue concerning your configuration file.
+.TP
+.B "3 (EXIT_CODE_LOG)"
+.br
+The server exited because of a log file error.
+.TP
+.B "4 (EXIT_CODE_ARGV)"
+.br
+The server exited because an invalid argument was provided to the command line.
+.TP
+.B "5 (EXIT_CODE_SOCKESTREAM)"
+.br
+The client exited because a problem with the the socket stream.
+.TP
+.B "6 (EXIT_CODE_ROOT)"
+.br
+The client exited because it was started as root.
+.TP
+.B "7 (EXIT_CODE_SIGTERM)"
+.br
+The client exited because it SIGTERM was provided.
+.TP
+.B "8 (EXIT_CODE_SIGINT)"
+.br
+The server exited because of an exiting signal.
+
