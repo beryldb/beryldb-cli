@@ -33,13 +33,9 @@ make -j2
 <br>
 If you wish to see examples about these parameters, visit our [Running guide](https://docs.beryl.dev/clients/cli/running/)
 
-## License 
-
-Emerald is licensed under the [version 3 of the BSD License].
-
 ## External Links
 
 * [Documentation](https://docs.beryl.dev/clients/cli/installing/)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
-* [Support/Discord](https://discord.gg/kMyf64rq5C)
+* [Support/Discord](https://discord.gg/sqsXVYuGrX)
 
