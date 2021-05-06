@@ -31,7 +31,8 @@ make -j2
 ```
 
 <br>
-If you wish to see examples about these parameters, visit our [Running guide](https://docs.beryl.dev/clients/cli/running/)
+
+If you wish to see examples about these parameters, visit our Running [guide](https://docs.beryl.dev/clients/cli/running/).
 
 ## External Links
 
