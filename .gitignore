@@ -2,7 +2,6 @@ vgcore.*
 !.git*
 *.o
 
-/Makefile
 /beryl-cli
 /.hist.cli
 /config.log
