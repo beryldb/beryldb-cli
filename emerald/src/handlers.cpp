@@ -14,6 +14,7 @@
 #include <iostream>
 
 #include "emerald.h"
+#include "exit.h"
 #include "handlers.h"
 #include "nodes.h"
 #include "server.h"
@@ -36,6 +37,14 @@ std::vector<std::string> explode(std::string const & s, char delim)
 Handlers::Handlers()
 {
 
+}
+
+void Handlers::OnError(std::vector<std::string>& cmd, std::string& original)
+{
+    bprint(INFO, Daemon::Format("Disconnected: %s", original.c_str()));
+    printf("\x1b[0m\r");
+    
+    Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 }
 
 void Handlers::OnPart(std::vector<std::string>& cmd)

@@ -63,7 +63,8 @@ class Handlers
 
         static void Local(std::string& buffer);
 
-
+        static void OnError(std::vector<std::string>& cmd, std::string& original);
+        
         std::string OnNotFnd(std::vector<std::string>& cmd);
 
          void OnWrongPass();

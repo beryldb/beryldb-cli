@@ -1038,7 +1038,12 @@ static void CommandParser(char *request)
 
 				Kernel->Handler.OnJoin(params);
 				return;
-
+			break;
+			
+			case BRLD_ERROR:
+			
+				Kernel->Handler.OnError(params, msg);
+				return;
 			break;
 			
 			case BRLD_QUITTING:

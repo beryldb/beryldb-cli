@@ -13,7 +13,7 @@
 
 #pragma once
 
-enum
+enum BRLD_PROTOCOL
 {
 	/* Beryldb internal protocol codes. */
 	
@@ -134,16 +134,27 @@ enum
 	BRLD_LOGINS_END			=		212,
 	BRLD_LOGINS_LIST		=		213,
 	BRLD_INSTANCE			=		214,
-		
+	BRLD_SUBS_LIST			=		215,
+	BRLD_SUBS_LIST_END		=		216,
+	BRLD_SUBS_LIST_BEGIN		=		217,
+	BRLD_MOD_UNLOAD			=		218,
+	BRLD_MOD_LOADED			=		219,
+	BRLD_SHUTDOWN			=		220,
+	BRLD_RESTART			=		221,
+	BRLD_TYPE_RAND			=		222,
+	BRLD_AGENT_SET			=		223,
+	BRLD_SFLUSH			=		225,
+	BRLD_SFLUSHED			=		225,
+	BRLD_PARTALL			=		226,
+	
 	/* Error protocol codes. */
 	
 	ERR_NO_INSTANCE               	= 		500,
 	ERR_NOSUCHSERVER                = 		501,
 	ERR_NO_CHAN               	= 		502, 
-	ERR_UNABLEUNLOADMODULE          =               503, 
-	ERR_CANTLOADMODULE              =               504, 
+	ERR_UNLOAD_MOD          	=               503, 
 	ERR_NORECIPIENT                 = 		505,
-	ERR_PUB_NOT_PROVIDED                = 		506,
+	ERR_PUB_NOT_PROVIDED            = 		506,
 	ERR_DBQUERY_FAILED              = 		507,
 	ERR_CANNOTSENDTOCHAN            = 		508,
 	ERR_EXCESS_SUBS             	= 		509,
@@ -161,12 +172,12 @@ enum
 
 	ERR_NOTREGISTERED               =	 	520,
 	ERR_NEEDMOREPARAMS		=		521,
-	ERR_ALREADYREGISTERED           = 		522,
+	ERR_AGENT_IS_SET           	= 		522,
 	ERR_CHANOPRIVSNEEDED            = 		527, 
 	ERR_USERSDONTMATCH              = 		529,
 	ERR_CANTSENDTOINSTANCE          = 		530, 
 	ERR_LOGIN_EXISTS		=		531,
-	ERR_INVALIDSESSION		=		534,
+	ERR_BAD_AGENT			=		534,
 	ERR_DB_EXISTS			=		535,
 	ERR_WRONG_PASS			=		536,
 	ERR_MUST_BE_POS_INT		=		537,
@@ -191,5 +202,7 @@ enum
         ERR_UNABLE_DBRESET		=		554,
         ERR_NO_ORIGIN			=		555,
         ERR_EXCEED_BUFFER        	=		556,
-        ERR_LOGIN_NO_FLAGS		=		557
+        ERR_LOGIN_NO_FLAGS		=		557,
+        ERR_SFLUSH			=		558,
+        ERR_PARTALL			=		559
 };
