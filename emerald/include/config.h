@@ -14,11 +14,11 @@
 
 #pragma once
 
-#define CONFIG_PATH "/emerald/run/conf"
+#define CONFIG_PATH "/run/conf"
 
 #define RUNTIME_PATH "/emerald/run/data"
 
-#define DEFAULT_CONFIG "emerald/run/beryldb-cli.conf"
+#define DEFAULT_CONFIG "run/beryldb-cli.conf"
 
 #define SESSION_DEFAULT "emerald0"
 
