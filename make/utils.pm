@@ -53,7 +53,7 @@ sub get_version
 
 	chomp(my $vf = `sh src/version.sh 2>/dev/null`);
 
-	if ($vf =~ /^BerylDB-([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+))?$/) 
+	if ($vf =~ /^Emerald-([0-9]+)\.([0-9]+)\.([0-9]+)(?:-(\w+))?$/) 
 	{
 		%version = ( MAJOR => $1, MINOR => $2, PATCH => $3, LABEL => $4 );
 	}

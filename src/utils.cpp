@@ -122,7 +122,7 @@ void Emerald::CommandLine()
         
         if (do_version)
         {
-              std::cout << "Emerald-" << VERSION << std::endl;
+              std::cout << VERSION << std::endl;
               Kernel->Exit(EXIT_CODE_OK, true);        
         }
 }

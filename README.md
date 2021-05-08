@@ -41,4 +41,4 @@ If you wish to see examples about these parameters, visit our Running [guide](ht
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
 
-![Logo](https://docs.beryl.dev/img/smaller.png)
+![Logo](https://docs.beryl.dev/img/logo.png)

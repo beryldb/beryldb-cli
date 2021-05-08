@@ -342,7 +342,7 @@ void Handlers::Local(std::string& buffer)
     }
     else if (first.compare("version") == 0)
     {
-	  Daemon::sprint(DTYPE_R, "Emerald-%s", convto_string(VERSION).c_str());    
+	  Daemon::sprint(DTYPE_R, "%s", convto_string(VERSION).c_str());    
     }
     else if (first.compare("rh") == 0)
     {
