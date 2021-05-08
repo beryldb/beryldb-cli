@@ -41,6 +41,11 @@ Handlers::Handlers()
 
 void Handlers::OnError(std::vector<std::string>& cmd, std::string& original)
 {
+    if (cmd.empty())
+    {
+        return;
+    }
+    
     bprint(INFO, Daemon::Format("Disconnected: %s", original.c_str()));
     printf("\x1b[0m\r");
     

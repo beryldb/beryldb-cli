@@ -1,5 +1,5 @@
 /*
- * Emerald - A POSIX client for BerylDB.
+ * BerylDB - A modular database.
  * http://www.beryldb.com
  *
  * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
@@ -11,15 +11,18 @@
  * More information about our licensing can be found at https://docs.beryl.dev
  */
 
-
 #pragma once
 
-#define CONFIG_PATH "/run/conf"
+/* Incorrect agent format. */
 
-#define RUNTIME_PATH "/emerald/run/data"
+#define WRONG_AGENT "Your agent is not valid."
 
-#define DEFAULT_CONFIG "run/beryldb-cli.conf"
+/* Valid agent. */
 
-#define SESSION_DEFAULT "emerald0"
+#define VALID_AGENT "Agent must be in the 3 to 15 length range."
 
-#define VERSION 0.1
+/* Default ping interval. */
+
+#define PING_INTVL 20
+
+%target include/constants.h

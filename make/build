@@ -28,11 +28,16 @@ for my $compiler (@compilers)
         
         my @cflags;
 
+        if (execute "$root/configure", '--development', @cflags) 
+        {
+                say "Unable to configure using the $compiler compiler.";
+                exit 1;
+        }
+
         if (execute 'make', '--directory', $root) 
         {
                 say "Unable to compile using the $compiler compiler.";
                 exit 1;
         }
-        
 
 }

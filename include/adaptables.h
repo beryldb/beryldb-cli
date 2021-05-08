@@ -55,11 +55,7 @@ typedef std::pair<config_iterator, config_iterator> MultiTag;
 # define BERYL_PRINTF(stringpos, firstpos)
 #endif
 
-#if defined _WIN32
-#include "win32/emerald_win32.h"
-#else
 #define EmeraldStart int main(int argc, char** argv)
-#endif
 
 template <typename T> struct safecast
 {
