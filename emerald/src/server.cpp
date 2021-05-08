@@ -374,7 +374,7 @@ static void UpdateLine(struct State *l)
         }
         else
         {
-        	plenu8 = strlen(Kernel->displayserver.c_str()) + strlen("|") + strlen(Kernel->select.c_str()) + 2;
+        	plenu8 = strlen(Kernel->displayserver.c_str()) + strlen("[") + strlen(Kernel->select.c_str()) + strlen("]") + 2;
         }
 
 	int fd = STDOUT_FILENO;
@@ -413,7 +413,7 @@ static void UpdateLine(struct State *l)
 	}
 	else
 	{
-    		std::string format = Kernel->displayserver + "|" + Kernel->select;
+    		std::string format = Kernel->displayserver + "[" + Kernel->select + "]";
     		A_BufferAppend(&ab, format.c_str(), strlen(format.c_str()));
         }
 	

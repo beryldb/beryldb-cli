@@ -88,7 +88,7 @@ void Daemon::sprint(const int type, const std::string& buff)
     }
     else
     {
-        std::cout << Daemon::Format("%s|%s> %s", Kernel->displayserver.c_str(), Kernel->select.c_str(), buff.c_str()) << std::endl;
+        std::cout << Daemon::Format("%s[%s]> %s", Kernel->displayserver.c_str(), Kernel->select.c_str(), buff.c_str()) << std::endl;
     }
     
     if (type == DTYPE_R)
