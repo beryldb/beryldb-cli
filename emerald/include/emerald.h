@@ -77,6 +77,14 @@ class Emerald
 
    public:
 
+        /* Server version. */
+        
+        std::string server_version;
+        
+        /* Server time */
+        
+        time_t server_time;
+        
         /* Connected boolean. */
         
         bool Connected;

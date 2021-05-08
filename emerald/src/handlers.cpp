@@ -233,6 +233,10 @@ void Handlers::OnConnected(std::vector<std::string>& cmd)
 {          
         Kernel->Connected = true;
         
+        Kernel->server_time = convto_num<time_t>(cmd[4]);
+        
+        std::string version = cmd[3];
+        Kernel->server_version = version.erase(0, 1);
         
         if (!Kernel->Config->select.empty() && Kernel->Config->select != "1")
         {
