@@ -26,8 +26,9 @@ make -j2
 ## Usage
 
 ```
-./beryldb-cli [--login <username>] [--host <host>] [--pass <password>] [--port <port>]
-                     [--version]
+./beryldb-cli [--login <username>] [--host <host>] 
+   	      [--pass <password>] [--port <port>] 
+              [--version]
 ```
 
 <br>
