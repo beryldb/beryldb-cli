@@ -10,6 +10,9 @@
  *
  * More information about our licensing can be found at https://docs.beryl.dev
  */
+/// $CompilerFlags: -Ietc_directory("bcrypt")
+
+#include <crypt_blowfish.c>
 
 #include "emerald.h"
 #include "engine.h"
@@ -17,7 +20,7 @@
 
 unsigned const char *locale_case_insensitive_map = brld_case_insensitive_map;
 
-Daemon::Daemon() : ValidLogin(&LoginValidator)
+Daemon::Daemon() : ValidLogin(&LoginValidator), GenRandom(&DefaultGenRandom)
 {
 
 }
@@ -259,3 +262,86 @@ bool Daemon::LoginValidator(const std::string& login)
 
         return true;
 }
+
+unsigned long Daemon::generate_random_int(unsigned long max)
+{
+        unsigned long rv;
+        GenRandom((char*)&rv, sizeof(rv));
+        return rv % max;
+}
+
+
+std::string Daemon::generate_random_str(unsigned int length, bool printable)
+{
+        std::vector<char> str(length);
+        GenRandom(&str[0], length);
+
+        if (printable)
+        {
+                for (size_t i = 0; i < length; i++)
+                {
+                        str[i] = 0x3F + (str[i] & 0x3F);
+                }
+        }
+                
+        return std::string(&str[0], str.size());
+}
+
+void Daemon::DefaultGenRandom(char* output, size_t max)
+{
+        for (unsigned int i = 0; i < max; ++i)
+        {
+                output[i] = random();
+        }
+}
+
+std::string BcryptServer::MakeSalt()
+{
+     char entropy[16];
+                
+     for (unsigned int i = 0; i < sizeof(entropy); ++i)
+     {
+           entropy[i] = Kernel->Engine->generate_random_int(0xFF);
+     }
+
+     char salt[32];
+                
+     if (!_crypt_gensalt_blowfish_rn("$2a$", DEFAULT_BROUNDS, entropy, sizeof(entropy), salt, sizeof(salt)))
+     {
+           return "";
+     }
+
+     return salt;
+}
+
+std::string BcryptServer::Generate(const std::string& data, const std::string& salt)
+{
+        char hash[64];
+        _crypt_blowfish_rn(data.c_str(), salt.c_str(), hash, sizeof(hash));
+        return hash;
+}
+
+std::string BcryptServer::MakePassword(const std::string& data)
+{
+        return BcryptServer::Generate(data, MakeSalt());
+}
+
+bool Daemon::TimingSafeCompare(const std::string& one, const std::string& two)
+{
+        if (one.length() != two.length())
+        {
+                return false;
+        }
+
+        unsigned int diff = 0;
+        
+        for (std::string::const_iterator i = one.begin(), j = two.begin(); i != one.end(); ++i, ++j)
+        {
+                unsigned char a = static_cast<unsigned char>(*i);
+                unsigned char b = static_cast<unsigned char>(*j);
+                diff |= a ^ b;
+        }
+
+        return (diff == 0);
+}
+

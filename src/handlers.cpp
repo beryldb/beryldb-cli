@@ -176,9 +176,28 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
         }
 }
 
+
+static bool InternalTest()
+{
+    int x = 500;
+    
+    for (int i = 0; i < x; i++)
+    {
+         std::string to = "hello" + convto_string(i);
+         Methods::Set(to, to);
+    }
+    
+    return false;
+}
+
 void Handlers::Test()
 {
-    int x = 10;
+    if (!InternalTest())
+    {
+        return;
+    }
+       
+    int x = 50;
 
     Methods::Set("hello", "world");
     Methods::Set("hello2", "world");

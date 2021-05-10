@@ -15,6 +15,8 @@ chances are you familiar with beryl-cli.
 NOTE: beryldb-cli is currently in beta and should **NOT** be used in a production
 environment.
 
+Don't forget to follow us on [Twitter](https://twitter.com/Beryldlabs)!
+
 ## Supported Platforms
 
 Beryldb-cli is only supported in GNU/Linux.
@@ -49,5 +51,6 @@ If you wish to see examples about these parameters, visit our Running [guide](ht
 * [Documentation](https://docs.beryl.dev/clients/cli/installing/)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
+* [Twitter](https://twitter.com/Beryldlabs)
 
 ![Logo](https://docs.beryl.dev/img/logo.png)

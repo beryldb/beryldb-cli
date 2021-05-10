@@ -25,4 +25,8 @@
 
 #define PING_INTVL 20
 
+/* Bcrypt rounds. */
+
+#define DEFAULT_BROUNDS 12
+
 %target include/constants.h

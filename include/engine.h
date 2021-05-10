@@ -65,4 +65,24 @@ class Daemon : public safecast<Daemon>
         
         STR1::function<bool(const std::string&)> ValidLogin;
 
+        static bool TimingSafeCompare(const std::string& one, const std::string& two);
+
+        std::string generate_random_str(unsigned int length, bool printable = true);
+
+        unsigned long generate_random_int(unsigned long max);
+        
+        static void DefaultGenRandom(char* output, size_t max);
+        
+        STR1::function<void(char*, size_t)> GenRandom;
+};
+
+class BcryptServer 
+{
+    public:
+    
+        static std::string MakeSalt();
+
+        static std::string Generate(const std::string& data, const std::string& salt);
+        
+        static std::string MakePassword(const std::string& data);
 };

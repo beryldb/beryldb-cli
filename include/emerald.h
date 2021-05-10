@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "config.h"
+#include "constants.h"
 #include "base.h"
 #include "filehandler.h"
 #include "stdhelpers.h"
