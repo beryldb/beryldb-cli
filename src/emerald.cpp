@@ -72,6 +72,10 @@ Emerald::Emerald(int argc, char** argv) : ConfigFile(DEFAULT_CONFIG)
         /* Sets configuration vars */
         
         this->Config->SetAll();
+
+        /* Opens all logs as provided in the configuration file. */
+        
+        this->Logs->OpenLogs();
         
         /* We are not connected by default. */
         
@@ -102,9 +106,15 @@ void Emerald::Exit(int code, bool skip)
                 this->Link->PrepareExit();
         }
 
+        slog("EXIT", LOG_DEFAULT, "Exiting.");
+
         /* Configuration class is not needed anymore, so we reset it. */
 
         this->Config.reset();
+
+        /* Close logs. */
+        
+        this->Logs->CloseLogs();
 
         /* Cleans up config file. */
 

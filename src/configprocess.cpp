@@ -19,6 +19,8 @@
 Configuration::ServerPaths::ServerPaths(config_rule* tag)
         : Config(tag->as_string("configdir", CONFIG_PATH, 1))
         , Runtime(tag->as_string("runtimedir", RUNTIME_PATH, 1))
+        , Log(tag->as_string("logdir", LOG_PATH, 1))
+        
 {
 
 }
@@ -34,6 +36,7 @@ static config_rule* crate_empty_rule()
 
 Configuration::Configuration() : EmptyTag(crate_empty_rule())
                                , Paths(EmptyTag)
+                               , RawLog(false)
 {
 
 }
@@ -226,5 +229,11 @@ void Configuration::Fill()
 
        CheckCMD();
 
+}
+
+
+MultiTag Configuration::GetTags(const std::string& tag)
+{
+        return config_data.equal_range(tag);
 }
 

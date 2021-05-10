@@ -345,3 +345,37 @@ bool Daemon::TimingSafeCompare(const std::string& one, const std::string& two)
         return (diff == 0);
 }
 
+
+std::string Daemon::HumanEpochTime(time_t curtime, const char* format, bool utc)
+{
+        struct tm* timeinfo = utc ? gmtime(&curtime) : localtime(&curtime);
+
+        if (!timeinfo)
+        {
+                curtime = 0;
+                timeinfo = localtime(&curtime);
+        }
+
+        if (timeinfo->tm_year + 1900 > 9999)
+        {
+                timeinfo->tm_year = 9999 - 1900;
+        }
+        else if (timeinfo->tm_year + 1900 < 1000)
+        {
+                timeinfo->tm_year = 0;
+        }
+
+        if (!format)
+        {
+                format = "%a %b %d %Y %H:%M:%S";
+        }
+
+        char buffer[512];
+
+        if (!strftime(buffer, sizeof(buffer), format, timeinfo))
+        {
+                buffer[0] = '\0';
+        }
+
+        return buffer;
+}

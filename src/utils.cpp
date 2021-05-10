@@ -36,7 +36,7 @@ const char* ExitMap[] =
 
 void Emerald::CommandLine()
 {
-        int do_version = 0;
+        int do_version = 0, do_debug = 0;
         int do_tests = 0;
         
         /* Stands for remove history. */
@@ -46,6 +46,7 @@ void Emerald::CommandLine()
         struct option longopts[] =
         {
                         { "version",  no_argument,       &do_version,    1 },
+                        { "debug",    no_argument,       &do_debug,     1   },
                         { "port",     required_argument, NULL,   	'p' },
                         { "host",     required_argument, NULL,   	'h' },
                         { "pass",     required_argument, NULL,   	'd'},
@@ -125,6 +126,8 @@ void Emerald::CommandLine()
               std::cout << VERSION << std::endl;
               Kernel->Exit(EXIT_CODE_OK, true);        
         }
+        
+        this->Config->usercmd.forcedebug = !!do_debug;
 }
 
 void Emerald::Refresh()

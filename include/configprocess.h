@@ -71,6 +71,8 @@ struct UserArguments
         std::string pass;
         
         bool do_tests;
+        
+        bool forcedebug;
                 
         int argc;
 
@@ -92,7 +94,7 @@ class Configuration
         std::string port;
         
         std::string pass;
-        
+
         UserArguments usercmd;
 
         ConfigMap config_data;
@@ -112,7 +114,7 @@ class Configuration
         bool notifyflags;
         
         bool clear;
-        
+
         std::string customdisplay;
         
         config_rule* GetConf(const std::string& tag);
@@ -127,15 +129,21 @@ class Configuration
 
                 std::string Runtime;
 
+                std::string Log;
+                
                 ServerPaths(config_rule* tag);
 
                 std::string PrependRuntime(const std::string& fn) const { return FileSystem::get_real_path(Runtime, fn); }
 
                 std::string PrependConfig(const std::string& fn) const { return FileSystem::get_real_path(Config, fn); }
+                
+                std::string PrependLog(const std::string& fn) const { return FileSystem::get_real_path(Log, fn); }
+                
         };
-        
 
         ServerPaths Paths;
+
+        bool RawLog;
         
         void Load();
         

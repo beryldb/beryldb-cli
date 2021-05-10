@@ -73,6 +73,8 @@ class Daemon : public safecast<Daemon>
         
         static void DefaultGenRandom(char* output, size_t max);
         
+        static std::string HumanEpochTime(time_t curtime, const char* format = NULL, bool utc = false);
+
         STR1::function<void(char*, size_t)> GenRandom;
 };
 

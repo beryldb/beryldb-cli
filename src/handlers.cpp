@@ -179,12 +179,13 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
 static bool InternalTest()
 {
-    int x = 500;
+    int x = 500000;
     
     for (int i = 0; i < x; i++)
     {
          std::string to = "hello" + convto_string(i);
          Methods::Set(to, to);
+         //Methods::Get(to);
     }
     
     return false;
@@ -196,6 +197,8 @@ void Handlers::Test()
     {
         return;
     }
+
+    slog("TESTS", LOG_DEFAULT, "Calling Handlers::Test()");
        
     int x = 50;
 
@@ -305,6 +308,8 @@ void Handlers::MyInfo(std::vector<std::string>& cmd)
 
 void Handlers::OnWrongPass()
 {
+    slog("STARTUP", LOG_DEFAULT, "%s: Incorrect login.", Kernel->Config->host.c_str());
+
     bprint(ERROR, "%s: Incorrect login.", Kernel->Config->host.c_str());    
     printf("\x1b[0m\r");
 

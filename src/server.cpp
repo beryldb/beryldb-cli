@@ -1360,6 +1360,8 @@ int Server::Initialize()
 	{
 		return 1;
 	}
+
+	slog("STARTUP", LOG_DEFAULT, "Connected to %s", Kernel->Config->host.c_str());
 	
 	Methods::LogIn(SESSION_DEFAULT, Kernel->Config->login, Kernel->Config->pass);
 	

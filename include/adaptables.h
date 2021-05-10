@@ -73,3 +73,5 @@ template <typename T> struct safecast
         va_end(_vaList); \
         } while (false);
 
+
+#define slog Kernel->Logs->Log

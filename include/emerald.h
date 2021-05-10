@@ -36,6 +36,7 @@
 #include "handlers.h"
 #include "nodes.h"
 #include "engine.h"
+#include "logs.h"
 
 extern std::unique_ptr<Emerald> Kernel;
 
@@ -125,6 +126,10 @@ class Emerald
         /* Constructor. */
         
         Emerald(int argc, char** argv);
+
+        /* Log Handler. */
+        
+	LogHandler Logs;
 
         /* Returns current time. */
         
