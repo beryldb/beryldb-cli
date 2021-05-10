@@ -882,8 +882,10 @@ static int InitConnection(void)
 
 	if ((gai_status = getaddrinfo(Kernel->Config->host.c_str(), Kernel->Config->port.c_str(), &hints, &res)) != 0) 
 	{
-		bprint(ERROR, "Unable to connect: %s", gai_strerror(gai_status));
-		Kernel->Exit(EXIT_CODE_SOCKETSTREAM, true);
+		Kernel->Connected = false;
+		std::string errmsg = "Unable to connect: " + convto_string(gai_strerror(gai_status));
+		bprint(ERROR, "%s", errmsg.c_str());
+		Kernel->Exit(EXIT_CODE_SOCKETSTREAM, true, errmsg);
 		return -1;
 	}
 
@@ -900,8 +902,11 @@ static int InitConnection(void)
 		if (connect(conn, p->ai_addr, p->ai_addrlen) == -1) 
 		{
 			close(conn);
-			bprint(ERROR, "Unable to connect to %s:%s", Kernel->Config->host.c_str(), Kernel->Config->port.c_str());
-			Kernel->Exit(EXIT_CODE_SOCKETSTREAM, true);
+			Kernel->Connected = false;
+			
+			const std::string errmsg = Daemon::Format("Unable to connect to %s:%s", Kernel->Config->host.c_str(), Kernel->Config->port.c_str());
+        	        bprint(ERROR, "%s", errmsg.c_str());
+			Kernel->Exit(EXIT_CODE_SOCKETSTREAM, true, errmsg);
 			continue;
 		}
 

@@ -161,7 +161,7 @@ class Emerald
 
         /* Exists Emerald. */
         
-        void Exit(int code = 0, bool skip = false);
+        void Exit(int code = 0, bool skip = false, const std::string& exitmsg = "");
 
 };
 

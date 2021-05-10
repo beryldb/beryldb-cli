@@ -93,7 +93,7 @@ Emerald::Emerald(int argc, char** argv) : ConfigFile(DEFAULT_CONFIG)
         Link->Initialize();
 }
 
-void Emerald::Exit(int code, bool skip)
+void Emerald::Exit(int code, bool skip, const std::string& exitmsg)
 {
         this->Link->Shutdown();
         
@@ -105,8 +105,15 @@ void Emerald::Exit(int code, bool skip)
                 this->Link->ResetCache();
                 this->Link->PrepareExit();
         }
-
-        slog("EXIT", LOG_DEFAULT, "Exiting.");
+        
+        if (exitmsg.empty())
+        {
+                slog("EXIT", LOG_DEFAULT, "Exiting: %s", ExitMap[code]);
+        }
+        else
+        {
+                slog("EXIT", LOG_DEFAULT, "Exiting: %s", exitmsg.c_str());
+        }
 
         /* Configuration class is not needed anymore, so we reset it. */
 

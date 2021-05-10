@@ -28,7 +28,7 @@ const char* ExitMap[] =
                 "Config file error",
                 "Logfile error",
                 "Bad commandline parameters",
-                "Problem with our SocketPool",
+                "Problem with SocketPool",
                 "Refusing to start up as root",
                 "Received SIGTERM",
                 "SIG INT received."
