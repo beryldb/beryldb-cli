@@ -47,6 +47,8 @@ void Handlers::OnError(std::vector<std::string>& cmd, std::string& original)
     }
     
     bprint(INFO, Daemon::Format("Disconnected: %s", original.c_str()));
+    slog("CONNECTION", LOG_DEFAULT, "Disconnected: %s", original.c_str());
+    
     printf("\x1b[0m\r");
     
     Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
@@ -179,16 +181,20 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
 static bool InternalTest()
 {
-    int x = 500000;
+    return true;
+    
+    slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
+
+    int x = 500;
     
     for (int i = 0; i < x; i++)
     {
          std::string to = "hello" + convto_string(i);
-         Methods::Set(to, to);
-         //Methods::Get(to);
+         //Methods::Set(to, to);
+         Methods::Get(to);
     }
     
-    return false;
+    return true;
 }
 
 void Handlers::Test()
@@ -200,7 +206,7 @@ void Handlers::Test()
 
     slog("TESTS", LOG_DEFAULT, "Calling Handlers::Test()");
        
-    int x = 50;
+    int x = 100;
 
     Methods::Set("hello", "world");
     Methods::Set("hello2", "world");
@@ -390,6 +396,16 @@ void Handlers::Local(std::string& buffer)
     {
             Daemon::sprint(DTYPE_R, "Your flags: %s", Kernel->myflags.c_str());
     }
+    else if (first.compare("connected") == 0)
+    {
+        unsigned int up = static_cast<unsigned int>(Kernel->Now() - Kernel->GetStartup());
+        
+        /* Exit msg. */
+        
+        std::string uptime =  Daemon::Format("Connected: %u days, %.2u:%.2u:%.2u", up / 86400, (up / 3600) % 24, (up / 60) % 60, up % 60);
+        Daemon::sprint(DTYPE_R, "%s", uptime.c_str());
+    }
+    
 #ifndef _WIN32
     else if (first.compare("exec") == 0)
     {

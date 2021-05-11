@@ -53,4 +53,4 @@ If you wish to see examples about these parameters, visit our Running [guide](ht
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
 * [Twitter](https://twitter.com/Beryldlabs)
 
-![Logo](https://docs.beryl.dev/img/logo.png)
+![Logo](https://docs.beryl.dev/img/smaller.png)
