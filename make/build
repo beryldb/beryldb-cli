@@ -1,0 +1,54 @@
+#!/usr/bin/env perl
+
+# Emerald - A POSIX client for BerylDB.
+# http://www.beryldb.com
+#
+# Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+# 
+# This file is part of BerylDB. BerylDB is free software: you can
+# redistribute it and/or modify it under the terms of the BSD License
+# version 3.
+#
+# More information about our licensing can be found at https://docs.beryl.dev
+
+use v5.10.0;
+use strict;
+use warnings FATAL => qw(all);
+
+use File::Basename qw(dirname);
+use FindBin        qw($RealDir);
+
+use lib dirname $RealDir;
+
+my $root = dirname $RealDir;
+my @compilers = $#ARGV >= 0 ? @ARGV : qw(g++ clang);
+
+sub execute(@) 
+{
+        say @_;
+        return system @_;
+}
+
+for my $compiler (@compilers) 
+{
+        if (system "$compiler -v > /dev/null 2>&1") 
+        {
+                say "$compiler not installed.";
+                next;
+        }
+        
+        my @cflags;
+
+        if (execute "$root/configure", '--development', @cflags) 
+        {
+                say "Unable to configure using the $compiler compiler.";
+                exit 1;
+        }
+
+        if (execute 'make', '--directory', $root) 
+        {
+                say "Unable to compile using the $compiler compiler.";
+                exit 1;
+        }
+
+}
