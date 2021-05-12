@@ -12,9 +12,6 @@ users to send commands to Beryl and read responses.
 If you are planning to use Beryl extensively, or if you already do, 
 chances are you familiar with beryl-cli.
 
-NOTE: beryldb-cli is currently in beta and should **NOT** be used in a production
-environment.
-
 Don't forget to follow us on [Twitter](https://twitter.com/Beryldlabs)!
 
 ## Supported Platforms
@@ -22,6 +19,16 @@ Don't forget to follow us on [Twitter](https://twitter.com/Beryldlabs)!
 Beryldb-cli is only supported in GNU/Linux.
 
 ## Installation
+
+Download files:
+
+```
+wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.0.1.tar.gz
+tar -xvzf 0.0.1.tar.gz
+cd beryldb-cli-0.0.1/
+```
+
+You may now build Beryldb-cli:
 
 ```
 ./configure
