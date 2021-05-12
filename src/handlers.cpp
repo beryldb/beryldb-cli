@@ -181,20 +181,22 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
 static bool InternalTest()
 {
-    return true;
+ //   return true;
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 500;
+    int x = 5000;
     
     for (int i = 0; i < x; i++)
     {
-         std::string to = "hello" + convto_string(i);
-         //Methods::Set(to, to);
-         Methods::Get(to);
+         std::string to = convto_string(i);
+//         Methods::Set(to, to);
+//    Server::raw("INCR a\r\n");
+         //Methods::Get(to);
+         Methods::LPush(to, to);
     }
     
-    return true;
+    return false;
 }
 
 void Handlers::Test()
@@ -368,6 +370,19 @@ void Handlers::Local(std::string& buffer)
     }
     else if (first.compare("test") == 0)
     {
+            if (!remaining.empty())
+            {
+                unsigned int as_int = convto_num<unsigned int>(remaining);
+                
+                for (unsigned int i = 0; i < as_int; i++)
+                {
+                    Handlers::Test();
+                }
+                
+                return;
+                
+            }
+            
             Handlers::Test();
     }
     else if (first.compare("version") == 0)
