@@ -38,7 +38,6 @@ our @EXPORT = qw(CONF_CACHEFILE
                  test_file
                  strict_test
                  test_header
-                 module_fullpath
                  module_shrink
                  define_conf_cache
                  retrieve_compiler
@@ -230,14 +229,6 @@ sub test_header($$;$)
 	print $file_handler "#include <$header>";
 	close $file_handler;
 	return !$?;
-}
-
-sub module_fullpath($) 
-{
-	my $module = shift;
-	$module = "m_$module" unless $module =~ /^(?:m|core)_/;
-	$module = "$module.cpp" unless $module =~ /\.cpp$/;
-	return $module;
 }
 
 sub module_shrink($) 

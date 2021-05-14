@@ -36,7 +36,7 @@ class config_rule : public refcountbase
         
         long as_int(const std::string& key, long def, long min = LONG_MIN, long max = LONG_MAX);
         
-        unsigned long as_uint(const std::string& key, unsigned long def, unsigned long min = 0, unsigned long max = ULONG_MAX);
+        unsigned long as_uint(const std::string& key, unsigned long def, unsigned long min = 0, unsigned long max = ULONG_MAX, bool force = false);
         
         double as_float(const std::string& key, double def, double min = DBL_MIN, double max = DBL_MAX);
 
