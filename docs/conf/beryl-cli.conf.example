@@ -49,7 +49,7 @@
 # NOTE: Regardless whether you define a value, users are
 #	allowed to utilize the 'use' command at anytime.
 
-#<select use="1">
+#<select use="10">
 
 # Logging ################################################
 #

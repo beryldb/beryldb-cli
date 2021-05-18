@@ -34,7 +34,7 @@ class config_rule : public refcountbase
         
         std::string as_string(const std::string& key, const std::string& def = "", size_t minlen = 0, size_t maxlen = UINT32_MAX);
         
-        long as_int(const std::string& key, long def, long min = LONG_MIN, long max = LONG_MAX);
+        long as_int(const std::string& key, long def, long min = LONG_MIN, long max = LONG_MAX, bool force = false);
         
         unsigned long as_uint(const std::string& key, unsigned long def, unsigned long min = 0, unsigned long max = ULONG_MAX, bool force = false);
         
@@ -152,6 +152,5 @@ class Configuration
         void SetAll();
         
         void CheckCMD();
-        
 };
 

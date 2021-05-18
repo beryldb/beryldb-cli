@@ -51,6 +51,7 @@ void Emerald::CommandLine()
                         { "host",     required_argument, NULL,   	'h' },
                         { "pass",     required_argument, NULL,   	'd'},
                         { "login",    required_argument, NULL,          'l'},
+                        { "use",      required_argument, NULL,          'u'},
                         { "test",     no_argument,       &do_tests,     't'},
                         { "rhist",    no_argument,       &do_rhist, 	'r' },
                         { 0, 0, 0, 0 }
@@ -59,7 +60,7 @@ void Emerald::CommandLine()
         char** argv = this->Config->usercmd.argv;
         int value;
 
-        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:t:r:", longopts, NULL)) != -1)
+        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:u:t:r", longopts, NULL)) != -1)
         {
                       switch (value)
                       {
@@ -85,6 +86,11 @@ void Emerald::CommandLine()
                           case 'l':
                                 
                                   Kernel->Config->usercmd.login = optarg;
+                                  break;
+                                  
+                          case 'u':
+                                         
+                                  Kernel->Config->select = optarg;
                                   break;
                                 
                            default:
