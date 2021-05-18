@@ -1,5 +1,12 @@
+<a target="_blank" href="https://twitter.com/beryldb"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40beryldblabs"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Linux%20CI/badge.svg?4"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/pulse" alt="Activity"> <img src="https://img.shields.io/github/commit-activity/m/beryldb/beryldb-cli?2" /></a>
+<br>
+
 This README is brief introduction to Beryl-cli. For extended information, you
 can visit our site at [beryl.dev/clients/cli](https://docs.beryl.dev/clients/cli/installing/)
+
+![Logo](https://docs.beryl.dev/img/smaller.png??)
 
 ## About
 
@@ -12,7 +19,7 @@ users to send commands to Beryl and read responses.
 If you are planning to use Beryl extensively, or if you already do, 
 chances are you familiar with beryl-cli.
 
-Don't forget to follow us on [Twitter](https://twitter.com/Beryldlabs)!
+Don't forget to follow us on [Twitter](https://twitter.com/beryldb)!
 
 ## Supported Platforms
 
@@ -58,6 +65,5 @@ If you wish to see examples about these parameters, visit our Running [guide](ht
 * [Documentation](https://docs.beryl.dev/clients/cli/installing/)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
-* [Twitter](https://twitter.com/Beryldlabs)
+* [Twitter](https://twitter.com/beryldb)
 
-![Logo](https://docs.beryl.dev/img/smaller.png)

@@ -8,7 +8,7 @@ vgcore.*
 core
 
 /beryl-cli
-/.hist.cli
+.hist.cli
 /config.log
 /.vscode/
 

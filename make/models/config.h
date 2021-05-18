@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -15,27 +15,27 @@
 
 /* Default session name */
 
-#define SESSION_DEFAULT "emerald0"
+const std::string SESSION_DEFAULT = "emerald0";
 
 /* Max. length of a line of text */
 
-#define INPUT_LIMIT 65530
+const unsigned int INPUT_LIMIT = 65530;
 
 /* Linux distro */
 
-#define LINUX_DISTRO @LINUX_DISTRO@
+#define LINUX_DISTRO "@LINUX_DISTRO@"
 
 /* Default configuration file */
 
-#define DEFAULT_CONFIG "run/conf/beryl-cli.conf"
+const std::string DEFAULT_CONFIG = "run/conf/beryl-cli.conf";
 
 /* Number of processors available. */
 
-#define CORE_COUNT @CORE_COUNT@
+const unsigned int CORE_COUNT = @CORE_COUNT@;
 
 /* Default buffer size. */
 
-#define BUFFERSIZE 65536
+const unsigned int BUFFERSIZE = 65536;
 
 /* The branch version that is shown to unprivileged users. */
 

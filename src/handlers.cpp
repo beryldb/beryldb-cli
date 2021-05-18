@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -181,7 +181,7 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
 static bool InternalTest()
 {
- //   return true;
+    return true;
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
@@ -190,17 +190,18 @@ static bool InternalTest()
     for (int i = 0; i < x; i++)
     {
          std::string to = convto_string(i);
-//         Methods::Set(to, to);
-//    Server::raw("INCR a\r\n");
-         //Methods::Get(to);
-         Methods::LPush(to, to);
+         Methods::Set(to, to);
+         Methods::Get(to);
+         //Methods::LPush(to, to);
     }
     
+    exit(0);
     return false;
 }
 
 void Handlers::Test()
 {
+   
     if (!InternalTest())
     {
         return;
@@ -260,7 +261,8 @@ void Handlers::OnYourFlags(std::vector<std::string>& cmd)
     
      if (Kernel->Config->notifyflags)
      {
-         Daemon::sprint(DTYPE_R, "Your flags are now: %s", mine.c_str());
+          Daemon::sprint(DTYPE_R, "Your flags are now: %s", mine.c_str());
+          slog("FLAGS", LOG_VERBOSE, "Your flags are now: %s", mine.c_str());
     }
 }
 
@@ -366,7 +368,6 @@ void Handlers::Local(std::string& buffer)
     if (first.compare("me") == 0)
     {
             Daemon::sprint(DTYPE_R, "Your instance ID: %s", Kernel->myself.c_str());
-            
     }
     else if (first.compare("test") == 0)
     {
