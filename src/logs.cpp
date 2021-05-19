@@ -15,7 +15,7 @@
 
 #include <fstream>
 
-const char LogStream::StreamHead[] = "Log head for " VERSION;
+const std::string LogStream::StreamHead = "Log head for " + VERSION;
 
 LogHandler::LogHandler() : Locked(false)
 {

@@ -181,7 +181,7 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
 static bool InternalTest()
 {
-    return true;
+  //  return true;
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
@@ -190,12 +190,12 @@ static bool InternalTest()
     for (int i = 0; i < x; i++)
     {
          std::string to = convto_string(i);
-         Methods::Set(to, to);
-         Methods::Get(to);
+         Methods::Set("1", to);
+         Methods::Get("1");
          //Methods::LPush(to, to);
     }
     
-    exit(0);
+//    exit(0);
     return false;
 }
 

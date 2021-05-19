@@ -23,7 +23,7 @@ const unsigned int INPUT_LIMIT = 65530;
 
 /* Linux distro */
 
-#define LINUX_DISTRO "@LINUX_DISTRO@"
+const std::string LINUX_DISTRO = "@LINUX_DISTRO@";
 
 /* Default configuration file */
 
@@ -39,11 +39,11 @@ const unsigned int BUFFERSIZE = 65536;
 
 /* The branch version that is shown to unprivileged users. */
 
-#define BRANCH "Emerald-@VERSION_MAJOR@"
+const std::string BRANCH = "Emerald-@VERSION_MAJOR@";
 
 /* The full version that is shown to privileged users. */
 
-#define VERSION "Emerald-@VERSION_FULL@"
+const std::string VERSION = "Emerald-@VERSION_FULL@";
 
 /* Determines whether this version of BerylDB is older than the requested version. */
 
@@ -55,31 +55,27 @@ const unsigned int BUFFERSIZE = 65536;
 
 /* The default location that config files are stored in. */
 
-#define CONFIG_PATH "@CONFIG_DIR@"
+const std::string CONFIG_PATH = "@CONFIG_DIR@";
 
 /* The default location that data files are stored in. */
 
-#define DATA_PATH "@DATA_DIR@"
-
-/* Default database path. */
-
-#define DB_PATH "@DB_DIR@"
+const std::string DATA_PATH = "@DATA_DIR@";
 
 /* The default location that log files are stored in. */
 
-#define LOG_PATH "@LOG_DIR@"
+const std::string LOG_PATH = "@LOG_DIR@";
 
 /* The default location that module files are stored in. */
 
-#define MODULE_PATH "@MODULE_DIR@"
+const std::string MODULE_PATH = "@MODULE_DIR@";
 
 /* The default location that runtime files are stored in. */
 
-#define RUNTIME_PATH "@RUNTIME_DIR@"
+const std::string RUNTIME_PATH = "@RUNTIME_DIR@";
 
 /* The URL of the BerylDB docs site. */
 
-#define DOCS "https://docs.beryl.dev"
+const std::string DOCS_URL = "https://docs.beryl.dev";
 
 %target include/config.h
 

@@ -53,7 +53,7 @@ class LogStream
 
 	/* A log stream header. */
 
-	static const char StreamHead[];
+	static const std::string StreamHead;
 
 	LogStream(log_level loglevel) : loglvl(loglevel)
 	{

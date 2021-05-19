@@ -1,6 +1,7 @@
 vgcore.*
 !.git*
 *.o
+\#*#
 
 /.configure
 /Makefile
