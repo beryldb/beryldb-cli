@@ -101,7 +101,7 @@ void Emerald::Exit(int code, bool skip, const std::string& exitmsg)
         {
                 Link->ClearScreen();
         }
-        
+
         if (!skip)
         {
                 realserver.clear();

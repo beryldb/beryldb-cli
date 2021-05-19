@@ -70,11 +70,11 @@ void Handlers::OnPart(std::vector<std::string>& cmd)
         
         if (user == Kernel->myself)
         {
-            Daemon::csprint(DTYPE_R, "%s|%s|%s> %s", Kernel->displayserver.c_str(), "PART", "You", chan.c_str());
+            Daemon::csprint(DTYPE_R, "%s|%s> %s", "PART", "You", chan.c_str());
         }
         else 
         {
-            Daemon::csprint(DTYPE_R, "%s|%s|%s> %s", Kernel->displayserver.c_str(), "PART", user.c_str(), chan.c_str());
+            Daemon::csprint(DTYPE_R, "%s|%s> %s", "PART", user.c_str(), chan.c_str());
         }
 }
 
@@ -82,7 +82,7 @@ void Handlers::OnQuit(std::vector<std::string>& cmd)
 {
         std::vector<std::string> vec = explode(cmd[0], '!');
         std::string user = vec[0];
-        std::string output = Kernel->displayserver + "|QUIT> " + user;
+        std::string output = "QUIT> " + user;
         Daemon::csprint(DTYPE_R, "%s", output.c_str());
 }
 
@@ -97,15 +97,15 @@ void Handlers::OnPublish(std::vector<std::string>& cmd, std::string& original)
         std::string user = vec[0];
         std::string chan = cmd[2];
 
-        std::string output = Kernel->displayserver;
+        std::string output;
 
         if (chan != Kernel->myself)
         {
-            output += "|PUB|" + user + "|" + chan + "> " +  original;   
+            output += "PUB|" + user + "|" + chan + "> " +  original;   
         }
         else
         {
-        output += "|PUB|" + user + "> " +  original;   
+        output += "PUB|" + user + "> " +  original;   
         }
 
         Daemon::csprint(DTYPE_R, "%s", output.c_str());
@@ -133,7 +133,7 @@ void Handlers::OnSlist(std::vector<std::string>& cmd, std::string& original)
 
                 if (counter % 2 == 0)
                 {
-                     std::cout << Kernel->displayserver.c_str() << "|#" << chan << "> " << users;
+                     std::cout << "#" << chan << "> " << users;
                      printf("\x1b[0m\r\n");
                      onemore  = true;
                      users.clear();
@@ -146,11 +146,11 @@ void Handlers::OnSlist(std::vector<std::string>& cmd, std::string& original)
 
         if (!onemore)
         {
-             std::cout << Kernel->displayserver.c_str() << "|#" << chan << "> " << users;
+             std::cout << "#" << chan << "> " << users;
              printf("\x1b[0m\r\n");
         }
 
-        std::cout << Kernel->displayserver.c_str() << "|#" << chan << "|total|> " << counter;
+        std::cout << "#" << chan << "|total|> " << counter;
         printf("\x1b[0m\r\n");
 }
 
@@ -170,11 +170,11 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
         if (user == Kernel->myself)
         {
-            Daemon::csprint(DTYPE_R, "%s|%s|%s> %s", Kernel->displayserver.c_str(), "JOIN", "You", chan.c_str());
+            Daemon::csprint(DTYPE_R, "%s|%s> %s", "JOIN", "You", chan.c_str());
         }
         else 
         {
-            Daemon::csprint(DTYPE_R, "%s|%s|%s> %s", Kernel->displayserver.c_str(), "JOIN", user.c_str(), chan.c_str());
+            Daemon::csprint(DTYPE_R, "%s|%s> %s", "JOIN", user.c_str(), chan.c_str());
         }
 }
 
@@ -360,10 +360,10 @@ void Handlers::Local(std::string& buffer)
             }
         }
 
-        counter++;
+            counter++;
         }
         
-    Daemon::sprint(DTYPE_R, "/%s", input.c_str());
+    Daemon::serv_sprint(DTYPE_R, "/%s", input.c_str());
 
     if (first.compare("me") == 0)
     {
@@ -442,7 +442,7 @@ void Handlers::Local(std::string& buffer)
             while (resp.items_extract(server))
             {
                     Daemon::sprint(DTYPE_R, "%s", server.c_str());
-                    Server::raw("%s\r\n", server.c_str());
+                    Server::SendData("%s\r\n", server.c_str());
             }   
     }
 #endif

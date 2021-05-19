@@ -751,23 +751,12 @@ static int edit(struct State *l)
 	
 	switch(c) 
 	{
-		case CTRL_L: Server::ClearScreen(); 	 UpdateLine(l); break;
+		case CTRL_L: Server::ClearScreen(); 	break;
 		case ENTER: UpdateEnter();          return 1; /* enter */
 		case CTRL_C: 
 		{
 		
 			errno = EAGAIN;
-                        std::string buf = l->buf;
-                                
-                        if (buf == "")
-                        {
-                        	Daemon::sprint(DTYPE_R, " ", " ");                     
-                        }
-                        else
-                        {
-                                Daemon::sprint(DTYPE_R, "%s", buf.c_str());                     
-                        }
-		        
 			Kernel->Exit(EXIT_CODE_OK, false);
 			return -1; /* ctrl-c */
 		}
@@ -787,17 +776,6 @@ static int edit(struct State *l)
 		case CTRL_D:                                  /* ctrl-d */
 		{
 
-                        std::string buf = l->buf;
-                                
-                        if (buf == "")
-                        {
-                                Daemon::sprint(DTYPE_R, " ", " ");                     
-                        }
-                        else
-                        {
-                                Daemon::sprint(DTYPE_R, "%s", buf.c_str());                     
-                        }
-                        
                         Kernel->Exit(EXIT_CODE_OK, false);
 
 			break;
@@ -846,7 +824,7 @@ static void ResetState(struct State *l)
 	push_history("");
 }
 
-void Server::raw(char *fmt, ...) 
+void Server::SendData(char *fmt, ...) 
 {
 	va_list ap;
 	char *cmd_str = (char*)malloc(MSG_LIMIT);
@@ -944,7 +922,7 @@ static void CommandParser(char *request)
 
 	if (!strncmp(request, convto_string(BRLD_PING).c_str(), 3)) 
 	{	
-		Kernel->Link.raw("PONG %s\r\n", request);
+		Kernel->Link.SendData("PONG %s\r\n", request);
 		return;
 	}
 
@@ -1250,9 +1228,8 @@ static void UserInput(struct State *l)
 			        
 			        if (Kernel->Link.CheckCmd(CommandList))
 			        {
-					Server::raw("%s\r\n", l->buf);
-					Daemon::sprint(DTYPE_R, "%s", l->buf);					
-					
+					Server::SendData("%s\r\n", l->buf);
+					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
 				}
 			
 			}

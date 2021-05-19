@@ -49,6 +49,12 @@ class Daemon : public safecast<Daemon>
 
         static void sprint(const int type, const std::string& buff);
 
+
+        static void serv_sprint(const int type, const char *fmt, ...);
+
+        static void serv_sprint(const int type, const std::string& buff);
+        
+
         static unsigned long Duration(const std::string& str);
 
         static bool Duration(const std::string& str, unsigned long& duration);

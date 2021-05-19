@@ -58,7 +58,7 @@ class Server : public safecast<Server>
         
         /* Raw socket write to remote server. */
         
-        static void raw(char *fmt, ...);
+        static void SendData(char *fmt, ...);
 
         /* 
          * This function is called before the 
