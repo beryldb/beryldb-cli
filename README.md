@@ -1,8 +1,7 @@
 <a target="_blank" href="https://twitter.com/beryldb"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40beryldb"></a>
-<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Linux%20CI/badge.svg?4"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Linux%20build/badge.svg?4"></a>
 <a target="_blank" href="https://github.com/beryldb/beryldb-cli/pulse" alt="Activity"> <img src="https://img.shields.io/github/commit-activity/m/beryldb/beryldb-cli?2" /></a>
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-<a target="_blank" href="https://github.com/beryldb/beryldb/blob/unstable/src/beryl.cpp"><img alt="C++" src="https://img.shields.io/badge/c++-%2300599C.svg?&style=for-the-badge&logo=c%2B%2B&ogoColor=white"/></a>
 <br>
 
 This README is brief introduction to Beryl-cli. For extended information, you
