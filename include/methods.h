@@ -22,6 +22,8 @@ class Methods
         /* Quits server. */
         
         static void Quit();
+        
+        static void Syntax(const std::string& cmd);
 
         static void Future(const unsigned int seconds, const std::string& key, const std::string& value);
 

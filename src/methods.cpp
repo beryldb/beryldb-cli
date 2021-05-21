@@ -15,14 +15,19 @@
 #include "methods.h"
 #include "server.h"
 
+void Methods::Syntax(const std::string& cmd)
+{
+       Server::Write("syntax %s\r\n", cmd.c_str());
+}
+
 void Methods::Expire(const unsigned int seconds, const std::string& key)
 {
-       Server::SendData("expire %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str());
+       Server::Write("expire %s %s\r\n", convto_string(seconds).c_str(), key.c_str());
 }
 
 void Methods::Setex(const unsigned int seconds, const std::string& key, const std::string& value)
 {
-     Server::SendData("setex %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str(), value.c_str());
+     Server::Write("setex %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str(), value.c_str());
 }
 
 void Methods::Future(const unsigned int seconds, const std::string& key, const std::string& value)
