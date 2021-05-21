@@ -15,54 +15,64 @@
 #include "methods.h"
 #include "server.h"
 
+void Methods::Expire(const unsigned int seconds, const std::string& key)
+{
+       Server::SendData("expire %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str());
+}
+
+void Methods::Setex(const unsigned int seconds, const std::string& key, const std::string& value)
+{
+     Server::SendData("setex %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str(), value.c_str());
+}
+
 void Methods::Future(const unsigned int seconds, const std::string& key, const std::string& value)
 {
-       Server::SendData("future %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str(), value.c_str());
+       Server::Write("future %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str(), value.c_str());
 }
 
 void Methods::rkey()
 {
-        Server::SendData("rkey\r\n");
+        Server::Write("rkey\r\n");
 }
 
 void Methods::Set(const std::string& key, const std::string& value)
 {
-        Server::SendData("set %s \"%s\"\r\n", key.c_str(), value.c_str());
+        Server::Write("set %s \"%s\"\r\n", key.c_str(), value.c_str());
 }
 
 void Methods::HSet(const std::string& key, const std::string& hesh, const std::string& value)
 {
-        Server::SendData("hset %s %s \"%s\"\r\n", key.c_str(), hesh.c_str(), value.c_str());
+        Server::Write("hset %s %s \"%s\"\r\n", key.c_str(), hesh.c_str(), value.c_str());
 }
 
 void Methods::HGet(const std::string& key, const std::string& hesh)
 {
-        Server::SendData("hget %s %s\r\n", key.c_str(), hesh.c_str());
+        Server::Write("hget %s %s\r\n", key.c_str(), hesh.c_str());
 }
 
 void Methods::Get(const std::string& key)
 {
-        Server::SendData("get %s\r\n", key.c_str());
+        Server::Write("get %s\r\n", key.c_str());
 }
 
 void Methods::LPush(const std::string& key, const std::string& value)
 {
-        Server::SendData("lpush %s \"%s\"\r\n", key.c_str(), value.c_str());
+        Server::Write("lpush %s \"%s\"\r\n", key.c_str(), value.c_str());
 }
 
 void Methods::LGet(const std::string& key)
 {
-        Server::SendData("lget %s\r\n", key.c_str());
+        Server::Write("lget %s\r\n", key.c_str());
 }
 
 void Methods::Find(const std::string& key)
 {
-        Server::SendData("find %s\r\n", key.c_str());
+        Server::Write("find %s\r\n", key.c_str());
 }
 
 void Methods::use(const std::string& value)
 {
-        Server::SendData("use %s\r\n", value.c_str());
+        Server::Write("use %s\r\n", value.c_str());
 }
 
 void Methods::LogIn(const std::string& session, const std::string& login, const std::string& pass)
@@ -72,19 +82,19 @@ void Methods::LogIn(const std::string& session, const std::string& login, const 
              Methods::use(Kernel->Config->select);
         }
 
-        Server::SendData("agent %s\r\n", session.c_str());
-        Server::SendData("auth %s\r\n", pass.c_str());
-        Server::SendData("login %s\r\n", login.c_str());
+        Server::Write("agent %s\r\n", session.c_str());
+        Server::Write("auth %s\r\n", pass.c_str());
+        Server::Write("login %s\r\n", login.c_str());
 }
 
 void Methods::Command(const std::string& cmd)
 {
-    Server::SendData("%s \r\n", cmd.c_str());
+    Server::Write("%s \r\n", cmd.c_str());
 }
 
 void Methods::Publish(const std::string& dest, const std::string& text)
 {
-    Server::SendData("PUBLISH %s :%s\r\n", dest.c_str(), text.c_str());
+    Server::Write("PUBLISH %s :%s\r\n", dest.c_str(), text.c_str());
 }
 
 void Methods::Join(const std::string& chan)
@@ -104,7 +114,7 @@ void Methods::Join(const std::string& chan)
               server = "#" + server;
         } 
         
-        Server::SendData("JOIN %s\r\n", server.c_str());   
+        Server::Write("JOIN %s\r\n", server.c_str());   
     }    
 }
 
@@ -125,6 +135,6 @@ void Methods::Part(const std::string& chan)
               server = "#" + server;
         } 
 
-        Server::SendData("PART %s\r\n", server.c_str());   
+        Server::Write("PART %s\r\n", server.c_str());   
     }
 }

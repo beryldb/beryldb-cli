@@ -441,7 +441,7 @@ void Handlers::Local(std::string& buffer)
             while (resp.items_extract(server))
             {
                     Daemon::sprint(DTYPE_R, "%s", server.c_str());
-                    Server::SendData("%s\r\n", server.c_str());
+                    Server::Write("%s\r\n", server.c_str());
             }   
     }
 #endif

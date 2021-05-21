@@ -824,7 +824,7 @@ static void ResetState(struct State *l)
 	push_history("");
 }
 
-void Server::SendData(char *fmt, ...) 
+void Server::Write(char *fmt, ...) 
 {
 	va_list ap;
 	char *cmd_str = (char*)malloc(MSG_LIMIT);
@@ -922,7 +922,7 @@ static void CommandParser(char *request)
 
 	if (!strncmp(request, convto_string(BRLD_PING).c_str(), 3)) 
 	{	
-		Kernel->Link.SendData("PONG %s\r\n", request);
+		Kernel->Link.Write("PONG %s\r\n", request);
 		return;
 	}
 
@@ -1228,7 +1228,7 @@ static void UserInput(struct State *l)
 			        
 			        if (Kernel->Link.CheckCmd(CommandList))
 			        {
-					Server::SendData("%s\r\n", l->buf);
+					Server::Write("%s\r\n", l->buf);
 					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
 				}
 			

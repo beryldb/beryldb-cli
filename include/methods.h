@@ -24,6 +24,10 @@ class Methods
         static void Quit();
 
         static void Future(const unsigned int seconds, const std::string& key, const std::string& value);
+
+        static void Expire(const unsigned int seconds, const std::string& key);
+
+        static void Setex(const unsigned int seconds, const std::string& key, const std::string& value);
         
         static void Command(const std::string& cmd);
 
