@@ -15,6 +15,11 @@
 #include "methods.h"
 #include "server.h"
 
+void Methods::Future(const unsigned int seconds, const std::string& key, const std::string& value)
+{
+       Server::SendData("future %s %s \"%s\"\r\n", convto_string(seconds).c_str(), key.c_str(), value.c_str());
+}
+
 void Methods::rkey()
 {
         Server::SendData("rkey\r\n");

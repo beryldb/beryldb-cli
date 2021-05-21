@@ -176,8 +176,6 @@ std::string Utils::GenRandom(const int len)
 
 std::string Utils::GetStdoutFromCommand(std::string cmd) 
 {
-        /* The timeout is provided as we don't want to spend much time in a cmd. */
-        
         cmd = "echo \"$(timeout 2 " + cmd + ")\"";
 
         std::string data;

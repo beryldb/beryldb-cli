@@ -185,14 +185,13 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 5000;
+    int x = 500;
     
     for (int i = 0; i < x; i++)
     {
-         std::string to = convto_string(i);
-         Methods::Set("1", to);
-         Methods::Get("1");
-         //Methods::LPush(to, to);
+         std::string to = convto_string(i) + "lala";
+         Methods::Future(i, to, "lala");
+         
     }
     
 //    exit(0);
