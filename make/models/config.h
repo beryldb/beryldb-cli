@@ -65,10 +65,6 @@ const std::string DATA_PATH = "@DATA_DIR@";
 
 const std::string LOG_PATH = "@LOG_DIR@";
 
-/* The default location that module files are stored in. */
-
-const std::string MODULE_PATH = "@MODULE_DIR@";
-
 /* The default location that runtime files are stored in. */
 
 const std::string RUNTIME_PATH = "@RUNTIME_DIR@";
