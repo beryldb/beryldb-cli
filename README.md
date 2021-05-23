@@ -5,14 +5,13 @@
 <br>
 
 This README is brief introduction to Beryl-cli. For extended information, you
-can visit our site at [beryl.dev/clients/cli](https://docs.beryl.dev/clients/cli/installing/)
+can visit our documentation site at [beryl.dev/clients/cli](https://docs.beryl.dev/clients/cli/installing/)
 
 ![Logo](https://docs.beryl.dev/img/smaller.png??)
 
-## About
+## What is Beryl-cli?
 
-Beryldb-cli (also known as Emerald) is a lightweight client for Beryl. It is designed for UNIX-like
-systems.
+Beryldb-cli (also known as Emerald) is a lightweight client for Beryl. 
 
 Beryl-cli is a command line interface, it is a program that allows
 users to send commands to Beryl and read responses.
@@ -31,9 +30,9 @@ Beryldb-cli is only supported in GNU/Linux.
 Download files:
 
 ```
-wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.0.1.tar.gz
-tar -xvzf 0.0.1.tar.gz
-cd beryldb-cli-0.0.1/
+wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.2.1.tar.gz
+tar -xvzf 0.2.1.tar.gz
+cd beryldb-cli-0.2.1/
 ```
 
 You may now build Beryldb-cli:
@@ -60,6 +59,24 @@ make -j2
 <br>
 
 If you wish to see examples about these parameters, visit our Running [guide](https://docs.beryl.dev/clients/cli/running/).
+
+## Internals
+
+In order to maintain a documentation that is easy to follow, we try to maintain 
+discussions at a very shallow level. Our code is actively changing and thus
+a brief discussion board is always appreacited.
+
+## Source code organization
+
+Beryl-cli's source code is contained in the `src/` directory. The Makefile, which is
+created after configuring Beryl, is located in the root directory.
+
+Inside the root directory, you will find:
+
+* `src`: Contains cli's implementation, written in C++ and C.
+* `include`: Contains cli headers. 
+* `etc`: Libraries developed by 3rd party organizations.
+* `make`: Contains several Perl-based functions to compile the cli.
 
 ## External Links
 

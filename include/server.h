@@ -16,6 +16,8 @@
  *
  * Many credits goes to the kirc team (Copyright 2021 - MIT license),
  * Michael and his great work. 
+ *
+ * kirc is based on linenoise (BSD-2), so credits goes to the linenoise team as well.
  */
 
 #pragma once
