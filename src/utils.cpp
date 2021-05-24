@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -51,6 +51,7 @@ void Emerald::CommandLine()
                         { "host",     required_argument, NULL,   	'h' },
                         { "pass",     required_argument, NULL,   	'd'},
                         { "login",    required_argument, NULL,          'l'},
+                        { "use",      required_argument, NULL,          'u'},
                         { "test",     no_argument,       &do_tests,     't'},
                         { "rhist",    no_argument,       &do_rhist, 	'r' },
                         { 0, 0, 0, 0 }
@@ -59,7 +60,7 @@ void Emerald::CommandLine()
         char** argv = this->Config->usercmd.argv;
         int value;
 
-        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:t:r:", longopts, NULL)) != -1)
+        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:u:t:r", longopts, NULL)) != -1)
         {
                       switch (value)
                       {
@@ -85,6 +86,11 @@ void Emerald::CommandLine()
                           case 'l':
                                 
                                   Kernel->Config->usercmd.login = optarg;
+                                  break;
+                                  
+                          case 'u':
+                                         
+                                  Kernel->Config->select = optarg;
                                   break;
                                 
                            default:
@@ -170,8 +176,6 @@ std::string Utils::GenRandom(const int len)
 
 std::string Utils::GetStdoutFromCommand(std::string cmd) 
 {
-        /* The timeout is provided as we don't want to spend much time in a cmd. */
-        
         cmd = "echo \"$(timeout 2 " + cmd + ")\"";
 
         std::string data;

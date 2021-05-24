@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -76,6 +76,34 @@ std::string Daemon::Format(const char* formatString, ...)
 }
 
 
+void Daemon::serv_sprint(const int type, const char *fmt, ...)
+{
+       std::string buff;
+       SCHEME(buff, fmt, fmt);
+       Daemon::serv_sprint(type, buff);
+}
+
+void Daemon::serv_sprint(const int type, const std::string& buff)
+{
+    if (!Kernel->display_select)
+    {
+        std::cout << Daemon::Format("%s> %s", Kernel->displayserver.c_str(), buff.c_str()) << std::endl;
+    }
+    else
+    {
+        std::cout << Daemon::Format("%s[%s]> %s", Kernel->displayserver.c_str(), Kernel->select.c_str(), buff.c_str()) << std::endl;
+    }
+        
+    if (type == DTYPE_R)
+    {
+         printf("\x1b[0m\r");
+    }
+    else if (type == DTYPE_RN)
+    {
+        printf("\x1b[0m\r\n");
+    }
+}
+
 void Daemon::sprint(const int type, const char *fmt, ...)
 {
        std::string buff;
@@ -87,11 +115,12 @@ void Daemon::sprint(const int type, const std::string& buff)
 {
     if (!Kernel->display_select)
     {
-        std::cout << Daemon::Format("%s> %s", Kernel->displayserver.c_str(), buff.c_str()) << std::endl;
+     std::cout << buff << std::endl;
     }
     else
     {
-        std::cout << Daemon::Format("%s[%s]> %s", Kernel->displayserver.c_str(), Kernel->select.c_str(), buff.c_str()) << std::endl;
+     std::cout << buff << std::endl;
+       
     }
     
     if (type == DTYPE_R)

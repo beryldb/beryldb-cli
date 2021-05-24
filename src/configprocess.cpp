@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -130,34 +130,31 @@ void Configuration::CheckCMD()
 {
         if (!Kernel->Config->usercmd.login.empty())
         {
-           bprint(INFO, "Using login: %s", Kernel->Config->usercmd.login.c_str());
-           Kernel->Config->login = Kernel->Config->usercmd.login;
+             bprint(INFO, "Using login: %s", Kernel->Config->usercmd.login.c_str());
+             Kernel->Config->login = Kernel->Config->usercmd.login;
            
-           if (!Kernel->Engine->ValidLogin(login))
-           {
-                bprint(ERROR, "Invalid login: Must be between 3 and 15 characters.");
-                Kernel->Exit(EXIT_CODE_CONFIG, true);
-           }
-           
+             if (!Kernel->Engine->ValidLogin(login))
+             {
+                  bprint(ERROR, "Invalid login: Must be between 3 and 15 characters.");
+                  Kernel->Exit(EXIT_CODE_CONFIG, true); 
+             }
         }
 
         if (!Kernel->Config->usercmd.pass.empty())
         {
-           bprint(INFO, "Using pass: %s", Kernel->Config->usercmd.pass.c_str());
-           Kernel->Config->pass = Kernel->Config->usercmd.pass;
+            bprint(INFO, "Using pass: %s", Kernel->Config->usercmd.pass.c_str());
+            Kernel->Config->pass = Kernel->Config->usercmd.pass;
 
-       if (Kernel->Config->usercmd.pass.length() < 3 || Kernel->Config->usercmd.pass.length() > 30)
-       {
-            bprint(ERROR, "Invalid password: Must be between 3 and 30 characters.");
-            Kernel->Exit(EXIT_CODE_CONFIG, true);
-       }
-           
-
+            if (Kernel->Config->usercmd.pass.length() < 3 || Kernel->Config->usercmd.pass.length() > 30)
+            {
+                  bprint(ERROR, "Invalid password: Must be between 3 and 30 characters.");
+                  Kernel->Exit(EXIT_CODE_CONFIG, true);
+            }
         }
                 
         if (!Kernel->Config->usercmd.host.empty())
         {       
-               bprint(INFO, "Using host: %s", Kernel->Config->usercmd.host.c_str());
+                bprint(INFO, "Using host: %s", Kernel->Config->usercmd.host.c_str());
                 Kernel->Config->host = Kernel->Config->usercmd.host;
         }
         
@@ -170,27 +167,33 @@ void Configuration::CheckCMD()
 
                if (intport < 0 || intport > 65353)
                {
-                   bprint(ERROR, "Invalid port.");
-                   Kernel->Exit(EXIT_CODE_CONFIG, true);
+                     bprint(ERROR, "Invalid port.");
+                     Kernel->Exit(EXIT_CODE_CONFIG, true);
                }
-               
         }
-
 }
 
 
 void Configuration::Fill()
 {
-       int select_usig = GetConf("select")->as_int("use", 1);
-       
-       if (select_usig < 1 || select_usig > 100)
+       /* 
+        * If a select has been provided in the usercmd,
+        * we will not recognize another one provided in the .conf.
+	*/
+
+       if (Kernel->Config->select.empty())
        {
-             bprint(ERROR, "use tag must be a value between 1 and 100");
-             Kernel->Exit(EXIT_CODE_CONFIG, true);
+            int select_usig = GetConf("select")->as_int("use", 1);
+       
+            if (select_usig < 1 || select_usig > 100)
+            {
+                  bprint(ERROR, "use tag must be a value between 1 and 100");
+                  Kernel->Exit(EXIT_CODE_CONFIG, true);
+            }
+       
+            select = convto_string(select_usig);
        }
-       
-       select = convto_string(select_usig);
-       
+
        config_rule* connect = GetConf("connect");
        
        login = connect->as_string("login", "root");
@@ -210,13 +213,7 @@ void Configuration::Fill()
             Kernel->Exit(EXIT_CODE_CONFIG, true);
        }
        
-       int intport = connect->as_int("port", 6378);
-       
-       if (intport < 0 || intport > 65353)
-       {
-             bprint(ERROR, "Invalid port.");
-             Kernel->Exit(EXIT_CODE_CONFIG, true);
-       }
+       int intport = connect->as_int("port", 6378, 1, 65353, true);
 
        port = convto_string(intport);
        
@@ -228,7 +225,6 @@ void Configuration::Fill()
        clear = settings->as_bool("clear", false);
 
        CheckCMD();
-
 }
 
 

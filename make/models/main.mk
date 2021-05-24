@@ -3,7 +3,7 @@
 # Emerald - A POSIX client for BerylDB.
 # http://www.beryldb.com
 #
-# Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+# Copyright (C) 2021 Carlos F. Ferry <cferry@beryldb.com>
 # 
 # This file is part of BerylDB. BerylDB is free software: you can
 # redistribute it and/or modify it under the terms of the BSD License
@@ -147,7 +147,7 @@ install: target
 	@echo '· To start the client, run:'  ./beryl-cli
 	@echo ""
 
-Makefile: make/template/main.mk src/version.sh configure @CONF_CACHEFILE@
+Makefile: make/models/main.mk src/version.sh configure @CONF_CACHEFILE@
 	./configure --update
 
 clean:

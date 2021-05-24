@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -15,35 +15,35 @@
 
 /* Default session name */
 
-#define SESSION_DEFAULT "emerald0"
+const std::string SESSION_DEFAULT = "emerald1";
 
 /* Max. length of a line of text */
 
-#define INPUT_LIMIT 65530
+const unsigned int INPUT_LIMIT = 65530;
 
 /* Linux distro */
 
-#define LINUX_DISTRO @LINUX_DISTRO@
+const std::string LINUX_DISTRO = "@LINUX_DISTRO@";
 
 /* Default configuration file */
 
-#define DEFAULT_CONFIG "run/conf/beryl-cli.conf"
+const std::string DEFAULT_CONFIG = "run/conf/beryl-cli.conf";
 
 /* Number of processors available. */
 
-#define CORE_COUNT @CORE_COUNT@
+const unsigned int CORE_COUNT = @CORE_COUNT@;
 
 /* Default buffer size. */
 
-#define BUFFERSIZE 65536
+const unsigned int BUFFERSIZE = 65536;
 
 /* The branch version that is shown to unprivileged users. */
 
-#define BRANCH "Emerald-@VERSION_MAJOR@"
+const std::string BRANCH = "Emerald-@VERSION_MAJOR@";
 
 /* The full version that is shown to privileged users. */
 
-#define VERSION "Emerald-@VERSION_FULL@"
+const std::string VERSION = "Emerald-@VERSION_FULL@";
 
 /* Determines whether this version of BerylDB is older than the requested version. */
 
@@ -55,31 +55,23 @@
 
 /* The default location that config files are stored in. */
 
-#define CONFIG_PATH "@CONFIG_DIR@"
+const std::string CONFIG_PATH = "@CONFIG_DIR@";
 
 /* The default location that data files are stored in. */
 
-#define DATA_PATH "@DATA_DIR@"
-
-/* Default database path. */
-
-#define DB_PATH "@DB_DIR@"
+const std::string DATA_PATH = "@DATA_DIR@";
 
 /* The default location that log files are stored in. */
 
-#define LOG_PATH "@LOG_DIR@"
-
-/* The default location that module files are stored in. */
-
-#define MODULE_PATH "@MODULE_DIR@"
+const std::string LOG_PATH = "@LOG_DIR@";
 
 /* The default location that runtime files are stored in. */
 
-#define RUNTIME_PATH "@RUNTIME_DIR@"
+const std::string RUNTIME_PATH = "@RUNTIME_DIR@";
 
 /* The URL of the BerylDB docs site. */
 
-#define DOCS "https://docs.beryl.dev"
+const std::string DOCS_URL = "https://docs.beryl.dev";
 
 %target include/config.h
 

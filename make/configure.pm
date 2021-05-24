@@ -1,7 +1,7 @@
 # Emerald - A POSIX client for BerylDB.
 # http://www.beryldb.com
 #
-# Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+# Copyright (C) 2021 Carlos F. Ferry <cferry@beryldb.com>
 # 
 # This file is part of BerylDB. BerylDB is free software: you can
 # redistribute it and/or modify it under the terms of the BSD License
@@ -38,7 +38,6 @@ our @EXPORT = qw(CONF_CACHEFILE
                  test_file
                  strict_test
                  test_header
-                 module_fullpath
                  module_shrink
                  define_conf_cache
                  retrieve_compiler
@@ -46,7 +45,7 @@ our @EXPORT = qw(CONF_CACHEFILE
                  process_make);
 
 
-sub __get_template_settings($$$) 
+sub __get_models_settings($$$) 
 {
 
 	my ($config, $compiler, $version) = @_;
@@ -232,14 +231,6 @@ sub test_header($$;$)
 	return !$?;
 }
 
-sub module_fullpath($) 
-{
-	my $module = shift;
-	$module = "m_$module" unless $module =~ /^(?:m|core)_/;
-	$module = "$module.cpp" unless $module =~ /\.cpp$/;
-	return $module;
-}
-
 sub module_shrink($) 
 {
 	my $module = basename shift;
@@ -292,12 +283,12 @@ sub process_make($$$)
 
 	my ($config, $compiler, $version) = @_;
 
-	my %settings = __get_template_settings($config, $compiler, $version);
+	my %settings = __get_models_settings($config, $compiler, $version);
 
-	for my $template (<${\CONFIGURE_ROOT}/make/template/*>) 
+	for my $models (<${\CONFIGURE_ROOT}/make/models/*>) 
 	{
-		say brld_format "Parsing <|GREEN ${\abs2rel $template, CONFIGURE_ROOT}|> ...";
-		open(my $file_handler, $template) or show_error "unable to read $template: $!";
+		say brld_format "Parsing <|GREEN ${\abs2rel $models, CONFIGURE_ROOT}|> ...";
+		open(my $file_handler, $models) or show_error "unable to read $models: $!";
 		my (@lines, $mode, @platforms, @targets);
 
 		while (my $line = <$file_handler>) 
@@ -318,7 +309,7 @@ sub process_make($$$)
 				} 
 				else 
 				{
-					show_warning "Unknown template variable '$name' in $template!";
+					show_warning "Unknown models variable '$name' in $models!";
 					last;
 				}
 			}
@@ -350,7 +341,7 @@ sub process_make($$$)
 				} 
 				else 
 				{
-					show_warning "Unknown template command '$2' in $template!";
+					show_warning "Unknown models command '$2' in $models!";
 					push @lines, $line;
 				}
 				
@@ -366,7 +357,7 @@ sub process_make($$$)
 
 			unless (@targets) 
 			{
-				push @targets, catfile(CONFIGURE_DIRECTORY, basename $template);
+				push @targets, catfile(CONFIGURE_DIRECTORY, basename $models);
 			}
 
 			for my $target (@targets) 

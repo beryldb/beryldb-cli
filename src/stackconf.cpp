@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -15,6 +15,7 @@
 
 #include "emerald.h"
 #include "stackconf.h"
+#include "exit.h"
 
 enum parse_options
 {
@@ -720,7 +721,7 @@ namespace
 	}
 }
 
-long config_rule::as_int(const std::string &key, long default_value, long min, long max)
+long config_rule::as_int(const std::string &key, long default_value, long min, long max, bool force)
 {
 	std::string result;
 
@@ -740,10 +741,18 @@ long config_rule::as_int(const std::string &key, long default_value, long min, l
 
 	readable_magnitude(tag, key, result, res, default_value, res_tail);
 	readable_range(tag, key, res, default_value, min, max);
+	
+        if (force && (convto_num<int>(result) > max || convto_num<int>(result) < min))
+        {
+                bprint(ERROR, "Configuration error: %s", this->tag.c_str());
+                bprint(ERROR, "%s must have a valid range. Max: %lu, Min: %lu", key.c_str(), max, min);
+                Kernel->Exit(EXIT_CODE_CONFIG, false);
+        }
+	
 	return res;
 }
 
-unsigned long config_rule::as_uint(const std::string& key, unsigned long default_value, unsigned long min, unsigned long max)
+unsigned long config_rule::as_uint(const std::string& key, unsigned long default_value, unsigned long min, unsigned long max, bool force)
 {
 	std::string result;
 
@@ -763,6 +772,14 @@ unsigned long config_rule::as_uint(const std::string& key, unsigned long default
 
 	readable_magnitude(tag, key, result, res, default_value, res_tail);
 	readable_range(tag, key, res, default_value, min, max);
+	
+        if (force && (convto_num<unsigned int>(result) > max || convto_num<unsigned int>(result) < min))
+        {
+                bprint(ERROR, "Configuration error: %s", this->tag.c_str());
+                bprint(ERROR, "%s must have a valid range. Max: %lu, Min: %lu", key.c_str(), max, min);
+                Kernel->Exit(EXIT_CODE_CONFIG, false);
+        }
+	
 	return res;
 }
 

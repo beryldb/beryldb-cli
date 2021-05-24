@@ -1,3 +1,15 @@
+/*
+ * Emerald - A POSIX client for BerylDB.
+ * http://www.beryldb.com
+ *
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
+ * 
+ * This file is part of BerylDB. BerylDB is free software: you can
+ * redistribute it and/or modify it under the terms of the BSD License
+ * version 3.
+ *
+ * More information about our licensing can be found at https://docs.beryl.dev
+ */
 
 #pragma once
 
@@ -5,9 +17,19 @@ class Methods
 {
     public:
         
+        Methods();
+        
         /* Quits server. */
         
         static void Quit();
+        
+        static void Syntax(const std::string& cmd);
+
+        static void Future(const unsigned int seconds, const std::string& key, const std::string& value);
+
+        static void Expire(const unsigned int seconds, const std::string& key);
+
+        static void Setex(const unsigned int seconds, const std::string& key, const std::string& value);
         
         static void Command(const std::string& cmd);
 

@@ -2,7 +2,7 @@
  * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -34,9 +34,9 @@ class config_rule : public refcountbase
         
         std::string as_string(const std::string& key, const std::string& def = "", size_t minlen = 0, size_t maxlen = UINT32_MAX);
         
-        long as_int(const std::string& key, long def, long min = LONG_MIN, long max = LONG_MAX);
+        long as_int(const std::string& key, long def, long min = LONG_MIN, long max = LONG_MAX, bool force = false);
         
-        unsigned long as_uint(const std::string& key, unsigned long def, unsigned long min = 0, unsigned long max = ULONG_MAX);
+        unsigned long as_uint(const std::string& key, unsigned long def, unsigned long min = 0, unsigned long max = ULONG_MAX, bool force = false);
         
         double as_float(const std::string& key, double def, double min = DBL_MIN, double max = DBL_MAX);
 
@@ -152,6 +152,5 @@ class Configuration
         void SetAll();
         
         void CheckCMD();
-        
 };
 

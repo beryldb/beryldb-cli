@@ -2,7 +2,7 @@
  * BerylDB - A modular database.
  * http://www.beryldb.com
  *
- * Copyright (C) 2015-2021 Carlos F. Ferry <cferry@beryldb.com>
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
  * 
  * This file is part of BerylDB. BerylDB is free software: you can
  * redistribute it and/or modify it under the terms of the BSD License
@@ -16,6 +16,8 @@
  *
  * Many credits goes to the kirc team (Copyright 2021 - MIT license),
  * Michael and his great work. 
+ * 
+ * kirc is based on linenoise (BSD-2), so credits goes to the linenoise team as well.
  */
 
 #include <sys/stat.h> 
@@ -751,23 +753,12 @@ static int edit(struct State *l)
 	
 	switch(c) 
 	{
-		case CTRL_L: Server::ClearScreen(); 	 UpdateLine(l); break;
+		case CTRL_L: Server::ClearScreen(); 	break;
 		case ENTER: UpdateEnter();          return 1; /* enter */
 		case CTRL_C: 
 		{
 		
 			errno = EAGAIN;
-                        std::string buf = l->buf;
-                                
-                        if (buf == "")
-                        {
-                        	Daemon::sprint(DTYPE_R, " ", " ");                     
-                        }
-                        else
-                        {
-                                Daemon::sprint(DTYPE_R, "%s", buf.c_str());                     
-                        }
-		        
 			Kernel->Exit(EXIT_CODE_OK, false);
 			return -1; /* ctrl-c */
 		}
@@ -787,17 +778,6 @@ static int edit(struct State *l)
 		case CTRL_D:                                  /* ctrl-d */
 		{
 
-                        std::string buf = l->buf;
-                                
-                        if (buf == "")
-                        {
-                                Daemon::sprint(DTYPE_R, " ", " ");                     
-                        }
-                        else
-                        {
-                                Daemon::sprint(DTYPE_R, "%s", buf.c_str());                     
-                        }
-                        
                         Kernel->Exit(EXIT_CODE_OK, false);
 
 			break;
@@ -846,7 +826,7 @@ static void ResetState(struct State *l)
 	push_history("");
 }
 
-void Server::raw(char *fmt, ...) 
+void Server::Write(char *fmt, ...) 
 {
 	va_list ap;
 	char *cmd_str = (char*)malloc(MSG_LIMIT);
@@ -944,7 +924,7 @@ static void CommandParser(char *request)
 
 	if (!strncmp(request, convto_string(BRLD_PING).c_str(), 3)) 
 	{	
-		Kernel->Link.raw("PONG %s\r\n", request);
+		Kernel->Link.Write("PONG %s\r\n", request);
 		return;
 	}
 
@@ -1250,9 +1230,8 @@ static void UserInput(struct State *l)
 			        
 			        if (Kernel->Link.CheckCmd(CommandList))
 			        {
-					Server::raw("%s\r\n", l->buf);
-					Daemon::sprint(DTYPE_R, "%s", l->buf);					
-					
+					Server::Write("%s\r\n", l->buf);
+					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
 				}
 			
 			}
