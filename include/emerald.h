@@ -123,7 +123,18 @@ class Emerald
         
         void Refresh();
 
-        /* Constructor. */
+        /*
+         * Emerald's main. This function will initialize Emerald
+         * and will read the config file.
+         * 
+         * @parameters:
+         *
+         *         · User commandline arguments.
+         * 
+         * @return:
+         *
+         *         · 1: Emerald is exiting.
+         */
         
         Emerald(int argc, char** argv);
 
@@ -159,8 +170,16 @@ class Emerald
                 return  this->ConfigFile;
         }
 
-        /* Exists Emerald. */
-        
+        /* 
+         * Exits Emerald.
+         * 
+         * @parameters:
+         *
+         *         · status: Exiting code.
+         *         · skip: whether to skip exiting functions, such as history removal.
+         *         · exitmsg: Exit message. 
+         */            
+         
         void Exit(int code = 0, bool skip = false, const std::string& exitmsg = "");
 
 };
