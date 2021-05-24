@@ -185,14 +185,19 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 500;
+    int x = 50000;
     
     for (int i = 0; i < x; i++)
     {
-         std::string to = convto_string(i) + "lala";
-         Methods::Future(i, to, "lala");
+         //std::string to = convto_string(i) + "lala";
+        // Methods::Set(to, "lala");
          
     }
+    
+    Server::Write("find *\r\n");
+    Server::Write("pwd\r\n");
+    Server::Write("l\r\n");
+    
     
 //    exit(0);
     return false;
