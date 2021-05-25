@@ -4,13 +4,12 @@ on:
   - push
 jobs:
   build:
-    runs-on: fedora_latest
+    runs-on: fedora-31
     env:
       CXXFLAGS: -std=${{ matrix.standard }}
       TEST_BUILD_MODULES: 
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
       - name: Running Fedora build workflow.
         run: ./make/build ${{ matrix.compiler }}
     strategy:

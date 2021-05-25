@@ -97,6 +97,8 @@ void Emerald::Exit(int code, bool skip, const std::string& exitmsg)
 {
         this->Link->Shutdown();
         
+        /* If clear option was provided, we must clean before exiting. */
+        
         if (this->Config->clear)
         {
                 Link->ClearScreen();
