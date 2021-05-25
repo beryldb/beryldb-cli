@@ -27,11 +27,19 @@ class Handlers;
 class Engine;
 class config_rule;
 
-#define STR1 std::tr1
-#include <tr1/array>
-#include <tr1/functional>
-#include <tr1/unordered_map>
-#include <tr1/type_traits>
+#if defined _LIBCPP_VERSION || defined _WIN32 || __cplusplus >= 201103L
+# define STR1 std
+# include <array>
+# include <functional>
+# include <unordered_map>
+# include <type_traits>
+#else
+# define STR1 std::tr1
+# include <tr1/array>
+# include <tr1/functional>
+# include <tr1/unordered_map>
+# include <tr1/type_traits>
+#endif
 
 typedef brld::flat_map<std::string, std::string, engine::insensitive_swo> file_config_items;
 

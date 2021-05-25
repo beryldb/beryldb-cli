@@ -21,6 +21,9 @@
  */
 
 #include <sys/stat.h> 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 #include "emerald.h"
 #include "protocols.h"
@@ -758,6 +761,8 @@ static int edit(struct State *l)
 		case CTRL_C: 
 		{
 		
+		        std::cout << std::endl;
+
 			errno = EAGAIN;
 			Kernel->Exit(EXIT_CODE_OK, false);
 			return -1; /* ctrl-c */
@@ -777,7 +782,7 @@ static int edit(struct State *l)
 		case ESC: EscSequence(l, seq); break; /* escape sequence */
 		case CTRL_D:                                  /* ctrl-d */
 		{
-
+	                std::cout << std::endl;
                         Kernel->Exit(EXIT_CODE_OK, false);
 
 			break;
@@ -997,6 +1002,8 @@ static void CommandParser(char *request)
 	switch (brld_protocol)
 	{
 			case BRLD_END_L:
+			        printf("\r\x1b[0K");
+			
 				 return;
 			break;
 			
@@ -1197,7 +1204,7 @@ static void UserInput(struct State *l)
 	{
 		l->buf[msg_len - 1] = '\0';
 	}
-
+	
 	printf("\r\x1b[0K");
 
 	switch (l->buf[0]) 

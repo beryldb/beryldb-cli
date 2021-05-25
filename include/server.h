@@ -26,7 +26,6 @@
 #include <poll.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
-#include <netdb.h>
 
 #include "typedefs.h"
 

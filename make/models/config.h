@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <string>
+
 /* Default session name */
 
 const std::string SESSION_DEFAULT = "emerald1";
