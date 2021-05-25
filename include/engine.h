@@ -84,13 +84,3 @@ class Daemon : public safecast<Daemon>
         STR1::function<void(char*, size_t)> GenRandom;
 };
 
-class BcryptServer 
-{
-    public:
-    
-        static std::string MakeSalt();
-
-        static std::string Generate(const std::string& data, const std::string& salt);
-        
-        static std::string MakePassword(const std::string& data);
-};

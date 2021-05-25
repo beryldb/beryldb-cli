@@ -21,10 +21,6 @@ const std::string SESSION_DEFAULT = "emerald1";
 
 const unsigned int INPUT_LIMIT = 65530;
 
-/* Linux distro */
-
-const std::string LINUX_DISTRO = "@LINUX_DISTRO@";
-
 /* Default configuration file */
 
 const std::string DEFAULT_CONFIG = "run/conf/beryl-cli.conf";

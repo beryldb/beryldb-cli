@@ -996,7 +996,10 @@ static void CommandParser(char *request)
 
 	switch (brld_protocol)
 	{
-
+			case BRLD_END_L:
+				 return;
+			break;
+			
 			case BRLD_CONNECTED:
 
 				Kernel->Handler.OnConnected(params);

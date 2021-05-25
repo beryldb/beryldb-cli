@@ -95,7 +95,7 @@ void Emerald::CommandLine()
                                 
                            default:
                            
-                                   std::cout << engine::color::bold << "Usage: " << engine::color::reset << argv[0] << " [--login <username>] [--host <host>] [--pass <password>] [--port <port>]" << std::endl
+                                   std::cout << bold << "Usage: " << reset << argv[0] << " [--login <username>] [--host <host>] [--pass <password>] [--port <port>]" << std::endl
                                        << std::string(strlen(argv[0]) + 8, ' ') << "[--version] [--test]" << std::endl;
                                    this->Exit(EXIT_CODE_ARGV, true);
                                 

@@ -92,25 +92,18 @@ my %config;
 
 my %version = get_version $set_distribution_label;
 
-if ($^O eq 'openbsd' || $^O eq 'freebsd' || $^O eq 'netbsd') 
-{
-        show_warning <<'EOW';
-        BerylDB is not supported in BSD systems.
-EOW
-exit;
-}
+my $distro = "";
 
 if ($^O ne 'linux')
 {
-        show_warning <<'EOW';
-        Beryl-cli is only supported in Linux systems.
-EOW
-exit;
+
+}
+else
+{
+	$distro = get_distro_version();
 }
 
-my $distro = get_distro_version();
-
-my $welcome = "Setting up Beryl-cli $version{FULL} for GNU/" . ucfirst($^O) . " " . $distro . ".";
+my $welcome = "Setting up Beryl-cli $version{FULL} for GNU/" . ucfirst($^O) . " " . $distro;
 
 say brld_format "\n<|BOLD $welcome |>\n";
 
@@ -131,7 +124,6 @@ if ($interactive_setup)
 }
 
 $config{CXX} = locate_compiler($config{CXX} // $ENV{CXX});
-$config{LINUX_DISTRO} = get_distro_version();
 
 unless ($config{CXX}) 
 {
