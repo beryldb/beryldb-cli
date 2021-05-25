@@ -1,20 +1,17 @@
-name: Linux build
+name: Fedora Build
 on:
   - pull_request
   - push
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: fedora_latest
     env:
       CXXFLAGS: -std=${{ matrix.standard }}
       TEST_BUILD_MODULES: 
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: |
-          sudo apt-get update --assume-yes
-          sudo apt-get install --assume-yes --no-install-recommends g++ git make libc++-dev libc++abi-dev pkg-config
-      - name: Running build workflow.
+      - name: Running Fedora build workflow.
         run: ./make/build ${{ matrix.compiler }}
     strategy:
       matrix:
