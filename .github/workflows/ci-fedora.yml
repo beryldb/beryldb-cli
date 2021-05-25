@@ -1,4 +1,4 @@
-name: Fedora Build
+name: Fedora build
 on:
   - pull_request
   - push
