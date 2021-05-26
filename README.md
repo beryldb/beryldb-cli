@@ -22,9 +22,7 @@ chances are you familiar with beryl-cli.
 
 Don't forget to follow us on [Twitter](https://twitter.com/beryldb)!
 
-## Supported Platforms
-
-Beryldb-cli is only supported in GNU/Linux.
+Beryl-cli is supported in MacOS, BSD and Linux systems.
 
 ## Installation
 
