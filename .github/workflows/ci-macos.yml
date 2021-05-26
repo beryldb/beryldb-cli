@@ -1,4 +1,4 @@
-name: IOS build
+name: MacOS build
 on:
   - pull_request
   - push
@@ -10,7 +10,7 @@ jobs:
       TEST_BUILD_MODULES: 
     steps:
       - uses: actions/checkout@v2
-      - name: Running IOS build workflow.
+      - name: Running MacOS build workflow.
         run: ./make/build ${{ matrix.compiler }}
     strategy:
       matrix:
