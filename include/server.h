@@ -42,6 +42,8 @@ class Server : public safecast<Server>
         void Flush();
     
     public:
+    
+        unsigned int commands;
         
         /* Constructor. */
         

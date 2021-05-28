@@ -391,6 +391,10 @@ void Handlers::Local(std::string& buffer)
             
             Handlers::Test();
     }
+    else if (first.compare("cmds") == 0)
+    {
+          Daemon::sprint(DTYPE_R, "%s", convto_string(Kernel->Link->commands).c_str());    
+    }
     else if (first.compare("version") == 0)
     {
 	  Daemon::sprint(DTYPE_R, "%s", convto_string(VERSION).c_str());    

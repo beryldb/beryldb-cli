@@ -760,8 +760,14 @@ static int edit(struct State *l)
 		case ENTER: UpdateEnter();          return 1; /* enter */
 		case CTRL_C: 
 		{
-		
-		        std::cout << std::endl;
+			if (!Kernel->Link->commands)
+			{
+				Kernel->Engine->serv_sprint(DTYPE_R, " ");				
+			}
+			else
+			{
+			        std::cout << std::endl;
+			}
 
 			errno = EAGAIN;
 			Kernel->Exit(EXIT_CODE_OK, false);
@@ -782,7 +788,15 @@ static int edit(struct State *l)
 		case ESC: EscSequence(l, seq); break; /* escape sequence */
 		case CTRL_D:                                  /* ctrl-d */
 		{
-	                std::cout << std::endl;
+                        if (!Kernel->Link->commands)
+                        {
+                                Kernel->Engine->serv_sprint(DTYPE_R, " ");                  
+                        }
+                        else
+                        {
+                                std::cout << std::endl;
+                        }
+
                         Kernel->Exit(EXIT_CODE_OK, false);
 
 			break;
@@ -1277,7 +1291,7 @@ bool Server::CheckCmd(const std::vector<std::string>& CommandList)
 	return true;
 }
 
-Server::Server()
+Server::Server() : commands(0)
 {
 
 }
@@ -1410,6 +1424,7 @@ int Server::Initialize()
 
 				if (ReturnFlag > 0) 
 				{
+					Kernel->Link->commands++;
 					push_history(cstate.buf);
 					UserInput(&cstate);
 					ResetState(&cstate);
