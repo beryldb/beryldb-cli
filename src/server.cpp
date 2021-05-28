@@ -831,6 +831,24 @@ static void ResetState(struct State *l)
 	push_history("");
 }
 
+void Server::Flush()
+{
+	for (std::vector<std::string>::iterator i = buffer.begin(); i != buffer.end(); i++)
+	{
+		std::string line = *i;
+		 
+		if (write(conn, line.c_str(), strnlen(line.c_str(), MSG_LIMIT)) < 0) 
+		{
+                	perror("write");
+                	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+		}
+		
+		line.clear();
+	}
+	
+	this->buffer.clear();
+}
+
 void Server::Write(char *fmt, ...) 
 {
 	va_list ap;
@@ -845,13 +863,9 @@ void Server::Write(char *fmt, ...)
 	va_start(ap, fmt);
 	vsnprintf(cmd_str, MSG_LIMIT, fmt, ap);
 	va_end(ap);
-
-	if (write(conn, cmd_str, strnlen(cmd_str, MSG_LIMIT)) < 0) 
-	{
-		perror("write");
-		Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
-	}
-
+	
+	Kernel->Link->buffer.push_back(cmd_str);
+	
 	free(cmd_str);
 }
 
@@ -1386,6 +1400,7 @@ int Server::Initialize()
 	for (;;) 
 	{ 
 		Kernel->Refresh();
+		this->Flush();
 		
 		if (poll(fds, 2, -1) != -1) 
 		{

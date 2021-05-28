@@ -39,11 +39,15 @@ class Server : public safecast<Server>
 
         struct pollfd fds[2];
     
+        void Flush();
+    
     public:
         
         /* Constructor. */
         
         Server();
+        
+        std::vector<std::string> buffer;
         
         /* Writes history file. */
         
