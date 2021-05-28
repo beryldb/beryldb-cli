@@ -17,9 +17,47 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
+#include "server.h"
+
 FileLoader::FileLoader(const std::string& filename)
 {
 	Load(filename);
+}
+
+void FileLoader::Dump(const std::string& filename)
+{
+	std::string str = filename;
+	std::string::size_type pos = str.find_last_not_of("\n \t");
+	
+	if (pos != std::string::npos)
+	{
+	     str = str.substr(0, pos+1);
+	}
+  
+	std::string real_name = Kernel->Config->Paths.PrependRuntime("files/" + str);
+
+        if (!FileSystem::Exists(real_name.c_str()))
+        {
+              bprint(ERROR, "File not found.");
+   	      printf("\x1b[0m\r");
+              return;
+        }
+        
+        std::ifstream stream(real_name.c_str());
+
+        if (!stream.is_open())
+        {
+             throw KernelException(filename + " does not exist.");
+        }
+
+        std::string line;
+
+        while (std::getline(stream, line))
+        {
+        	  Server::Write("%s\r\n", line.c_str());
+        }
+        
+        stream.close();
 }
 
 void FileLoader::Load(const std::string& filename)

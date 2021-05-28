@@ -456,6 +456,10 @@ void Handlers::Local(std::string& buffer)
                 printf("\x1b[0m\r");
             }   
     }
+    else if (first.compare("load") == 0)
+    {
+        FileLoader::Dump(remaining.c_str());
+    }
     else if (first.compare("execsend") == 0)
     {
             std::string response = Utils::GetStdoutFromCommand(remaining.c_str());

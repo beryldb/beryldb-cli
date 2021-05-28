@@ -1,3 +1,15 @@
+/*
+ * Emerald - A POSIX client for BerylDB.
+ * http://www.beryldb.com
+ *
+ * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
+ * 
+ * This file is part of BerylDB. BerylDB is free software: you can
+ * redistribute it and/or modify it under the terms of the BSD License
+ * version 3.
+ *
+ * More information about our licensing can be found at https://docs.beryl.dev
+ */
 
 #pragma once
 
@@ -15,8 +27,10 @@ class FileLoader
 	{ 
 	
 	}
-
+	
 	FileLoader(const std::string& filename);
+	
+	static void Dump(const std::string& filename);
 
 	void Load(const std::string& filename);
 
