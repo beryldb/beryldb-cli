@@ -1,20 +1,16 @@
-name: Ubuntu build
+name: Windows build
 on:
   - pull_request
   - push
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       CXXFLAGS: -std=${{ matrix.standard }}
       TEST_BUILD_MODULES: 
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: |
-          sudo apt-get update --assume-yes
-          sudo apt-get install --assume-yes --no-install-recommends g++ git make libc++-dev libc++abi-dev pkg-config
-      - name: Running Ubuntu build workflow.
+      - name: Running Windows build workflow.
         run: ./make/build ${{ matrix.compiler }}
     strategy:
       matrix:
