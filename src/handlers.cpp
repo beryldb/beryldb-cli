@@ -430,6 +430,8 @@ void Handlers::Local(std::string& buffer)
         std::string uptime =  Daemon::Format("Connected: %u days, %.2u:%.2u:%.2u", up / 86400, (up / 3600) % 24, (up / 60) % 60, up % 60);
         Daemon::sprint(DTYPE_R, "%s", uptime.c_str());
     }
+#ifndef _WIN32
+
     else if (first.compare("restart") == 0)
     {
         bprint(INFO, "Restarting.");
@@ -449,7 +451,6 @@ void Handlers::Local(std::string& buffer)
         execvp(Kernel->Config->usercmd.argv[0], Kernel->Config->usercmd.argv);
     }
     
-#ifndef _WIN32
     else if (first.compare("exec") == 0)
     {
             std::string response = Utils::GetStdoutFromCommand(remaining.c_str());
