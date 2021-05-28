@@ -425,6 +425,24 @@ void Handlers::Local(std::string& buffer)
         std::string uptime =  Daemon::Format("Connected: %u days, %.2u:%.2u:%.2u", up / 86400, (up / 3600) % 24, (up / 60) % 60, up % 60);
         Daemon::sprint(DTYPE_R, "%s", uptime.c_str());
     }
+    else if (first.compare("restart") == 0)
+    {
+        bprint(INFO, "Restarting.");
+        
+        for (int i = getdtablesize(); --i > 2;)
+        {
+               int flags = fcntl(i, F_GETFD);
+
+               if (flags != -1)
+               {
+                         fcntl(i, F_SETFD, flags | FD_CLOEXEC);
+               }
+        }
+        
+        Kernel->Link->HistoryWrite();
+        Kernel->Link->PrepareExit();
+        execvp(Kernel->Config->usercmd.argv[0], Kernel->Config->usercmd.argv);
+    }
     
 #ifndef _WIN32
     else if (first.compare("exec") == 0)
