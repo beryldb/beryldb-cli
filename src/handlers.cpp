@@ -185,10 +185,8 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 30000;
+    int x = 300000;
 
-    Server::Write("search *\r\n");
-    
     for (int i = 0; i < x; i++)
     {
        Methods::Set(convto_string(i), "lala");

@@ -847,20 +847,44 @@ static void ResetState(struct State *l)
 
 void Server::Flush()
 {
-	for (std::vector<std::string>::iterator i = buffer.begin(); i != buffer.end(); i++)
-	{
-		std::string line = *i;
+        if (this->buffer.empty())
+        {
+            return;
+        }
+        
+       std::string line = this->buffer.front();
 		 
-		if (write(conn, line.c_str(), strnlen(line.c_str(), MSG_LIMIT)) < 0) 
-		{
+       if (write(conn, line.c_str(), strnlen(line.c_str(), MSG_LIMIT)) < 0) 
+       {
                 	perror("write");
                 	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
-		}
-		
-		line.clear();
 	}
-	
-	this->buffer.clear();
+
+       this->buffer.pop_front();
+}
+
+void Server::Direct(char *fmt, ...) 
+{
+        va_list ap;
+        char *cmd_str = (char*)malloc(MSG_LIMIT);
+
+        if (!cmd_str) 
+        {
+                perror("malloc");
+                Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+        }
+
+        va_start(ap, fmt);
+        vsnprintf(cmd_str, MSG_LIMIT, fmt, ap);
+        va_end(ap);
+
+       if (write(conn, cmd_str, strnlen(cmd_str, MSG_LIMIT)) < 0) 
+       {
+                        perror("write");
+                        Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+       }
+
+       free(cmd_str);
 }
 
 void Server::Write(char *fmt, ...) 
