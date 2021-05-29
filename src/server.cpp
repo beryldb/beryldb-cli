@@ -1388,6 +1388,13 @@ void Server::ResetCache()
 	 *history = NULL;
 }
 
+void Server::QuickExit()
+{
+        Kernel->Link->HistoryWrite();
+        Kernel->Link->PrepareExit();
+        Kernel->Link->Reset();
+}
+
 void Server::PrepareExit()
 {
    	DisableRawMode(STDIN_FILENO);

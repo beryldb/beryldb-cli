@@ -444,8 +444,8 @@ void Handlers::Local(std::string& buffer)
                }
         }
         
-        Kernel->Link->HistoryWrite();
-        Kernel->Link->PrepareExit();
+        Kernel->Link->QuickExit();
+        
         execvp(Kernel->Config->usercmd.argv[0], Kernel->Config->usercmd.argv);
     }
     

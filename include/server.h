@@ -91,4 +91,13 @@ class Server : public safecast<Server>
         
         unsigned int CountHistory();
         
+        void QuickExit();
+        
+        /* Resets buffer */
+        
+        void Reset()
+        {
+            this->buffer.clear();
+        }
+        
 };

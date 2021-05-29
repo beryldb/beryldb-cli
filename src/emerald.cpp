@@ -95,6 +95,7 @@ Emerald::Emerald(int argc, char** argv) : ConfigFile(DEFAULT_CONFIG)
 
 void Emerald::Exit(int code, bool skip, const std::string& exitmsg)
 {
+        this->Link->Reset();
         this->Link->Shutdown();
         
         /* If clear option was provided, we must clean before exiting. */
