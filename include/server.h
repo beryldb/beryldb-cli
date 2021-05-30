@@ -41,6 +41,8 @@ class Server : public safecast<Server>
         struct pollfd fds[2];
     
         void Flush();
+
+        void RunTimed(time_t current);
     
     public:
     

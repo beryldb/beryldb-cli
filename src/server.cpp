@@ -1405,6 +1405,11 @@ unsigned int Server::CountHistory()
 	return history_length;
 }
 
+void Server::RunTimed(time_t current)
+{
+        Kernel->Tickers->Flush(current);
+}
+
 int Server::Initialize()
 {
         HistoryLoad();
@@ -1441,10 +1446,20 @@ int Server::Initialize()
 	{
 		return 1;
 	}
-
-	for (;;) 
+	
+	Kernel->Refresh();
+        time_t PREV_TIME = Kernel->GetTime().tv_sec;
+	
+	while(true)
 	{ 
 		Kernel->Refresh();
+		
+		if (Kernel->GetTime().tv_sec != PREV_TIME)
+		{
+                	PREV_TIME = Kernel->GetTime().tv_sec;
+	                this->RunTimed(Kernel->GetTime().tv_sec);
+		}
+
 		this->Flush();
 		
 		if (poll(fds, 2, -1) != -1) 
@@ -1500,4 +1515,5 @@ int Server::Initialize()
 	
         Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 }
+
 

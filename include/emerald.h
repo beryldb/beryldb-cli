@@ -33,6 +33,7 @@
 #include "converter.h"
 #include "protocols.h"
 #include "server.h"
+#include "timer.h"
 #include "handlers.h"
 #include "nodes.h"
 #include "engine.h"
@@ -60,7 +61,7 @@ class Emerald
         /* Command line parser. */
         
         void CommandLine();
-
+        
         /* My assigned (by the server) instance id. */
         
         std::string myself;
@@ -118,11 +119,18 @@ class Emerald
         /* Handles Emerald configuration files. */
 
         std::unique_ptr<Configuration> Config;
+        
+	TickManager Tickers;
 
         /* Refreshes TIME */
         
         void Refresh();
 
+        timespec GetTime()
+        {
+            return this->TIME;
+        }
+        
         /*
          * Emerald's main. This function will initialize Emerald
          * and will read the config file.

@@ -142,7 +142,7 @@ void Configuration::CheckCMD()
 
         if (!Kernel->Config->usercmd.pass.empty())
         {
-            bprint(INFO, "Using pass: %s", Kernel->Config->usercmd.pass.c_str());
+            bprint(INFO, "Using pass: *");
             Kernel->Config->pass = Kernel->Config->usercmd.pass;
 
             if (Kernel->Config->usercmd.pass.length() < 3 || Kernel->Config->usercmd.pass.length() > 30)
