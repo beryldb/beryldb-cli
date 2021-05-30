@@ -308,6 +308,11 @@ void Handlers::OnConnected(std::vector<std::string>& cmd)
             }
         }
         
+        if (!Kernel->Config->usercmd.join.empty())
+        {
+                  Methods::Join(Kernel->Config->usercmd.join);
+        }
+        
         if (Kernel->Config->usercmd.do_tests)
         {
              Handlers::Test();

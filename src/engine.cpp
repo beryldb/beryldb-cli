@@ -17,7 +17,7 @@
 
 unsigned const char *locale_case_insensitive_map = brld_case_insensitive_map;
 
-Daemon::Daemon() : ValidLogin(&LoginValidator), GenRandom(&DefaultGenRandom)
+Daemon::Daemon() : ValidLogin(&LoginValidator), GenRandom(&DefaultGenRandom), ValidChannel(&ChannelValidator)
 {
 
 }
@@ -348,4 +348,30 @@ std::string Daemon::HumanEpochTime(time_t curtime, const char* format, bool utc)
         }
 
         return buffer;
+}
+
+bool Daemon::ChannelValidator(const std::string& chname)
+{
+        if (chname.empty() || chname.length() > 15)
+        {
+                return false;
+        }
+
+        if (chname[0] != '#' || chname == "#")
+        {
+                return false;
+        }
+
+        for (std::string::const_iterator i = chname.begin()+1; i != chname.end(); ++i)
+        {
+                switch (*i)
+                {
+                        case ' ':
+                        case ',':
+                        case 7:
+                                return false;
+                }
+        }
+
+        return true;
 }

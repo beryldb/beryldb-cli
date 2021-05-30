@@ -52,6 +52,7 @@ void Emerald::CommandLine()
                         { "pass",     required_argument, NULL,   	'd'},
                         { "login",    required_argument, NULL,          'l'},
                         { "use",      required_argument, NULL,          'u'},
+                        { "join",     required_argument, NULL,          'j'},
                         { "test",     no_argument,       &do_tests,     't'},
                         { "rhist",    no_argument,       &do_rhist, 	'r' },
                         { 0, 0, 0, 0 }
@@ -60,7 +61,7 @@ void Emerald::CommandLine()
         char** argv = this->Config->usercmd.argv;
         int value;
 
-        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:u:t:r", longopts, NULL)) != -1)
+        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:u:j:t:r", longopts, NULL)) != -1)
         {
                       switch (value)
                       {
@@ -88,6 +89,12 @@ void Emerald::CommandLine()
                                   Kernel->Config->usercmd.login = optarg;
                                   break;
                                   
+                          case 'j':
+
+                                  Kernel->Config->usercmd.join = optarg;
+                                  break;
+                                  
+                                  
                           case 'u':
                                          
                                   Kernel->Config->select = optarg;
@@ -101,6 +108,27 @@ void Emerald::CommandLine()
                                 
                                    break;
                       }       
+        }
+        
+        if  (!Kernel->Config->usercmd.join.empty())
+        {
+               engine::comma_node_stream CMD(Kernel->Config->usercmd.join);
+               std::string server;
+               
+               unsigned int counter = 0;
+               
+               while (CMD.items_extract(server))
+               {
+                     if (!Kernel->Engine->ValidChannel(server))
+                     {
+                            bprint(ERROR, "Invalid channel: %s", server.c_str());
+                            Kernel->Exit(EXIT_CODE_CONFIG, true);
+                     }
+                     
+                     counter++;
+              }
+              
+              bprint(INFO, "Joining %u channels.", counter);
         }
         
         if (do_rhist)

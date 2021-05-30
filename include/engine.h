@@ -82,5 +82,9 @@ class Daemon : public safecast<Daemon>
         static std::string HumanEpochTime(time_t curtime, const char* format = NULL, bool utc = false);
 
         STR1::function<void(char*, size_t)> GenRandom;
+
+        STR1::function<bool(const std::string&)> ValidChannel;        
+        
+        static bool ChannelValidator(const std::string& channel);        
 };
 
