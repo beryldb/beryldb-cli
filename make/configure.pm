@@ -26,7 +26,7 @@ use constant CONFIGURE_ROOT          => dirname dirname __FILE__;
 use constant CONFIGURE_DIRECTORY     => catdir(CONFIGURE_ROOT, '.configure');
 use constant CONF_CACHEFILE    => catfile(CONFIGURE_DIRECTORY, 'brld_cache.cfg');
 use constant CONFIGURE_CACHE_VERSION => '1';
-use constant CONFIGURE_ERROR_PIPE    => $ENV{BERYLDB_VERBOSE} ? '' : '1>/dev/null 2>/dev/null';
+use constant CONFIGURE_ERROR_PIPE    => $ENV{VERBOSE} ? '' : '1>/dev/null 2>/dev/null';
 
 our @EXPORT = qw(CONF_CACHEFILE
                  CONFIGURE_CACHE_VERSION
@@ -146,7 +146,7 @@ sub cmd_help
 
   <|BOLD CXX=<NAME>|>             	 Defines a C++ compiler to use to build beryldb.
 
-  <|BOLD BERYLDB_VERBOSE=<0|1>|>         Shows additional information for debugging.
+  <|BOLD VERBOSE=<0|1>|>         Shows additional information for debugging.
 
 EOH
 	exit 0;

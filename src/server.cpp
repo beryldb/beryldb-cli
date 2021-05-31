@@ -1450,19 +1450,27 @@ int Server::Initialize()
 	Kernel->Refresh();
         time_t PREV_TIME = Kernel->GetTime().tv_sec;
 	
-	while(true)
+	while (true)
 	{ 
+ 	        int r = poll(fds, 2, 10);
+
 		Kernel->Refresh();
-		
+
 		if (Kernel->GetTime().tv_sec != PREV_TIME)
 		{
                 	PREV_TIME = Kernel->GetTime().tv_sec;
 	                this->RunTimed(Kernel->GetTime().tv_sec);
 		}
 
+                if (Kernel->s_signal)
+                {
+                        Kernel->SignalManager(Kernel->s_signal);
+                        Emerald::s_signal = 0;
+                }
+
 		this->Flush();
-		
-		if (poll(fds, 2, -1) != -1) 
+
+		if (r != -1)
 		{
 			if (fds[0].revents & POLLIN) 
 			{
@@ -1511,9 +1519,16 @@ int Server::Initialize()
 			Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 			return 1;
 		}
+		
 	}
 	
         Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 }
 
 
+sig_atomic_t Emerald::s_signal = 0;
+
+void Emerald::Signalizer(int signal)
+{
+        s_signal = signal;
+}

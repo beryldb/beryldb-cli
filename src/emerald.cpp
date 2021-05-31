@@ -88,6 +88,8 @@ Emerald::Emerald(int argc, char** argv) : ConfigFile(DEFAULT_CONFIG)
                 Link->ClearScreen();
         }
 
+        Emerald::Signalizers();
+
         /* Inits client connection. */
         
         Link->Initialize();
@@ -140,3 +142,25 @@ void Emerald::Exit(int code, bool skip, const std::string& exitmsg)
         exit(code);
 }
 
+void Emerald::Signalizers()
+{
+        signal(SIGALRM, SIG_IGN);
+        signal(SIGCHLD, SIG_IGN);
+        signal(SIGPIPE, SIG_IGN);
+        signal(SIGXFSZ, SIG_IGN);
+        signal(SIGINT, Emerald::Signalizer);
+        signal(SIGTERM, Emerald::Signalizer);
+        signal(SIGKILL, Emerald::Signalizer);
+}
+
+void Emerald::SignalManager(int signal)
+{
+        if (signal == SIGTERM)
+        {
+                Kernel->Link->QuickExit();
+        }
+        else if (signal == SIGINT || signal == SIGKILL)
+        {
+                Kernel->Link->QuickExit();
+        }
+}

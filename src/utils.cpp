@@ -33,7 +33,7 @@ static void ShowHelp()
         printf ("%4s %-28s %29s\n", "", "--password <password>,", "Use a different password than default.");
         printf ("%4s %-28s %29s\n", "", "--port <port>,", "Use a differnt port than 6378");
         printf ("%4s %-28s %29s\n", "", "--use <use>,", "Use a different select than 1.");
-        printf ("%4s %-28s %29s\n", "", "--join <join>,", "Join channels upon connection.");
+        printf ("%4s %-28s %29s\n", "", "--join <channels>,", "Join channels upon connection.");
         printf ("%4s %-28s %19s\n", "", "--test,", "Run tests and exit.");
         printf ("%4s %-28s %19s\n", "", "--version,", "Display version and exit.");
 

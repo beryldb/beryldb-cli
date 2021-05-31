@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <csignal>
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,6 +63,8 @@ class Emerald
         /* Command line parser. */
         
         void CommandLine();
+
+        void SignalManager(int signal);
         
         /* My assigned (by the server) instance id. */
         
@@ -104,6 +108,8 @@ class Emerald
 
         bool display_select;
         
+        static sig_atomic_t s_signal;
+        
         /* Server connection. */
         
         Server Link;
@@ -122,6 +128,8 @@ class Emerald
         
 	TickManager Tickers;
 
+	static void Signalizers();
+	
         /* Refreshes TIME */
         
         void Refresh();
@@ -156,6 +164,8 @@ class Emerald
         { 
                 return this->TIME.tv_sec; 
         }
+
+        static void Signalizer(int signal);
         
         /* Returns current time, as expressed in microseconds. */
         

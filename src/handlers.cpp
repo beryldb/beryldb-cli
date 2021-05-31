@@ -185,7 +185,7 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 300000;
+    int x = 3000;
 
     for (int i = 0; i < x; i++)
     {

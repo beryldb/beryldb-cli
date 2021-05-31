@@ -59,7 +59,7 @@ sub message($$$)
 {
 	my ($type, $file, $command) = @_;
 
-	if ($ENV{BERYLDB_VERBOSE}) 
+	if ($ENV{VERBOSE}) 
 	{
 		say $command;
 	} 
@@ -121,6 +121,6 @@ sub do_compile
 	}
 
 	my $execstr = "$ENV{CXX} -o $out $flags $file $libs";
-	message 'BUILD', abs2rel($file, "$ENV{SOURCEPATH}/src"), $execstr;
+	message 'Compiling', abs2rel($file, "$ENV{SOURCEPATH}/src"), $execstr;
 	exec $execstr;
 }
