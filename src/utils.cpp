@@ -15,23 +15,42 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <sys/time.h>
+#include <iomanip>
 
 #include "emerald.h"
 #include "utils.h"
 #include "converter.h"
 #include "exit.h"
 
+static void ShowHelp()
+{
+        std::cout << std::endl;
+
+        printf("Usage: ./beryl-cli <arguments>\n\n");
+
+        printf ("%4s %-28s %29s\n", "", "--login <username>,", "Login with a different username.");
+        printf ("%4s %-28s %29s\n", "", "--host <host>,", "Connect to a different host than localhost.");
+        printf ("%4s %-28s %29s\n", "", "--password <password>,", "Use a different password than default.");
+        printf ("%4s %-28s %29s\n", "", "--port <port>,", "Use a differnt port than 6378");
+        printf ("%4s %-28s %29s\n", "", "--use <use>,", "Use a different select than 1.");
+        printf ("%4s %-28s %29s\n", "", "--join <join>,", "Join channels upon connection.");
+        printf ("%4s %-28s %19s\n", "", "--test,", "Run tests and exit.");
+        printf ("%4s %-28s %19s\n", "", "--version,", "Display version and exit.");
+
+        Kernel->Exit(EXIT_CODE_ARGV, true);
+}
+
 const char* ExitMap[] =
 {
-                "No error",
-                "Error with Emerald.",
-                "Config file error",
-                "Logfile error",
-                "Bad commandline parameters",
-                "Problem with SocketPool",
-                "Refusing to start up as root",
-                "Received SIGTERM",
-                "SIG INT received."
+        "No error",
+        "Error with Emerald.",
+        "Config file error",
+        "Logfile error",
+        "Bad commandline parameters",
+        "Problem with SocketPool",
+        "Refusing to start up as root",
+        "Received SIGTERM",
+        "SIG INT received."
 };
 
 void Emerald::CommandLine()
@@ -101,12 +120,8 @@ void Emerald::CommandLine()
                                   break;
                                 
                            default:
-                           
-                                   std::cout << bold << "Usage: " << reset << argv[0] << " [--login <username>] [--host <host>] [--pass <password>] [--port <port>]" << std::endl
-                                       << std::string(strlen(argv[0]) + 8, ' ') << "[--version] [--test]" << std::endl;
-                                   this->Exit(EXIT_CODE_ARGV, true);
                                 
-                                   break;
+                                 ShowHelp();
                       }       
         }
         
