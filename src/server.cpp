@@ -859,7 +859,7 @@ void Server::Flush()
                 	perror("write");
                 	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
 	}
-
+	
        this->buffer.pop_front();
 }
 
@@ -1453,6 +1453,7 @@ int Server::Initialize()
 	while (true)
 	{ 
  	        int r = poll(fds, 2, 10);
+                this->Flush();
 
 		Kernel->Refresh();
 
@@ -1467,8 +1468,6 @@ int Server::Initialize()
                         Kernel->SignalManager(Kernel->s_signal);
                         Emerald::s_signal = 0;
                 }
-
-		this->Flush();
 
 		if (r != -1)
 		{
