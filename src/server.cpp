@@ -1303,22 +1303,40 @@ bool Server::CheckCmd(const std::vector<std::string>& CommandList)
 {
 	if (!CommandList.empty())
 	{
-		if (CommandList[0] == "lping")
+		std::string command = CommandList[0];
+		std::transform(command.begin(), command.end(), command.begin(), ::toupper);
+
+		if (command == "LPING")
 		{
 			Daemon::sprint(DTYPE_R, "alive.");
 			return false;
 		}
-		else if (CommandList[0] == "changepass")
+		else if (command == "ADDUSER")
+		{
+			if (CommandList.size() == 3)
+                        {
+                                Daemon::serv_sprint(DTYPE_R, "%s %s *", CommandList[0].c_str(), CommandList[1].c_str());
+                                Server::Write("%s %s %s\r\n", CommandList[0].c_str(), CommandList[1].c_str(), CommandList[2].c_str());
+                        }
+                        else
+                        {
+                        	return true;
+                        }
+                        
+                        return false;
+			
+		}
+		else if (command == "CHANGEPASS")
 		{
 			if (CommandList.size() == 2)
 			{
-				Daemon::serv_sprint(DTYPE_R, "changepass *");
-				Server::Write("changepass %s\r\n", CommandList[1].c_str());
+				Daemon::serv_sprint(DTYPE_R, "%s *", CommandList[0].c_str());
+				Server::Write("%s %s\r\n", CommandList[0].c_str(), CommandList[1].c_str());
 			}
 			else if (CommandList.size() == 3)
 			{
-                                Daemon::serv_sprint(DTYPE_R, "changepass %s *", CommandList[1].c_str());
-                                Server::Write("changepass %s %s\r\n", CommandList[1].c_str(), CommandList[2].c_str());
+                                Daemon::serv_sprint(DTYPE_R, "%s %s *", CommandList[0].c_str(), CommandList[1].c_str());
+                                Server::Write("%s %s %s\r\n", CommandList[0].c_str(), CommandList[1].c_str(), CommandList[2].c_str());
 			}
 			else
 			{
