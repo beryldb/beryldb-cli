@@ -36,12 +36,12 @@ INSTMODE_TXT ?= 0644
 INSTMODE_PRV ?= 0640
 LDLIBS += -ldl 
 
-ifndef BERYLDB_DEBUG
-  BERYLDB_DEBUG=0
+ifndef DEBUG
+  DEBUG=0
 endif
 
 DBGOK=0
-ifeq ($(BERYLDB_DEBUG), 0)
+ifeq ($(DEBUG), 0)
   CORECXXFLAGS +=  -O3
 ifeq ($(COMPILER), GCC)
     CORECXXFLAGS += -g1
@@ -49,17 +49,17 @@ endif
   HEADER = std-header
   DBGOK=1
 endif
-ifeq ($(BERYLDB_DEBUG), 1)
+ifeq ($(DEBUG), 1)
   CORECXXFLAGS += -O0 -g3 -Werror
   HEADER = debug-header
   DBGOK=1
 endif
-ifeq ($(BERYLDB_DEBUG), 2)
+ifeq ($(DEBUG), 2)
   CORECXXFLAGS += -O2 -g3
   HEADER = debug-header
   DBGOK=1
 endif
-ifeq ($(BERYLDB_DEBUG), 3)
+ifeq ($(DEBUG), 3)
   CORECXXFLAGS += -O0 -g0 -Werror
   HEADER = std-header
   DBGOK=1
@@ -73,6 +73,9 @@ ifndef VERBOSE
   MAKEFLAGS += --silent
 endif
 
+ifndef CXXFLAGS
+   CXXFLAGS = -std=c++14
+endif
 
 CORECXXFLAGS += $(CPPFLAGS) $(CXXFLAGS)
 CORELDFLAGS += $(LDFLAGS)
@@ -105,7 +108,7 @@ target: $(HEADER)
 	cd "$(BUILDPATH)"; $(MAKEENV) $(MAKE) -f real.mk $(TARGET)
 
 debug:
-	@${MAKE} BERYLDB_DEBUG=1 all
+	@${MAKE} DEBUG=1 all
 
 debug-header:
 	@echo " "
@@ -184,9 +187,9 @@ help:
 	@echo 'Settings:'
 	@echo ' '
 	@echo ' VERBOSE=1  Displays full command compiling.'
-	@echo ' BERYLDB_DEBUG=1    Enable debugging, for module development.'
-	@echo ' BERYLDB_DEBUG=2    Build with optimizations, for detailed traces.'
-	@echo ' BERYLDB_DEBUG=3    Fast build without improvements. '
+	@echo ' DEBUG=1    Enable debugging, for module development.'
+	@echo ' DEBUG=2    Build with optimizations, for detailed traces.'
+	@echo ' DEBUG=3    Fast build without improvements. '
 	@echo ' DESTDIR=           Specifies destination root.'
 	@echo ' -j <N>             Parallel building.'
 	@echo ''

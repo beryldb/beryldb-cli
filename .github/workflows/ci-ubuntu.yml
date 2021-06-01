@@ -22,4 +22,5 @@ jobs:
           - g++-10
         standard:
           - c++14
+          - c++17
 
