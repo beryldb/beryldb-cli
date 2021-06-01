@@ -50,16 +50,9 @@ make -j2
 ## Usage
 
 ```
-Usage: ./beryl-cli <arguments>
-
-     --login <username>,          Login with a different username.
-     --host <host>,               Connect to a different host than localhost.
-     --password <password>,       Use a different password than default.
-     --port <port>,               Use a differnt port than 6378
-     --use <use>,                 Use a different select than 1.
-     --join <channels>,           Join channels upon connection.
-     --test,                      Run tests and exit.
-     --version,                   Display version and exit.
+./beryldb-cli [--login <username>] [--host <host>] 
+   	      [--pass <password>] [--port <port>] 
+              [--version]
 ```
 
 <br>

@@ -859,7 +859,7 @@ void Server::Flush()
                 	perror("write");
                 	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
 	}
-	
+
        this->buffer.pop_front();
 }
 
@@ -1295,7 +1295,6 @@ static void UserInput(struct State *l)
 					Server::Write("%s\r\n", l->buf);
 					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
 				}
-			
 			}
 	}
 }
@@ -1307,6 +1306,26 @@ bool Server::CheckCmd(const std::vector<std::string>& CommandList)
 		if (CommandList[0] == "lping")
 		{
 			Daemon::sprint(DTYPE_R, "alive.");
+			return false;
+		}
+		else if (CommandList[0] == "changepass")
+		{
+			if (CommandList.size() == 2)
+			{
+				Daemon::serv_sprint(DTYPE_R, "changepass *");
+				Server::Write("changepass %s\r\n", CommandList[1].c_str());
+			}
+			else if (CommandList.size() == 3)
+			{
+                                Daemon::serv_sprint(DTYPE_R, "changepass %s *", CommandList[1].c_str());
+                                Server::Write("changepass %s %s\r\n", CommandList[1].c_str(), CommandList[2].c_str());
+			}
+			else
+			{
+				return true;	
+			}
+			
+			
 			return false;
 		}
 		
@@ -1453,7 +1472,6 @@ int Server::Initialize()
 	while (true)
 	{ 
  	        int r = poll(fds, 2, 10);
-                this->Flush();
 
 		Kernel->Refresh();
 
@@ -1468,6 +1486,8 @@ int Server::Initialize()
                         Kernel->SignalManager(Kernel->s_signal);
                         Emerald::s_signal = 0;
                 }
+
+		this->Flush();
 
 		if (r != -1)
 		{

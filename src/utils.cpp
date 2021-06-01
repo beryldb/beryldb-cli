@@ -36,7 +36,6 @@ static void ShowHelp()
         printf ("%4s %-28s %29s\n", "", "--join <channels>,", "Join channels upon connection.");
         printf ("%4s %-28s %19s\n", "", "--test,", "Run tests and exit.");
         printf ("%4s %-28s %19s\n", "", "--version,", "Display version and exit.");
-        printf("\n");
 
         Kernel->Exit(EXIT_CODE_ARGV, true);
 }

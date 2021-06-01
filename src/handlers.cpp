@@ -185,18 +185,17 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 300;
+    int x = 3000;
 
     for (int i = 0; i < x; i++)
     {
-//       Methods::Set(convto_string(i), convto_string(i));
-  //     Methods::Get(convto_string(i));
+       Methods::Set(convto_string(i), "lala");
+       Methods::Get(convto_string(i));
+       
     
     }
   
-    Server::Write("find *\r\n");
     Server::Write("l\r\n");
-    
   
     
 //    exit(0);
