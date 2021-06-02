@@ -21,6 +21,9 @@
  */
 
 #include <sys/stat.h> 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 #include "emerald.h"
 #include "protocols.h"
@@ -757,7 +760,15 @@ static int edit(struct State *l)
 		case ENTER: UpdateEnter();          return 1; /* enter */
 		case CTRL_C: 
 		{
-		
+			if (!Kernel->Link->commands)
+			{
+				Kernel->Engine->serv_sprint(DTYPE_R, " ");				
+			}
+			else
+			{
+			        std::cout << std::endl;
+			}
+
 			errno = EAGAIN;
 			Kernel->Exit(EXIT_CODE_OK, false);
 			return -1; /* ctrl-c */
@@ -777,6 +788,14 @@ static int edit(struct State *l)
 		case ESC: EscSequence(l, seq); break; /* escape sequence */
 		case CTRL_D:                                  /* ctrl-d */
 		{
+                        if (!Kernel->Link->commands)
+                        {
+                                Kernel->Engine->serv_sprint(DTYPE_R, " ");                  
+                        }
+                        else
+                        {
+                                std::cout << std::endl;
+                        }
 
                         Kernel->Exit(EXIT_CODE_OK, false);
 
@@ -826,6 +845,48 @@ static void ResetState(struct State *l)
 	push_history("");
 }
 
+void Server::Flush()
+{
+        if (this->buffer.empty())
+        {
+            return;
+        }
+        
+       std::string line = this->buffer.front();
+		 
+       if (write(conn, line.c_str(), strnlen(line.c_str(), MSG_LIMIT)) < 0) 
+       {
+                	perror("write");
+                	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+	}
+
+       this->buffer.pop_front();
+}
+
+void Server::Direct(char *fmt, ...) 
+{
+        va_list ap;
+        char *cmd_str = (char*)malloc(MSG_LIMIT);
+
+        if (!cmd_str) 
+        {
+                perror("malloc");
+                Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+        }
+
+        va_start(ap, fmt);
+        vsnprintf(cmd_str, MSG_LIMIT, fmt, ap);
+        va_end(ap);
+
+       if (write(conn, cmd_str, strnlen(cmd_str, MSG_LIMIT)) < 0) 
+       {
+                        perror("write");
+                        Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+       }
+
+       free(cmd_str);
+}
+
 void Server::Write(char *fmt, ...) 
 {
 	va_list ap;
@@ -840,13 +901,9 @@ void Server::Write(char *fmt, ...)
 	va_start(ap, fmt);
 	vsnprintf(cmd_str, MSG_LIMIT, fmt, ap);
 	va_end(ap);
-
-	if (write(conn, cmd_str, strnlen(cmd_str, MSG_LIMIT)) < 0) 
-	{
-		perror("write");
-		Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
-	}
-
+	
+	Kernel->Link->buffer.push_back(cmd_str);
+	
 	free(cmd_str);
 }
 
@@ -996,7 +1053,12 @@ static void CommandParser(char *request)
 
 	switch (brld_protocol)
 	{
-
+			case BRLD_END_L:
+			        printf("\r\x1b[0K");
+			
+				 return;
+			break;
+			
 			case BRLD_CONNECTED:
 
 				Kernel->Handler.OnConnected(params);
@@ -1194,7 +1256,7 @@ static void UserInput(struct State *l)
 	{
 		l->buf[msg_len - 1] = '\0';
 	}
-
+	
 	printf("\r\x1b[0K");
 
 	switch (l->buf[0]) 
@@ -1233,7 +1295,6 @@ static void UserInput(struct State *l)
 					Server::Write("%s\r\n", l->buf);
 					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
 				}
-			
 			}
 	}
 }
@@ -1242,9 +1303,47 @@ bool Server::CheckCmd(const std::vector<std::string>& CommandList)
 {
 	if (!CommandList.empty())
 	{
-		if (CommandList[0] == "lping")
+		std::string command = CommandList[0];
+		std::transform(command.begin(), command.end(), command.begin(), ::toupper);
+
+		if (command == "LPING")
 		{
 			Daemon::sprint(DTYPE_R, "alive.");
+			return false;
+		}
+		else if (command == "ADDUSER")
+		{
+			if (CommandList.size() == 3)
+                        {
+                                Daemon::serv_sprint(DTYPE_R, "%s %s *", CommandList[0].c_str(), CommandList[1].c_str());
+                                Server::Write("%s %s %s\r\n", CommandList[0].c_str(), CommandList[1].c_str(), CommandList[2].c_str());
+                        }
+                        else
+                        {
+                        	return true;
+                        }
+                        
+                        return false;
+			
+		}
+		else if (command == "CHANGEPASS")
+		{
+			if (CommandList.size() == 2)
+			{
+				Daemon::serv_sprint(DTYPE_R, "%s *", CommandList[0].c_str());
+				Server::Write("%s %s\r\n", CommandList[0].c_str(), CommandList[1].c_str());
+			}
+			else if (CommandList.size() == 3)
+			{
+                                Daemon::serv_sprint(DTYPE_R, "%s %s *", CommandList[0].c_str(), CommandList[1].c_str());
+                                Server::Write("%s %s %s\r\n", CommandList[0].c_str(), CommandList[1].c_str(), CommandList[2].c_str());
+			}
+			else
+			{
+				return true;	
+			}
+			
+			
 			return false;
 		}
 		
@@ -1253,7 +1352,7 @@ bool Server::CheckCmd(const std::vector<std::string>& CommandList)
 	return true;
 }
 
-Server::Server()
+Server::Server() : commands(0)
 {
 
 }
@@ -1326,6 +1425,13 @@ void Server::ResetCache()
 	 *history = NULL;
 }
 
+void Server::QuickExit()
+{
+        Kernel->Link->HistoryWrite();
+        Kernel->Link->PrepareExit();
+        Kernel->Link->Reset();
+}
+
 void Server::PrepareExit()
 {
    	DisableRawMode(STDIN_FILENO);
@@ -1334,6 +1440,11 @@ void Server::PrepareExit()
 unsigned int Server::CountHistory()
 {
 	return history_length;
+}
+
+void Server::RunTimed(time_t current)
+{
+        Kernel->Tickers->Flush(current);
 }
 
 int Server::Initialize()
@@ -1372,12 +1483,31 @@ int Server::Initialize()
 	{
 		return 1;
 	}
-
-	for (;;) 
+	
+	Kernel->Refresh();
+        time_t PREV_TIME = Kernel->GetTime().tv_sec;
+	
+	while (true)
 	{ 
+ 	        int r = poll(fds, 2, 10);
+
 		Kernel->Refresh();
-		
-		if (poll(fds, 2, -1) != -1) 
+
+		if (Kernel->GetTime().tv_sec != PREV_TIME)
+		{
+                	PREV_TIME = Kernel->GetTime().tv_sec;
+	                this->RunTimed(Kernel->GetTime().tv_sec);
+		}
+
+                if (Kernel->s_signal)
+                {
+                        Kernel->SignalManager(Kernel->s_signal);
+                        Emerald::s_signal = 0;
+                }
+
+		this->Flush();
+
+		if (r != -1)
 		{
 			if (fds[0].revents & POLLIN) 
 			{
@@ -1385,6 +1515,7 @@ int Server::Initialize()
 
 				if (ReturnFlag > 0) 
 				{
+					Kernel->Link->commands++;
 					push_history(cstate.buf);
 					UserInput(&cstate);
 					ResetState(&cstate);
@@ -1425,8 +1556,16 @@ int Server::Initialize()
 			Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 			return 1;
 		}
+		
 	}
 	
         Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 }
 
+
+sig_atomic_t Emerald::s_signal = 0;
+
+void Emerald::Signalizer(int signal)
+{
+        s_signal = signal;
+}

@@ -1,6 +1,5 @@
-
 /*
- * BerylDB - A modular database.
+ * Emerald - A POSIX client for BerylDB.
  * http://www.beryldb.com
  *
  * Copyright (C) 2021 - Carlos F. Ferry <cferry@beryldb.com>
@@ -16,101 +15,198 @@
 
 #include <ostream>
 #include <stdio.h>
-#include <unistd.h>
 
-namespace engine
-{
-    namespace color
-    {
-		inline bool ColorsEnabled()
-		{
-
-#ifdef BERYL_DISABLE_COLORS
-
-			return false;
+#ifdef _WIN32
+# include <iostream>
+# include <io.h>
+# define isatty(x) _isatty((x))
+# define fileno(x) _fileno((x))
+extern WindowsStream StandardError;
+extern WindowsStream StandardOutput;
 #else
-			return isatty(fileno(stdout));
+# include <unistd.h>
 #endif
-		}
 
-		inline std::ostream& green(std::ostream& stream)
-		{
-			if (!ColorsEnabled())
-			{
-				return stream;
-			}
-
-			return stream << "\033[1;32m";
-		}
-
-		inline std::ostream& red(std::ostream& stream)
-		{
-			if (!ColorsEnabled())
-			{
-				return stream;
-			}
-
-			return stream << "\033[1;31m";
-		}
-
-		inline std::ostream& white(std::ostream& stream)
-		{
-			if (!ColorsEnabled())
-			{
-				return stream;
-			}
-
-			return stream << "\033[0m";
-		}
-
-		inline std::ostream& whitebright(std::ostream& stream)
-		{
-			if (!ColorsEnabled())
-			{
-				return stream;
-			}
-
-			return stream << "\033[1m";
-		}
-
-                inline std::ostream& purple(std::ostream& stream)
-                {
-                        if (!ColorsEnabled())
-                        {
-                                return stream;
-                        }
-
-                        return stream << "\033[1;35m";
-                }
-
-                inline std::ostream& bold(std::ostream& stream)
-                {
-                        if (!ColorsEnabled())
-                        {
-                                return stream;
-                        }
-
-                        return stream << "\033[1m";
-                }
-
-                inline std::ostream& blue(std::ostream& stream)
-                {
-                        if (!ColorsEnabled())
-                        {
-                                return stream;
-                        }
-
-                        return stream << "\033[1;34m";
-                }
-                
-		inline std::ostream& reset(std::ostream& stream)
-		{
-			if (!ColorsEnabled())
-			{
-				return stream;
-			}
-
-			return stream << "\033[0m";
-		}
+namespace
+{
+	inline bool ColorsEnabled()
+	{
+#ifdef BERYL_DISABLE_COLORS
+		return false;
+#else
+		return isatty(fileno(stdout));
+#endif
 	}
+
+#ifdef _WIN32
+	inline WindowsStream& GetStreamHandle(std::ostream& os)
+	{
+		if (os.rdbuf() == std::cerr.rdbuf())
+		{
+			return StandardError;
+		}
+
+		if (os.rdbuf() == std::cout.rdbuf())
+		{
+			return StandardOutput;
+		}
+
+		throw std::invalid_argument("Error");
+	}
+#endif
 }
+
+#ifdef _WIN32
+
+#include <windows.h>
+
+inline std::ostream& green(std::ostream& stream)
+{
+	if (ColorsEnabled())
+	{
+		const WindowsStream& ws = GetStreamHandle(stream);
+		SetConsoleTextAttribute(ws.Handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY | ws.BackgroundColor);
+	}
+	
+	return stream;
+}
+
+inline std::ostream& blue(std::ostream& stream)
+{
+        if (ColorsEnabled())
+        {
+                const WindowsStream& ws = GetStreamHandle(stream);
+                SetConsoleTextAttribute(ws.Handle, FOREGROUND_BLUE | FOREGROUND_INTENSITY | ws.BackgroundColor);
+        }
+        
+        return stream;
+}
+
+inline std::ostream& red(std::ostream& stream)
+{
+	if (ColorsEnabled())
+	{
+		const WindowsStream& ws = GetStreamHandle(stream);
+		SetConsoleTextAttribute(ws.Handle, FOREGROUND_RED | FOREGROUND_INTENSITY | ws.BackgroundColor);
+	}
+	
+	return stream;
+}
+
+inline std::ostream& white(std::ostream& stream)
+{
+	if (ColorsEnabled())
+	{
+		const WindowsStream& ws = GetStreamHandle(stream);
+		SetConsoleTextAttribute(ws.Handle, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN | ws.BackgroundColor);
+	}
+	
+	return stream;
+}
+
+inline std::ostream& white_bright(std::ostream& stream)
+{
+	if (ColorsEnabled())
+	{
+		const WindowsStream& ws = GetStreamHandle(stream);
+		SetConsoleTextAttribute(ws.Handle, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY | ws.BackgroundColor);
+	}
+	
+	return stream;
+}
+
+inline std::ostream& bold(std::ostream& stream)
+{
+	if (ColorsEnabled())
+	{
+		const WindowsStream& ws = GetStreamHandle(stream);
+		SetConsoleTextAttribute(ws.Handle, FOREGROUND_INTENSITY | ws.BackgroundColor);
+	}
+	
+	return stream;
+}
+
+inline std::ostream& reset(std::ostream& stream)
+{
+	if (ColorsEnabled())
+	{
+		const WindowsStream& ws = GetStreamHandle(stream);
+		SetConsoleTextAttribute(ws.Handle, ws.ForegroundColor);
+	}
+	
+	return stream;
+}
+
+#else
+
+inline std::ostream& green(std::ostream& stream)
+{
+	if (!ColorsEnabled())
+	{
+		return stream;
+	}
+	
+	return stream << "\033[1;32m";
+}
+
+inline std::ostream& red(std::ostream& stream)
+{
+	if (!ColorsEnabled())
+	{
+		return stream;
+	}
+	
+	return stream << "\033[1;31m";
+}
+
+inline std::ostream& white(std::ostream& stream)
+{
+	if (!ColorsEnabled())
+	{
+		return stream;
+	}
+	
+	return stream << "\033[0m";
+}
+
+inline std::ostream& white_bright(std::ostream& stream)
+{
+	if (!ColorsEnabled())
+	{
+		return stream;
+	}
+	
+	return stream << "\033[1m";
+}
+
+inline std::ostream& bold(std::ostream& stream)
+{
+	if (!ColorsEnabled())
+	{
+		return stream;
+	}
+	
+	return stream << "\033[1m";
+}
+
+inline std::ostream& reset(std::ostream& stream)
+{
+	if (!ColorsEnabled())
+	{
+		return stream;
+	}
+	
+	return stream << "\033[0m";
+}
+
+inline std::ostream& blue(std::ostream& stream)
+{
+        if (!ColorsEnabled())
+        {
+                                return stream;
+        }
+
+        return stream << "\033[1;34m";
+}
+
+#endif

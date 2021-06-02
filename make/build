@@ -50,5 +50,17 @@ for my $compiler (@compilers)
                 say "Unable to compile using the $compiler compiler.";
                 exit 1;
         }
+        
+        if (execute 'make', 'install', $root) 
+        {
+                say "Unable to install.";
+                exit 1;
+        }
+        
+        if (execute './beryl-cli', '--version', $root) 
+        {
+                say "Unable to run beryl-cli.";
+                exit 1;
+        }
 
 }

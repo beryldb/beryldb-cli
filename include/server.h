@@ -26,7 +26,7 @@
 #include <poll.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
-#include <netdb.h>
+#include <deque>
 
 #include "typedefs.h"
 
@@ -40,11 +40,19 @@ class Server : public safecast<Server>
 
         struct pollfd fds[2];
     
+        void Flush();
+
+        void RunTimed(time_t current);
+    
     public:
+    
+        unsigned int commands;
         
         /* Constructor. */
         
         Server();
+        
+        std::deque<std::string> buffer;
         
         /* Writes history file. */
         
@@ -61,6 +69,8 @@ class Server : public safecast<Server>
         /* Raw socket write to remote server. */
         
         static void Write(char *fmt, ...);
+
+        static void Direct(char *fmt, ...);
 
         /* 
          * This function is called before the 
@@ -82,5 +92,14 @@ class Server : public safecast<Server>
         /* Returns history counter */
         
         unsigned int CountHistory();
+        
+        void QuickExit();
+        
+        /* Resets buffer */
+        
+        void Reset()
+        {
+            this->buffer.clear();
+        }
         
 };

@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <csignal>
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,6 +35,7 @@
 #include "converter.h"
 #include "protocols.h"
 #include "server.h"
+#include "timer.h"
 #include "handlers.h"
 #include "nodes.h"
 #include "engine.h"
@@ -61,6 +64,8 @@ class Emerald
         
         void CommandLine();
 
+        void SignalManager(int signal);
+        
         /* My assigned (by the server) instance id. */
         
         std::string myself;
@@ -103,6 +108,8 @@ class Emerald
 
         bool display_select;
         
+        static sig_atomic_t s_signal;
+        
         /* Server connection. */
         
         Server Link;
@@ -118,11 +125,20 @@ class Emerald
         /* Handles Emerald configuration files. */
 
         std::unique_ptr<Configuration> Config;
+        
+	TickManager Tickers;
 
+	static void Signalizers();
+	
         /* Refreshes TIME */
         
         void Refresh();
 
+        timespec GetTime()
+        {
+            return this->TIME;
+        }
+        
         /*
          * Emerald's main. This function will initialize Emerald
          * and will read the config file.
@@ -148,6 +164,8 @@ class Emerald
         { 
                 return this->TIME.tv_sec; 
         }
+
+        static void Signalizer(int signal);
         
         /* Returns current time, as expressed in microseconds. */
         

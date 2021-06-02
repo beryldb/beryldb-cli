@@ -82,15 +82,9 @@ class Daemon : public safecast<Daemon>
         static std::string HumanEpochTime(time_t curtime, const char* format = NULL, bool utc = false);
 
         STR1::function<void(char*, size_t)> GenRandom;
-};
 
-class BcryptServer 
-{
-    public:
-    
-        static std::string MakeSalt();
-
-        static std::string Generate(const std::string& data, const std::string& salt);
+        STR1::function<bool(const std::string&)> ValidChannel;        
         
-        static std::string MakePassword(const std::string& data);
+        static bool ChannelValidator(const std::string& channel);        
 };
+

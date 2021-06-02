@@ -87,8 +87,8 @@ void Methods::LogIn(const std::string& session, const std::string& login, const 
              Methods::use(Kernel->Config->select);
         }
 
-        Server::Write("agent %s\r\n", session.c_str());
-        Server::Write("auth %s\r\n", pass.c_str());
+        Server::Direct("agent %s\r\n", session.c_str());
+        Server::Direct("auth %s\r\n", pass.c_str());
         Server::Write("login %s\r\n", login.c_str());
 }
 

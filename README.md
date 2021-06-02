@@ -1,5 +1,6 @@
 <a target="_blank" href="https://twitter.com/beryldb"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40beryldb"></a>
-<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Linux%20build/badge.svg?4"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/MacOS%20build/badge.svg?2"></a>
 <a target="_blank" href="https://github.com/beryldb/beryldb-cli/pulse" alt="Activity"> <img src="https://img.shields.io/github/commit-activity/m/beryldb/beryldb-cli?2" /></a>
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 <br>
@@ -21,9 +22,7 @@ chances are you familiar with beryl-cli.
 
 Don't forget to follow us on [Twitter](https://twitter.com/beryldb)!
 
-## Supported Platforms
-
-Beryldb-cli is only supported in GNU/Linux.
+Beryl-cli is supported in MacOS, BSD and Linux systems.
 
 ## Installation
 
@@ -80,6 +79,7 @@ Inside the root directory, you will find:
 
 ## External Links
 
+* **IRC**: irc.libera.chat - #beryl
 * [Documentation](https://docs.beryl.dev/clients/cli/installing/)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)

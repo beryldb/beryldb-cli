@@ -70,6 +70,8 @@ struct UserArguments
     
         std::string pass;
         
+        std::string join;
+        
         bool do_tests;
         
         bool forcedebug;

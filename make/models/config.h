@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <string>
+
 /* Default session name */
 
 const std::string SESSION_DEFAULT = "emerald1";
@@ -20,10 +22,6 @@ const std::string SESSION_DEFAULT = "emerald1";
 /* Max. length of a line of text */
 
 const unsigned int INPUT_LIMIT = 65530;
-
-/* Linux distro */
-
-const std::string LINUX_DISTRO = "@LINUX_DISTRO@";
 
 /* Default configuration file */
 

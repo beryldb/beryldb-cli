@@ -185,19 +185,18 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 50000;
-    
+    int x = 3000;
+
     for (int i = 0; i < x; i++)
     {
-         //std::string to = convto_string(i) + "lala";
-        // Methods::Set(to, "lala");
-         
+       Methods::Set(convto_string(i), "lala");
+       Methods::Get(convto_string(i));
+       
+    
     }
-    
-    Server::Write("find *\r\n");
-    Server::Write("pwd\r\n");
+  
     Server::Write("l\r\n");
-    
+  
     
 //    exit(0);
     return false;
@@ -224,7 +223,7 @@ void Handlers::Test()
     {
          /* Requests 100 random keys. */
         
-         Methods::rkey();         
+         Methods::Set(convto_string(i), "lala");         
     }
     
     Methods::Get("hello4");
@@ -309,6 +308,11 @@ void Handlers::OnConnected(std::vector<std::string>& cmd)
             }
         }
         
+        if (!Kernel->Config->usercmd.join.empty())
+        {
+                  Methods::Join(Kernel->Config->usercmd.join);
+        }
+        
         if (Kernel->Config->usercmd.do_tests)
         {
              Handlers::Test();
@@ -390,6 +394,10 @@ void Handlers::Local(std::string& buffer)
             
             Handlers::Test();
     }
+    else if (first.compare("cmds") == 0)
+    {
+          Daemon::sprint(DTYPE_R, "%s", convto_string(Kernel->Link->commands).c_str());    
+    }
     else if (first.compare("version") == 0)
     {
 	  Daemon::sprint(DTYPE_R, "%s", convto_string(VERSION).c_str());    
@@ -425,8 +433,27 @@ void Handlers::Local(std::string& buffer)
         std::string uptime =  Daemon::Format("Connected: %u days, %.2u:%.2u:%.2u", up / 86400, (up / 3600) % 24, (up / 60) % 60, up % 60);
         Daemon::sprint(DTYPE_R, "%s", uptime.c_str());
     }
-    
 #ifndef _WIN32
+
+    else if (first.compare("restart") == 0)
+    {
+        bprint(INFO, "Restarting.");
+        
+        for (int i = getdtablesize(); --i > 2;)
+        {
+               int flags = fcntl(i, F_GETFD);
+
+               if (flags != -1)
+               {
+                         fcntl(i, F_SETFD, flags | FD_CLOEXEC);
+               }
+        }
+        
+        Kernel->Link->QuickExit();
+        
+        execvp(Kernel->Config->usercmd.argv[0], Kernel->Config->usercmd.argv);
+    }
+    
     else if (first.compare("exec") == 0)
     {
             std::string response = Utils::GetStdoutFromCommand(remaining.c_str());
@@ -437,6 +464,10 @@ void Handlers::Local(std::string& buffer)
                 std::cout << server << std::endl;
                 printf("\x1b[0m\r");
             }   
+    }
+    else if (first.compare("load") == 0)
+    {
+        FileLoader::Dump(remaining.c_str());
     }
     else if (first.compare("execsend") == 0)
     {

@@ -22,7 +22,7 @@ use Exporter              qw(import);
 use make::configure;
 use make::brld;
 
-use constant DIRECTIVE_ERROR_PIPE => $ENV{BERYLDB_VERBOSE} ? '' : '2>/dev/null';
+use constant DIRECTIVE_ERROR_PIPE => $ENV{VERBOSE} ? '' : '2>/dev/null';
 use constant ETC_DIRECTORY     => catdir(dirname(dirname(__FILE__)), 'etc');
 
 our @EXPORT = qw(get_environment

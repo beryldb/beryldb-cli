@@ -15,23 +15,42 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <sys/time.h>
+#include <iomanip>
 
 #include "emerald.h"
 #include "utils.h"
 #include "converter.h"
 #include "exit.h"
 
+static void ShowHelp()
+{
+        std::cout << std::endl;
+
+        printf("Usage: ./beryl-cli <arguments>\n\n");
+
+        printf ("%4s %-28s %29s\n", "", "--login <username>,", "Login with a different username.");
+        printf ("%4s %-28s %29s\n", "", "--host <host>,", "Connect to a different host than localhost.");
+        printf ("%4s %-28s %29s\n", "", "--password <password>,", "Use a different password than default.");
+        printf ("%4s %-28s %29s\n", "", "--port <port>,", "Use a differnt port than 6378");
+        printf ("%4s %-28s %29s\n", "", "--use <use>,", "Use a different select than 1.");
+        printf ("%4s %-28s %29s\n", "", "--join <channels>,", "Join channels upon connection.");
+        printf ("%4s %-28s %19s\n", "", "--test,", "Run tests and exit.");
+        printf ("%4s %-28s %19s\n", "", "--version,", "Display version and exit.");
+
+        Kernel->Exit(EXIT_CODE_ARGV, true);
+}
+
 const char* ExitMap[] =
 {
-                "No error",
-                "Error with Emerald.",
-                "Config file error",
-                "Logfile error",
-                "Bad commandline parameters",
-                "Problem with SocketPool",
-                "Refusing to start up as root",
-                "Received SIGTERM",
-                "SIG INT received."
+        "No error",
+        "Error with Emerald.",
+        "Config file error",
+        "Logfile error",
+        "Bad commandline parameters",
+        "Problem with SocketPool",
+        "Refusing to start up as root",
+        "Received SIGTERM",
+        "SIG INT received."
 };
 
 void Emerald::CommandLine()
@@ -52,6 +71,7 @@ void Emerald::CommandLine()
                         { "pass",     required_argument, NULL,   	'd'},
                         { "login",    required_argument, NULL,          'l'},
                         { "use",      required_argument, NULL,          'u'},
+                        { "join",     required_argument, NULL,          'j'},
                         { "test",     no_argument,       &do_tests,     't'},
                         { "rhist",    no_argument,       &do_rhist, 	'r' },
                         { 0, 0, 0, 0 }
@@ -60,7 +80,7 @@ void Emerald::CommandLine()
         char** argv = this->Config->usercmd.argv;
         int value;
 
-        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:u:t:r", longopts, NULL)) != -1)
+        while ((value = getopt_long(this->Config->usercmd.argc, argv, ":p:h:d:l:u:j:t:r", longopts, NULL)) != -1)
         {
                       switch (value)
                       {
@@ -88,19 +108,42 @@ void Emerald::CommandLine()
                                   Kernel->Config->usercmd.login = optarg;
                                   break;
                                   
+                          case 'j':
+
+                                  Kernel->Config->usercmd.join = optarg;
+                                  break;
+                                  
+                                  
                           case 'u':
                                          
                                   Kernel->Config->select = optarg;
                                   break;
                                 
                            default:
-                           
-                                   std::cout << engine::color::bold << "Usage: " << engine::color::reset << argv[0] << " [--login <username>] [--host <host>] [--pass <password>] [--port <port>]" << std::endl
-                                       << std::string(strlen(argv[0]) + 8, ' ') << "[--version] [--test]" << std::endl;
-                                   this->Exit(EXIT_CODE_ARGV, true);
                                 
-                                   break;
+                                 ShowHelp();
                       }       
+        }
+        
+        if  (!Kernel->Config->usercmd.join.empty())
+        {
+               engine::comma_node_stream CMD(Kernel->Config->usercmd.join);
+               std::string server;
+               
+               unsigned int counter = 0;
+               
+               while (CMD.items_extract(server))
+               {
+                     if (!Kernel->Engine->ValidChannel(server))
+                     {
+                            bprint(ERROR, "Invalid channel: %s", server.c_str());
+                            Kernel->Exit(EXIT_CODE_CONFIG, true);
+                     }
+                     
+                     counter++;
+              }
+              
+              bprint(INFO, "Joining %u channels.", counter);
         }
         
         if (do_rhist)
