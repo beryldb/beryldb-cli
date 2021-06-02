@@ -12,7 +12,7 @@ can visit our documentation site at [beryl.dev/clients/cli](https://docs.beryl.d
 
 ## What is Beryl-cli?
 
-Beryldb-cli (also known as Emerald) is a lightweight client for Beryl. 
+Beryldb-cli (also known as Emerald) is a lightweight client for [BerylDB](https://github.com/beryldb/beryldb). 
 
 Beryl-cli is a command line interface, it is a program that allows
 users to send commands to Beryl and read responses.

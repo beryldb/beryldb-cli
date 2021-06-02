@@ -1292,6 +1292,7 @@ static void UserInput(struct State *l)
 			        
 			        if (Kernel->Link.CheckCmd(CommandList))
 			        {
+			        	push_history(l->buf);
 					Server::Write("%s\r\n", l->buf);
 					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
 				}
@@ -1516,7 +1517,6 @@ int Server::Initialize()
 				if (ReturnFlag > 0) 
 				{
 					Kernel->Link->commands++;
-					push_history(cstate.buf);
 					UserInput(&cstate);
 					ResetState(&cstate);
 				} 
