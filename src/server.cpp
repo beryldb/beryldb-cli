@@ -858,8 +858,8 @@ void Server::Flush()
        {
                 	perror("write");
                 	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
-	}
-
+       }
+       
        this->buffer.pop_front();
 }
 
@@ -1447,6 +1447,7 @@ void Server::RunTimed(time_t current)
         Kernel->Tickers->Flush(current);
 }
 
+
 int Server::Initialize()
 {
         HistoryLoad();
@@ -1459,6 +1460,7 @@ int Server::Initialize()
 	slog("STARTUP", LOG_DEFAULT, "Connected to %s:%s", Kernel->Config->host.c_str(), Kernel->Config->port.c_str());
 	
 	Methods::LogIn(SESSION_DEFAULT, Kernel->Config->login, Kernel->Config->pass);
+
 	
 	fds[0].fd = STDIN_FILENO;
 	fds[1].fd = conn;
@@ -1504,8 +1506,6 @@ int Server::Initialize()
                         Kernel->SignalManager(Kernel->s_signal);
                         Emerald::s_signal = 0;
                 }
-
-		this->Flush();
 
 		if (r != -1)
 		{
@@ -1556,6 +1556,8 @@ int Server::Initialize()
 			Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 			return 1;
 		}
+		
+                this->Flush();
 		
 	}
 	

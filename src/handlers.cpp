@@ -189,7 +189,7 @@ static bool InternalTest()
 
     for (int i = 0; i < x; i++)
     {
-       Methods::Set(convto_string(i), "lala");
+       Methods::Set(convto_string(i), convto_string(i));
        Methods::Get(convto_string(i));
        
     
