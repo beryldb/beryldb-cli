@@ -221,6 +221,7 @@ void Configuration::Fill()
        changeserv = settings->as_bool("changeserv", true);
        customdisplay = settings->as_string("customdisplay", "");
        notifyflags = settings->as_bool("notifyflags", true);
+       lognotify   = settings->as_bool("lognotify", false);
        
        clear = settings->as_bool("clear", false);
 

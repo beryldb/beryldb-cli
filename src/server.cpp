@@ -1070,6 +1070,11 @@ static void CommandParser(char *request)
 				response = Kernel->Handler.OnNotFnd(params);
 			break;
 			
+			case BRLD_NOTIFICATION:
+			
+				Kernel->Handler.OnNotification(msg);
+			break;
+					
 			case  ERR_WRONG_PASS:
 			
 				Kernel->Handler.OnWrongPass();

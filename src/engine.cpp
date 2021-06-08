@@ -167,6 +167,10 @@ void Daemon::printb(const int type, const std::string& buff)
                    
                     std::cout << "[ " << green << "OK" << reset << " ] " << buff << reset << "\r\t" << std::endl;
                     break;
+           
+            case NOTIF:
+                  std::cout << "[ " << blue << "NOTI" << reset << " ] " << buff  << reset << "\r\t" << std::endl;
+                  break;
 
             case INFO:
                    

@@ -19,6 +19,7 @@
 #define INFO 2
 #define ERROR 3
 #define WARNING 4
+#define NOTIF 5
 
 class Emerald;
 class Configuration;

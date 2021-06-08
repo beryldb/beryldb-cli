@@ -39,6 +39,17 @@ Handlers::Handlers()
 
 }
 
+void Handlers::OnNotification(const std::string& original)
+{
+    if (Kernel->Config->lognotify)
+    {
+         slog("NOTIFY", LOG_DEFAULT, "%s", original.c_str());
+    }
+    
+    bprint(NOTIF, "%s", original.c_str());
+
+}
+
 void Handlers::OnError(std::vector<std::string>& cmd, std::string& original)
 {
     if (cmd.empty())

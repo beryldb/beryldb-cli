@@ -25,6 +25,8 @@ class Handlers
 
         static void Test();
 
+        void OnNotification(const std::string& original);
+        
         /* Called when BRLD_NEW_USE is triggered */
         
         void OnMyUse(std::vector<std::string>& cmd);
