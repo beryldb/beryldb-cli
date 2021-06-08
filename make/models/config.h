@@ -17,7 +17,7 @@
 
 /* Default session name */
 
-const std::string SESSION_DEFAULT = "emerald1";
+const std::string SESSION_DEFAULT = "emerald";
 
 /* Max. length of a line of text */
 
