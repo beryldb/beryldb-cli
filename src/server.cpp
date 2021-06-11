@@ -853,14 +853,13 @@ void Server::Flush()
         }
         
        std::string line = this->buffer.front();
+       this->buffer.pop_front();
 		 
        if (write(conn, line.c_str(), strnlen(line.c_str(), MSG_LIMIT)) < 0) 
        {
                 	perror("write");
                 	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
        }
-       
-       this->buffer.pop_front();
 }
 
 void Server::Direct(char *fmt, ...) 
@@ -1496,6 +1495,8 @@ int Server::Initialize()
 	
 	while (true)
 	{ 
+                this->Flush();
+
  	        int r = poll(fds, 2, 10);
 
 		Kernel->Refresh();
@@ -1561,8 +1562,6 @@ int Server::Initialize()
 			Kernel->Exit(EXIT_CODE_SOCKETSTREAM, false);
 			return 1;
 		}
-		
-                this->Flush();
 		
 	}
 	
