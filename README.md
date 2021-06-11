@@ -6,13 +6,13 @@
 <br>
 
 This README is brief introduction to Beryl-cli. For extended information, you
-can visit our documentation site at [beryl.dev/clients/cli](https://docs.beryl.dev/clients/cli/installing/)
+can visit our documentation site at [beryl.dev/clients/cli](https://docs.beryl.dev/cli/installing/)
 
 ![Logo](https://docs.beryl.dev/img/smaller.png??)
 
 ## What is Beryl-cli?
 
-Beryldb-cli (also known as Emerald) is a lightweight client for Beryl. 
+Beryldb-cli (also known as Emerald) is a lightweight client for [BerylDB](https://github.com/beryldb/beryldb). 
 
 Beryl-cli is a command line interface, it is a program that allows
 users to send commands to Beryl and read responses.
@@ -29,9 +29,9 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Download files:
 
 ```
-wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.3.2.tar.gz
-tar -xvzf 0.3.2.tar.gz
-cd beryldb-cli-0.3.2/
+wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.4.2.tar.gz
+tar -xvzf 0.4.2.tar.gz
+cd beryldb-cli-0.4.2/
 ```
 
 You may now build Beryldb-cli:
@@ -67,7 +67,7 @@ Usage: ./beryl-cli <arguments>
 
 If you wish to see examples about these parameters, visit our Running [guide](https://docs.beryl.dev/clients/cli/running/).
 
-## Internals
+## Discussions
 
 In order to maintain a documentation that is easy to follow, we try to maintain 
 discussions at a very shallow level. Our code is actively changing and thus
@@ -88,7 +88,7 @@ Inside the root directory, you will find:
 ## External Links
 
 * **IRC**: irc.libera.chat - #beryl
-* [Documentation](https://docs.beryl.dev/clients/cli/installing/)
+* [Documentation](https://docs.beryl.dev/cli/installing/)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
 * [Twitter](https://twitter.com/beryldb)

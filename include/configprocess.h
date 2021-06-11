@@ -115,6 +115,8 @@ class Configuration
         
         bool notifyflags;
         
+        bool lognotify;
+        
         bool clear;
 
         std::string customdisplay;

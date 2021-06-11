@@ -39,6 +39,17 @@ Handlers::Handlers()
 
 }
 
+void Handlers::OnNotification(const std::string& original)
+{
+    if (Kernel->Config->lognotify)
+    {
+         slog("NOTIFY", LOG_DEFAULT, "%s", original.c_str());
+    }
+    
+    bprint(NOTIF, "%s", original.c_str());
+
+}
+
 void Handlers::OnError(std::vector<std::string>& cmd, std::string& original)
 {
     if (cmd.empty())
@@ -185,17 +196,16 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 3000;
+    int x = 6000;
 
     for (int i = 0; i < x; i++)
     {
-       Methods::Set(convto_string(i), "lala");
+       Methods::Set(convto_string(i), convto_string(i));
        Methods::Get(convto_string(i));
-       
-    
     }
+       Server::Write("l\r\n");
+    
   
-    Server::Write("l\r\n");
   
     
 //    exit(0);

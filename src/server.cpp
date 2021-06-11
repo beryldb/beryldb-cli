@@ -853,14 +853,13 @@ void Server::Flush()
         }
         
        std::string line = this->buffer.front();
+       this->buffer.pop_front();
 		 
        if (write(conn, line.c_str(), strnlen(line.c_str(), MSG_LIMIT)) < 0) 
        {
                 	perror("write");
                 	Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
-	}
-
-       this->buffer.pop_front();
+       }
 }
 
 void Server::Direct(char *fmt, ...) 
@@ -1070,6 +1069,11 @@ static void CommandParser(char *request)
 				response = Kernel->Handler.OnNotFnd(params);
 			break;
 			
+			case BRLD_NOTIFICATION:
+			
+				Kernel->Handler.OnNotification(msg);
+			break;
+					
 			case  ERR_WRONG_PASS:
 			
 				Kernel->Handler.OnWrongPass();
@@ -1447,6 +1451,7 @@ void Server::RunTimed(time_t current)
         Kernel->Tickers->Flush(current);
 }
 
+
 int Server::Initialize()
 {
         HistoryLoad();
@@ -1459,6 +1464,7 @@ int Server::Initialize()
 	slog("STARTUP", LOG_DEFAULT, "Connected to %s:%s", Kernel->Config->host.c_str(), Kernel->Config->port.c_str());
 	
 	Methods::LogIn(SESSION_DEFAULT, Kernel->Config->login, Kernel->Config->pass);
+
 	
 	fds[0].fd = STDIN_FILENO;
 	fds[1].fd = conn;
@@ -1489,6 +1495,8 @@ int Server::Initialize()
 	
 	while (true)
 	{ 
+                this->Flush();
+
  	        int r = poll(fds, 2, 10);
 
 		Kernel->Refresh();
@@ -1504,8 +1512,6 @@ int Server::Initialize()
                         Kernel->SignalManager(Kernel->s_signal);
                         Emerald::s_signal = 0;
                 }
-
-		this->Flush();
 
 		if (r != -1)
 		{
