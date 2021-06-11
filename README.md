@@ -6,7 +6,7 @@
 <br>
 
 This README is brief introduction to Beryl-cli. For extended information, you
-can visit our documentation site at [beryl.dev/clients/cli](https://docs.beryl.dev/cli/installing/)
+can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/installation/)
 
 ![Logo](https://docs.beryl.dev/img/smaller.png??)
 
