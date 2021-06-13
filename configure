@@ -153,7 +153,7 @@ strict_test 'netinet/tcp.h', test_header $config{CXX}, 'netinet/tcp.h';
 strict_test 'dirent.h', test_header $config{CXX}, 'dirent.h';
 strict_test 'unistd.h', test_header $config{CXX}, 'unistd.h';
 
-$config{CLOCK_GETTIME_OK} = run_test 'clock_gettime()', test_file($config{CXX}, 'clock_gettime.cpp', '-lrt -std=c++14');
+$config{CLOCK_GETTIME_OK} = run_test 'clock_gettime()', verify_file($config{CXX}, 'clock_gettime.cpp', '-lrt -std=c++14');
 $config{CORE_COUNT} = get_cpu_count();
 
 strict_test 'poll', test_header $config{CXX}, 'sys/poll.h';

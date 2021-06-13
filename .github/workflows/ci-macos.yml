@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Running MacOS build workflow.
         run: ./make/build ${{ matrix.compiler }}
+      - name: Check version
+        run: ./run/beryl-cli version      
     strategy:
       matrix:
         compiler:

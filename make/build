@@ -57,10 +57,4 @@ for my $compiler (@compilers)
                 exit 1;
         }
         
-        if (execute './beryl-cli', '--version', $root) 
-        {
-                say "Unable to run beryl-cli.";
-                exit 1;
-        }
-
 }
