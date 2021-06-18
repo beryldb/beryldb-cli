@@ -6,7 +6,7 @@
 <br>
 
 This README is brief introduction to Beryl-cli. For extended information, you
-can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/installation/)
+can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/installation)
 
 ![Logo](https://docs.beryl.dev/img/smaller.png??)
 
@@ -29,12 +29,12 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Download files:
 
 ```
-wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.4.2.tar.gz
-tar -xvzf 0.4.2.tar.gz
-cd beryldb-cli-0.4.2/
+wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.7.2.tar.gz
+tar -xvzf 0.7.2.tar.gz
+cd beryldb-cli-0.7.2/
 ```
 
-You may now build Beryldb-cli:
+You may now build Beryl-cli:
 
 ```
 ./configure
@@ -44,7 +44,13 @@ make -j2
 ## Running
 
 ```
-./beryldb-cli
+./beryl-cli
+```
+
+In case you are running your server in a remote server:
+
+```
+./beryl-cli --host=example.beryl.dev
 ```
 
 ## Usage
@@ -65,7 +71,7 @@ Usage: ./beryl-cli <arguments>
 
 <br>
 
-If you wish to see examples about these parameters, visit our Running [guide](https://docs.beryl.dev/clients/cli/running/).
+If you wish to see examples about these parameters, visit our Running [guide](https://docs.beryl.dev/cli/running/).
 
 ## Discussions
 
@@ -88,7 +94,7 @@ Inside the root directory, you will find:
 ## External Links
 
 * **IRC**: irc.libera.chat - #beryl
-* [Documentation](https://docs.beryl.dev/cli/installing/)
+* [Documentation](https://docs.beryl.dev/cli/installation)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
 * [Twitter](https://twitter.com/beryldb)

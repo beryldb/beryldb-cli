@@ -144,6 +144,9 @@ unless ($config{CXX})
 
 my %compiler = retrieve_compiler($config{CXX});
 
+strict_test 'sys/stat.h',   test_header $config{CXX}, 'sys/stat.h';
+strict_test 'sys/types.h',   test_header $config{CXX}, 'sys/types.h';
+strict_test 'sys/socket.h',   test_header $config{CXX}, 'sys/socket.h';
 strict_test 'signal.h', test_header $config{CXX}, 'signal.h';
 strict_test 'getopt.h', test_header $config{CXX}, 'getopt.h';
 strict_test 'pwd.h',   test_header $config{CXX}, 'pwd.h';
@@ -153,7 +156,7 @@ strict_test 'netinet/tcp.h', test_header $config{CXX}, 'netinet/tcp.h';
 strict_test 'dirent.h', test_header $config{CXX}, 'dirent.h';
 strict_test 'unistd.h', test_header $config{CXX}, 'unistd.h';
 
-$config{CLOCK_GETTIME_OK} = run_test 'clock_gettime()', test_file($config{CXX}, 'clock_gettime.cpp', '-lrt -std=c++14');
+$config{CLOCK_GETTIME_OK} = run_test 'clock_gettime()', verify_file($config{CXX}, 'clock_gettime.cpp', '-lrt -std=c++14');
 $config{CORE_COUNT} = get_cpu_count();
 
 strict_test 'poll', test_header $config{CXX}, 'sys/poll.h';
@@ -372,7 +375,15 @@ print brld_format <<"EOM";
 <|GREEN Execution Group:|> $config{GROUP} ($config{GID})
 <|GREEN Execution User:|>  $config{USER} ($config{UID})
 
-Configure completed, in order to compile BerylDB run: '<|GREEN make ${\join ' ', @arguments} install|>'
-
 EOM
 
+my $make_using = "make";
+
+if ($^O eq "freebsd")
+{
+        $make_using = "gmake";
+}
+
+print brld_format <<"EOM";
+Configure completed, in order to compile Beryl-cli run: '<|GREEN $make_using ${\join ' ', @arguments} install|>'
+EOM

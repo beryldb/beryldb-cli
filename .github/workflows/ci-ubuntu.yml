@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CXXFLAGS: -std=${{ matrix.standard }}
-      TEST_BUILD_MODULES: 
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
@@ -16,6 +15,9 @@ jobs:
           sudo apt-get install --assume-yes --no-install-recommends g++ git make libc++-dev libc++abi-dev pkg-config
       - name: Running Ubuntu build workflow.
         run: ./make/build ${{ matrix.compiler }}
+      - name: Check version
+        run: ./beryl-cli --version      
+        
     strategy:
       matrix:
         compiler:

@@ -21,7 +21,6 @@ std::unique_ptr<Emerald> Kernel = nullptr;
 EmeraldStart
 {
         Kernel = std::make_unique<Emerald>(argc, argv);
-        Kernel.reset();
         return 1;
 }
 

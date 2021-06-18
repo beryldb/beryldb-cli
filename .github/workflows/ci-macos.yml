@@ -7,11 +7,12 @@ jobs:
     runs-on: macos-latest
     env:
       CXXFLAGS: -std=${{ matrix.standard }}
-      TEST_BUILD_MODULES: 
     steps:
       - uses: actions/checkout@v2
       - name: Running MacOS build workflow.
         run: ./make/build ${{ matrix.compiler }}
+      - name: Check version
+        run: ./beryl-cli --version      
     strategy:
       matrix:
         compiler:
