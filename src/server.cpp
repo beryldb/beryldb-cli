@@ -1330,7 +1330,7 @@ bool Server::CheckCmd(const std::vector<std::string>& CommandList)
                         return false;
 			
 		}
-		else if (command == "CHANGEPASS")
+		else if (command == "PASSWD")
 		{
 			if (CommandList.size() == 2)
 			{

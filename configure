@@ -103,7 +103,7 @@ else
 	$distro = get_distro_version();
 }
 
-my $welcome = "Setting up Beryl-cli $version{FULL} for GNU/" . ucfirst($^O) . " " . $distro;
+my $welcome = "Setting up Beryl-cli $version{FULL} for " . ucfirst($^O) . " " . $distro;
 
 say brld_format "\n<|BOLD $welcome |>\n";
 
