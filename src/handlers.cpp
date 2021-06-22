@@ -447,7 +447,8 @@ void Handlers::Local(std::string& buffer)
 
     else if (first.compare("restart") == 0)
     {
-        bprint(INFO, "Restarting.");
+        bprint(INFO, "Restarting");
+        printf("\x1b[0m\r\n");
         
         for (int i = getdtablesize(); --i > 2;)
         {

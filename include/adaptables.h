@@ -20,13 +20,8 @@
 #define ERROR 3
 #define WARNING 4
 #define NOTIF 5
+#define CONNECT 6
 
-class Emerald;
-class Configuration;
-class Server;
-class Handlers;
-class Engine;
-class config_rule;
 
 #if defined _LIBCPP_VERSION || defined _WIN32 || __cplusplus >= 201103L
 # define STR1 std

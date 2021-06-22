@@ -34,7 +34,31 @@ INSTMODE_DIR ?= 0755
 INSTMODE_BIN ?= 0755
 INSTMODE_TXT ?= 0644
 INSTMODE_PRV ?= 0640
-LDLIBS += -ldl 
+
+ifneq ($(SYSTEM), darwin)
+  LDLIBS += -pthread
+endif
+
+ifeq ($(SYSTEM), linux)
+  LDLIBS += -ldl -lrt -lpthread
+endif
+
+ifeq ($(SYSTEM), freebsd)
+  LDLIBS += -lpthread -ldl -lrt -L/usr/local/lib
+  CORECXXFLAGS += -I/usr/local/include
+endif
+
+ifeq ($(SYSTEM), openbsd)
+  LDLIBS += -lpthread -L/usr/local/lib
+  CORECXXFLAGS += -I/usr/local/include
+endif
+
+ifeq ($(SYSTEM), darwin)
+  LDLIBS += -ldl
+  CORELDFLAGS = -dynamic -bind_at_load -L.
+  PICLDFLAGS = -fPIC -shared -twolevel_namespace -undefined dynamic_lookup
+endif
+
 
 ifndef DEBUG
   DEBUG=0
