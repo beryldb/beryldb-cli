@@ -40,7 +40,7 @@
 # lognotify: Log notifications. Keep in mind that NOTIFICATIONS will log to
 # the "NOTIFY" log stream.
 
-<settings changeserv="true" notifyflags="false" clear="false" customdisplay="beryl" lognotify="false">
+<settings changeserv="true" notifyflags="false" clear="false" customdisplay="" lognotify="false">
 
 # Select #################################################
 #
