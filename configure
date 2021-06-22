@@ -379,7 +379,7 @@ EOM
 
 my $make_using = "make";
 
-if ($^O eq "freebsd")
+if ($^O eq "freebsd" || $^O eq "openbsd")
 {
         $make_using = "gmake";
 }

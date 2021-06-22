@@ -130,7 +130,7 @@ void Configuration::CheckCMD()
 {
         if (!Kernel->Config->usercmd.login.empty())
         {
-             bprint(INFO, "Using login: %s", Kernel->Config->usercmd.login.c_str());
+             bprint(CONNECT, "Using login: %s", Kernel->Config->usercmd.login.c_str());
              Kernel->Config->login = Kernel->Config->usercmd.login;
            
              if (!Kernel->Engine->ValidLogin(login))
@@ -142,7 +142,7 @@ void Configuration::CheckCMD()
 
         if (!Kernel->Config->usercmd.pass.empty())
         {
-            bprint(INFO, "Using pass: *");
+            bprint(CONNECT, "Using pass: *");
             Kernel->Config->pass = Kernel->Config->usercmd.pass;
 
             if (Kernel->Config->usercmd.pass.length() < 3 || Kernel->Config->usercmd.pass.length() > 30)
@@ -154,13 +154,13 @@ void Configuration::CheckCMD()
                 
         if (!Kernel->Config->usercmd.host.empty())
         {       
-                bprint(INFO, "Using host: %s", Kernel->Config->usercmd.host.c_str());
+                bprint(CONNECT, "Using host: %s", Kernel->Config->usercmd.host.c_str());
                 Kernel->Config->host = Kernel->Config->usercmd.host;
         }
         
         if (!Kernel->Config->usercmd.port.empty())
         {
-               bprint(INFO, "Using port: %s", Kernel->Config->usercmd.port.c_str());
+               bprint(CONNECT, "Using port: %s", Kernel->Config->usercmd.port.c_str());
                Kernel->Config->port = Kernel->Config->usercmd.port;
                 
                int intport = convto_num<int>(Kernel->Config->usercmd.port);

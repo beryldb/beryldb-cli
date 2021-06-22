@@ -25,8 +25,10 @@
 
 #include "config.h"
 #include "constants.h"
+
 #include "base.h"
 #include "filehandler.h"
+#include "forwards.h"
 #include "stdhelpers.h"
 #include "flat_map.h"
 #include "adaptables.h"
