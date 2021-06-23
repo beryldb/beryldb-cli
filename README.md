@@ -29,9 +29,9 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Download files:
 
 ```
-wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.7.2.tar.gz
-tar -xvzf 0.7.2.tar.gz
-cd beryldb-cli-0.7.2/
+wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.7.5.tar.gz
+tar -xvzf 0.7.5.tar.gz
+cd beryldb-cli-0.7.5/
 ```
 
 You may now build Beryl-cli:
