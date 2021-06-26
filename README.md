@@ -38,7 +38,7 @@ You may now build Beryl-cli:
 
 ```
 ./configure
-make -j2
+make -j2 install
 ```
 
 ## Running

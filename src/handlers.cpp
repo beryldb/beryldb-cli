@@ -270,7 +270,6 @@ void Handlers::OnYourFlags(std::vector<std::string>& cmd)
 {
      std::string mine = cmd[4].erase(0, 1);
      mine.erase(std::remove(mine.begin(), mine.end(), '\n'), mine.end());
-     Kernel->myflags = mine;
     
      if (Kernel->Config->notifyflags)
      {
@@ -428,11 +427,6 @@ void Handlers::Local(std::string& buffer)
             std::remove(HIST_FILE);
             Daemon::sprint(DTYPE_R, "History items: %d", Kernel->Link->CountHistory());
             Daemon::sprint(DTYPE_R, "History file removed.");
-    }
-    
-    else if (first.compare("flags") == 0)
-    {
-            Daemon::sprint(DTYPE_R, "Your flags: %s", Kernel->myflags.c_str());
     }
     else if (first.compare("connected") == 0)
     {

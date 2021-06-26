@@ -72,10 +72,6 @@ class Emerald
         
         std::string myself;
         
-        /* Keep track of your flags. */
-        
-        std::string myflags;
-        
         /* Real name of this server. */
 
         std::string realserver;
