@@ -192,7 +192,8 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
 static bool InternalTest()
 {
-  //  return true;
+
+    return true;
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
@@ -224,16 +225,15 @@ void Handlers::Test()
        
     int x = 100;
 
-    Methods::Set("hello", "world");
-    Methods::Set("hello2", "world");
+/*    Methods::Set("hello2", "world");
     Methods::Set("hello3", "world");
     Methods::Set("hello4", "world!");
-    
+  */  
     for (int i = 0; i < x; i++)
     {
          /* Requests 100 random keys. */
         
-         Methods::Set(convto_string(i), "lala");         
+         Methods::LPush("test", convto_string(i));         
     }
     
     Methods::Get("hello4");

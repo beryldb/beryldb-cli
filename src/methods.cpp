@@ -40,6 +40,11 @@ void Methods::rkey()
         Server::Write("rkey\r\n");
 }
 
+void Methods::LPush(const std::string& key, const std::string& hesh)
+{
+        Server::Write("lpush %s \"%s\"\r\n", key.c_str(), hesh.c_str());
+}
+
 void Methods::Set(const std::string& key, const std::string& value)
 {
         Server::Write("set %s \"%s\"\r\n", key.c_str(), value.c_str());
@@ -60,10 +65,6 @@ void Methods::Get(const std::string& key)
         Server::Write("get %s\r\n", key.c_str());
 }
 
-void Methods::LPush(const std::string& key, const std::string& value)
-{
-        Server::Write("lpush %s \"%s\"\r\n", key.c_str(), value.c_str());
-}
 
 void Methods::LGet(const std::string& key)
 {
