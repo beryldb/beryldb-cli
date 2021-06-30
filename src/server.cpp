@@ -1296,8 +1296,8 @@ static void UserInput(struct State *l)
 			        
 			        if (Kernel->Link.CheckCmd(CommandList))
 			        {
-					Server::Write("%s\r\n", l->buf);
-					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
+					Server::Write("%s\r\n", buf.c_str());
+					Daemon::serv_sprint(DTYPE_R, "%s", buf.c_str());					
 				}
 			}
 	}
