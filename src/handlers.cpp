@@ -197,7 +197,7 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 6000;
+    int x = 600;
 
     for (int i = 0; i < x; i++)
     {
@@ -223,7 +223,7 @@ void Handlers::Test()
 
     slog("TESTS", LOG_DEFAULT, "Calling Handlers::Test()");
        
-    int x = 100;
+    int x = 100000;
 
 /*    Methods::Set("hello2", "world");
     Methods::Set("hello3", "world");
@@ -384,7 +384,7 @@ void Handlers::Local(std::string& buffer)
 
     if (first.compare("me") == 0)
     {
-            Daemon::sprint(DTYPE_R, "Your instance ID: %s", Kernel->myself.c_str());
+            Daemon::sprint(DTYPE_R, "%s", Kernel->myself.c_str());
     }
     else if (first.compare("test") == 0)
     {

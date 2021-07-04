@@ -879,8 +879,8 @@ void Server::Direct(char *fmt, ...)
 
        if (write(conn, cmd_str, strnlen(cmd_str, MSG_LIMIT)) < 0) 
        {
-                        perror("write");
-                        Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+               perror("write");
+               Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
        }
 
        free(cmd_str);
@@ -1198,6 +1198,7 @@ static int HandleMessage(void)
 	for (;;) 
 	{
 		ssize_t stream_read = read(conn, &buffered_message[message_end], MSG_LIMIT - message_end);
+		
 		if (stream_read == -1) 
 		{
 			if (errno == EAGAIN || errno == EWOULDBLOCK) 
@@ -1233,8 +1234,7 @@ static int HandleMessage(void)
 				buffered_message[i + 1] = '\0';
 				CommandParser(buffered_message);
 				buffered_message[i + 1] = saved_char;
-				memmove(&buffered_message, &buffered_message[i + 1],
-						message_end - i - 1);
+				memmove(&buffered_message, &buffered_message[i + 1], message_end - i - 1);
 				message_end = message_end - i - 1;
 				i = 0;
 			}
@@ -1497,7 +1497,7 @@ int Server::Initialize()
 	{ 
                 this->Flush();
 
- 	        int r = poll(fds, 2, 10);
+ 	        int r = poll(fds, 2, 5);
 
 		Kernel->Refresh();
 
