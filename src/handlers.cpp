@@ -223,7 +223,7 @@ void Handlers::Test()
 
     slog("TESTS", LOG_DEFAULT, "Calling Handlers::Test()");
        
-    int x = 100000;
+    int x = 1000;
 
 /*    Methods::Set("hello2", "world");
     Methods::Set("hello3", "world");
@@ -233,7 +233,8 @@ void Handlers::Test()
     {
          /* Requests 100 random keys. */
         
-         Methods::LPush("test", convto_string(i));         
+         Methods::Set(convto_string(i), convto_string(i));         
+         Methods::Get(convto_string(i));         
     }
     
     Methods::Get("hello4");
@@ -461,6 +462,11 @@ void Handlers::Local(std::string& buffer)
     
     else if (first.compare("exec") == 0)
     {
+            if (remaining.empty())
+            {
+                 return;
+            }
+            
             std::string response = Utils::GetStdoutFromCommand(remaining.c_str());
             engine::newline_node_stream resp(response);
 
@@ -476,6 +482,11 @@ void Handlers::Local(std::string& buffer)
     }
     else if (first.compare("execsend") == 0)
     {
+            if (remaining.empty())
+            {
+                 return;
+            }
+
             std::string response = Utils::GetStdoutFromCommand(remaining.c_str());
             engine::newline_node_stream resp(response);
 

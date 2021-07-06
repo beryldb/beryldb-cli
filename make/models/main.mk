@@ -138,11 +138,11 @@ install: target
 	-$(INSTALL) -g @GID@ -o @UID@ -m $(INSTMODE_TXT) @CONFIGURE_DIRECTORY@/beryl-cli.1 $(MANPATH) 2>/dev/null
 	-$(INSTALL) -g @GID@ -o @UID@ -m $(INSTMODE_TXT) docs/conf/*.example $(EXAPATH)
 	@echo ""
-	@echo "· Beryl-cli is now installed."
-	@echo ""
 	@echo '· Paths:'
 	@echo ' '
 	@echo '    Configuration:' $(CONPATH)
+	@echo ""
+	@echo "· Beryl-cli is now installed."
 	@echo ""
 	@echo 'You need to create a configuration file:' $(CONPATH)/beryl-cli.conf
 	@echo 'Feel free to check our config examples:' $(EXAPATH)

@@ -15,6 +15,8 @@
 
 #include "nodes.h"
 
+#include <stdarg.h>
+
 #define DONE 1
 #define INFO 2
 #define ERROR 3

@@ -26,12 +26,12 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 
 ## Installation
 
-Download files:
+Downloading:
 
 ```
-wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.7.5.tar.gz
-tar -xvzf 0.7.5.tar.gz
-cd beryldb-cli-0.7.5/
+https://github.com/beryldb/beryldb-cli/archive/refs/heads/1.0.zip
+unzip 1.0.zip
+cd beryldb-cli-1.0/
 ```
 
 You may now build Beryl-cli:
@@ -66,7 +66,6 @@ Usage: ./beryl-cli <arguments>
      --join <channels>,           Join channels upon connection.
      --test,                      Run tests and exit.
      --version,                   Display version and exit.
-
 ```
 
 <br>

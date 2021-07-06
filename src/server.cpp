@@ -1446,11 +1446,6 @@ unsigned int Server::CountHistory()
 	return history_length;
 }
 
-void Server::RunTimed(time_t current)
-{
-        Kernel->Tickers->Flush(current);
-}
-
 
 int Server::Initialize()
 {
@@ -1497,14 +1492,13 @@ int Server::Initialize()
 	{ 
                 this->Flush();
 
- 	        int r = poll(fds, 2, 5);
+ 	        int r = poll(fds, 2, -1);
 
 		Kernel->Refresh();
 
 		if (Kernel->GetTime().tv_sec != PREV_TIME)
 		{
                 	PREV_TIME = Kernel->GetTime().tv_sec;
-	                this->RunTimed(Kernel->GetTime().tv_sec);
 		}
 
                 if (Kernel->s_signal)
