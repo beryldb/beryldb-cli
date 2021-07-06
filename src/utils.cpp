@@ -29,7 +29,7 @@ static void ShowHelp()
         printf("Usage: ./beryl-cli <arguments>\n\n");
 
         printf ("%4s %-28s %29s\n", "", "--login <username>,", "Login with a different username.");
-        printf ("%4s %-28s %29s\n", "", "--host <host>,", "Connect to a different host than localhost.");
+        printf ("%4s %-28s %29s\n", "", "--host <host>,", "Connect to provided host.");
         printf ("%4s %-28s %29s\n", "", "--password <password>,", "Use a different password than default.");
         printf ("%4s %-28s %29s\n", "", "--port <port>,", "Use a differnt port than 6378");
         printf ("%4s %-28s %29s\n", "", "--use <use>,", "Use a different select than 1.");

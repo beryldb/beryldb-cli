@@ -59,7 +59,7 @@ In case you are running your server in a remote server:
 Usage: ./beryl-cli <arguments>
 
      --login <username>,          Login with a different username.
-     --host <host>,               Connect to a different host than localhost.
+     --host <host>,               Connect to provided host.
      --password <password>,       Use a different password than default.
      --port <port>,               Use a differnt port than 6378
      --use <use>,                 Use a different select than 1.
