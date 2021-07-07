@@ -1486,20 +1486,13 @@ int Server::Initialize()
 	}
 	
 	Kernel->Refresh();
-        time_t PREV_TIME = Kernel->GetTime().tv_sec;
 	
 	while (true)
 	{ 
+                Kernel->Refresh();
                 this->Flush();
 
  	        int r = poll(fds, 2, -1);
-
-		Kernel->Refresh();
-
-		if (Kernel->GetTime().tv_sec != PREV_TIME)
-		{
-                	PREV_TIME = Kernel->GetTime().tv_sec;
-		}
 
                 if (Kernel->s_signal)
                 {
