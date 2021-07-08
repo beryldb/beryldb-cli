@@ -40,6 +40,11 @@ void Methods::rkey()
         Server::Write("rkey\r\n");
 }
 
+void Methods::LPush(const std::string& key, const std::string& hesh)
+{
+        Server::Write("lpush %s \"%s\"\r\n", key.c_str(), hesh.c_str());
+}
+
 void Methods::Set(const std::string& key, const std::string& value)
 {
         Server::Write("set %s \"%s\"\r\n", key.c_str(), value.c_str());
@@ -60,10 +65,6 @@ void Methods::Get(const std::string& key)
         Server::Write("get %s\r\n", key.c_str());
 }
 
-void Methods::LPush(const std::string& key, const std::string& value)
-{
-        Server::Write("lpush %s \"%s\"\r\n", key.c_str(), value.c_str());
-}
 
 void Methods::LGet(const std::string& key)
 {
@@ -87,9 +88,7 @@ void Methods::LogIn(const std::string& session, const std::string& login, const 
              Methods::use(Kernel->Config->select);
         }
 
-        Server::Direct("agent %s\r\n", session.c_str());
-        Server::Direct("auth %s\r\n", pass.c_str());
-        Server::Write("login %s\r\n", login.c_str());
+        Server::Write("ILOGIN %s %s %s\r\n", session.c_str(), pass.c_str(), login.c_str());
 }
 
 void Methods::Command(const std::string& cmd)

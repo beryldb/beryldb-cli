@@ -192,21 +192,19 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 
 static bool InternalTest()
 {
-  //  return true;
+
+    return true;
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 6000;
+    int x = 100;
 
     for (int i = 0; i < x; i++)
     {
-       Methods::Set(convto_string(i), convto_string(i));
-       Methods::Get(convto_string(i));
+//       Methods::Set(convto_string(i), convto_string(i));
+  //     Methods::Get(convto_string(i));
+          Methods::rkey();
     }
-       Server::Write("l\r\n");
-    
-  
-  
     
 //    exit(0);
     return false;
@@ -222,18 +220,18 @@ void Handlers::Test()
 
     slog("TESTS", LOG_DEFAULT, "Calling Handlers::Test()");
        
-    int x = 100;
+    int x = 1000;
 
-    Methods::Set("hello", "world");
-    Methods::Set("hello2", "world");
+/*    Methods::Set("hello2", "world");
     Methods::Set("hello3", "world");
     Methods::Set("hello4", "world!");
-    
+  */  
     for (int i = 0; i < x; i++)
     {
          /* Requests 100 random keys. */
         
-         Methods::Set(convto_string(i), "lala");         
+         Methods::Set(convto_string(i), convto_string(i));         
+         Methods::Get(convto_string(i));         
     }
     
     Methods::Get("hello4");
@@ -270,7 +268,6 @@ void Handlers::OnYourFlags(std::vector<std::string>& cmd)
 {
      std::string mine = cmd[4].erase(0, 1);
      mine.erase(std::remove(mine.begin(), mine.end(), '\n'), mine.end());
-     Kernel->myflags = mine;
     
      if (Kernel->Config->notifyflags)
      {
@@ -385,7 +382,7 @@ void Handlers::Local(std::string& buffer)
 
     if (first.compare("me") == 0)
     {
-            Daemon::sprint(DTYPE_R, "Your instance ID: %s", Kernel->myself.c_str());
+            Daemon::sprint(DTYPE_R, "%s", Kernel->myself.c_str());
     }
     else if (first.compare("test") == 0)
     {
@@ -429,11 +426,6 @@ void Handlers::Local(std::string& buffer)
             Daemon::sprint(DTYPE_R, "History items: %d", Kernel->Link->CountHistory());
             Daemon::sprint(DTYPE_R, "History file removed.");
     }
-    
-    else if (first.compare("flags") == 0)
-    {
-            Daemon::sprint(DTYPE_R, "Your flags: %s", Kernel->myflags.c_str());
-    }
     else if (first.compare("connected") == 0)
     {
         unsigned int up = static_cast<unsigned int>(Kernel->Now() - Kernel->GetStartup());
@@ -467,6 +459,11 @@ void Handlers::Local(std::string& buffer)
     
     else if (first.compare("exec") == 0)
     {
+            if (remaining.empty())
+            {
+                 return;
+            }
+            
             std::string response = Utils::GetStdoutFromCommand(remaining.c_str());
             engine::newline_node_stream resp(response);
 
@@ -478,10 +475,20 @@ void Handlers::Local(std::string& buffer)
     }
     else if (first.compare("load") == 0)
     {
+        if (remaining.empty())
+        {
+              return;
+        }
+        
         FileLoader::Dump(remaining.c_str());
     }
     else if (first.compare("execsend") == 0)
     {
+            if (remaining.empty())
+            {
+                 return;
+            }
+
             std::string response = Utils::GetStdoutFromCommand(remaining.c_str());
             engine::newline_node_stream resp(response);
 

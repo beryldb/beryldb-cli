@@ -879,8 +879,8 @@ void Server::Direct(char *fmt, ...)
 
        if (write(conn, cmd_str, strnlen(cmd_str, MSG_LIMIT)) < 0) 
        {
-                        perror("write");
-                        Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
+               perror("write");
+               Kernel->Exit(EXIT_CODE_SOCKETSTREAM);
        }
 
        free(cmd_str);
@@ -980,7 +980,7 @@ static void CommandParser(char *request)
 
 	if (!strncmp(request, convto_string(BRLD_PING).c_str(), 3)) 
 	{	
-		Kernel->Link.Write("PONG %s\r\n", request);
+		Kernel->Link.Write("PONG 1\r\n");
 		return;
 	}
 
@@ -1198,6 +1198,7 @@ static int HandleMessage(void)
 	for (;;) 
 	{
 		ssize_t stream_read = read(conn, &buffered_message[message_end], MSG_LIMIT - message_end);
+		
 		if (stream_read == -1) 
 		{
 			if (errno == EAGAIN || errno == EWOULDBLOCK) 
@@ -1233,8 +1234,7 @@ static int HandleMessage(void)
 				buffered_message[i + 1] = '\0';
 				CommandParser(buffered_message);
 				buffered_message[i + 1] = saved_char;
-				memmove(&buffered_message, &buffered_message[i + 1],
-						message_end - i - 1);
+				memmove(&buffered_message, &buffered_message[i + 1], message_end - i - 1);
 				message_end = message_end - i - 1;
 				i = 0;
 			}
@@ -1296,8 +1296,8 @@ static void UserInput(struct State *l)
 			        
 			        if (Kernel->Link.CheckCmd(CommandList))
 			        {
-					Server::Write("%s\r\n", l->buf);
-					Daemon::serv_sprint(DTYPE_R, "%s", l->buf);					
+					Server::Write("%s\r\n", buf.c_str());
+					Daemon::serv_sprint(DTYPE_R, "%s", buf.c_str());					
 				}
 			}
 	}
@@ -1446,11 +1446,6 @@ unsigned int Server::CountHistory()
 	return history_length;
 }
 
-void Server::RunTimed(time_t current)
-{
-        Kernel->Tickers->Flush(current);
-}
-
 
 int Server::Initialize()
 {
@@ -1491,21 +1486,13 @@ int Server::Initialize()
 	}
 	
 	Kernel->Refresh();
-        time_t PREV_TIME = Kernel->GetTime().tv_sec;
 	
 	while (true)
 	{ 
+                Kernel->Refresh();
                 this->Flush();
 
- 	        int r = poll(fds, 2, 10);
-
-		Kernel->Refresh();
-
-		if (Kernel->GetTime().tv_sec != PREV_TIME)
-		{
-                	PREV_TIME = Kernel->GetTime().tv_sec;
-	                this->RunTimed(Kernel->GetTime().tv_sec);
-		}
+ 	        int r = poll(fds, 2, -1);
 
                 if (Kernel->s_signal)
                 {

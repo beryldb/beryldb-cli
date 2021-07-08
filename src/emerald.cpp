@@ -138,6 +138,14 @@ void Emerald::Exit(int code, bool skip, const std::string& exitmsg)
         
         this->displayserver.clear();
 
+        this->Config = nullptr;
+
+        memset(&this->TIME, 0, sizeof(timespec));
+
+        memset(&this->startup, 0, sizeof(time_t));
+
+        Kernel = nullptr;
+
         exit(code);
 }
 

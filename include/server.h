@@ -42,8 +42,6 @@ class Server : public safecast<Server>
     
         void Flush();
 
-        void RunTimed(time_t current);
-    
     public:
     
         unsigned int commands;

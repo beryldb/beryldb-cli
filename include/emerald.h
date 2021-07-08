@@ -14,21 +14,17 @@
 #pragma once
 
 #include <csignal>
-
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <errno.h>
 #include <memory>
 #include <vector>
 
 #include "config.h"
 #include "constants.h"
-
 #include "base.h"
 #include "filehandler.h"
 #include "forwards.h"
+
+extern std::unique_ptr<Emerald> Kernel;
+
 #include "stdhelpers.h"
 #include "flat_map.h"
 #include "adaptables.h"
@@ -37,19 +33,15 @@
 #include "converter.h"
 #include "protocols.h"
 #include "server.h"
-#include "timer.h"
 #include "handlers.h"
 #include "nodes.h"
 #include "engine.h"
 #include "logs.h"
 
-extern std::unique_ptr<Emerald> Kernel;
+EmeraldStart;
 
 class Emerald
 {
-    friend class Daemon;
-    friend class Server;
-    friend class Configuration;
     friend class Handlers;
     
     private:
@@ -66,15 +58,9 @@ class Emerald
         
         void CommandLine();
 
-        void SignalManager(int signal);
-        
         /* My assigned (by the server) instance id. */
         
         std::string myself;
-        
-        /* Keep track of your flags. */
-        
-        std::string myflags;
         
         /* Real name of this server. */
 
@@ -128,9 +114,11 @@ class Emerald
 
         std::unique_ptr<Configuration> Config;
         
-	TickManager Tickers;
-
 	static void Signalizers();
+
+        /* Handles signals. */
+
+        void SignalManager(int signal);
 	
         /* Refreshes TIME */
         
@@ -201,7 +189,5 @@ class Emerald
          */            
          
         void Exit(int code = 0, bool skip = false, const std::string& exitmsg = "");
-
 };
 
-EmeraldStart;

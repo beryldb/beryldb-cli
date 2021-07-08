@@ -26,19 +26,19 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 
 ## Installation
 
-Download files:
+Downloading:
 
 ```
-wget https://github.com/beryldb/beryldb-cli/archive/refs/tags/0.7.5.tar.gz
-tar -xvzf 0.7.5.tar.gz
-cd beryldb-cli-0.7.5/
+https://github.com/beryldb/beryldb-cli/archive/refs/heads/1.0.zip
+unzip 1.0.zip
+cd beryldb-cli-1.0/
 ```
 
 You may now build Beryl-cli:
 
 ```
 ./configure
-make -j2
+make -j2 install
 ```
 
 ## Running
@@ -59,14 +59,13 @@ In case you are running your server in a remote server:
 Usage: ./beryl-cli <arguments>
 
      --login <username>,          Login with a different username.
-     --host <host>,               Connect to a different host than localhost.
+     --host <host>,               Connect to provided host.
      --password <password>,       Use a different password than default.
      --port <port>,               Use a differnt port than 6378
      --use <use>,                 Use a different select than 1.
      --join <channels>,           Join channels upon connection.
      --test,                      Run tests and exit.
      --version,                   Display version and exit.
-
 ```
 
 <br>
