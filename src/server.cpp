@@ -980,7 +980,7 @@ static void CommandParser(char *request)
 
 	if (!strncmp(request, convto_string(BRLD_PING).c_str(), 3)) 
 	{	
-		Kernel->Link.Write("PONG %s\r\n", request);
+		Kernel->Link.Write("PONG 1\r\n");
 		return;
 	}
 

@@ -193,7 +193,7 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 static bool InternalTest()
 {
 
-//    return true;
+    return true;
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
