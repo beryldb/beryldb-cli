@@ -229,7 +229,9 @@ void Handlers::Test()
     for (int i = 0; i < x; i++)
     {
          /* Requests 100 random keys. */
-        
+    
+//          Methods::L();
+              
          Methods::Set(convto_string(i), convto_string(i));         
          Methods::Get(convto_string(i));         
     }

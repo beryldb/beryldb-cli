@@ -142,3 +142,9 @@ void Methods::Part(const std::string& chan)
         Server::Write("PART %s\r\n", server.c_str());   
     }
 }
+
+
+void Methods::L()
+{
+        Server::Write("l\r\n");
+}

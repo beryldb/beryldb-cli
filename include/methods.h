@@ -59,4 +59,6 @@ class Methods
 
         static void Find(const std::string& key);
         
+        static void L();
+        
 };
