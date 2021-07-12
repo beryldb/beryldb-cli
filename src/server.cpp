@@ -928,7 +928,7 @@ static int InitConnection(void)
 	struct addrinfo *p;
 
 	struct timeval timeout;      
-	timeout.tv_sec = 2;
+	timeout.tv_sec = 5;
 	timeout.tv_usec = 0;
     
 	for (p = res; p != NULL; p = p->ai_next) 
