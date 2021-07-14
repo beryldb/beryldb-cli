@@ -201,9 +201,9 @@ static bool InternalTest()
 
     for (int i = 0; i < x; i++)
     {
-//       Methods::Set(convto_string(i), convto_string(i));
-  //     Methods::Get(convto_string(i));
-          Methods::rkey();
+       Methods::Set(convto_string(i), convto_string(i));
+       Methods::Get(convto_string(i));
+//          Methods::rkey();
     }
     
 //    exit(0);
@@ -232,8 +232,8 @@ void Handlers::Test()
     
 //          Methods::L();
               
-         Methods::Set(convto_string(i), convto_string(i));         
-         Methods::Get(convto_string(i));         
+         Methods::LPush("x", convto_string(i));         
+         //Methods::Get(convto_string(i));         
     }
     
     Methods::Get("hello4");

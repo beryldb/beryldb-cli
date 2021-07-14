@@ -92,7 +92,6 @@ Inside the root directory, you will find:
 
 ## External Links
 
-* **IRC**: irc.libera.chat - #beryl
 * [Documentation](https://docs.beryl.dev/cli/installation)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
