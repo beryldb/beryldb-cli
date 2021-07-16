@@ -161,8 +161,7 @@ void Handlers::OnSlist(std::vector<std::string>& cmd, std::string& original)
              printf("\x1b[0m\r\n");
         }
 
-        std::cout << "#" << chan << "|total|> " << counter;
-        printf("\x1b[0m\r\n");
+        Daemon::csprint(DTYPE_R, "#%s|total|> %u", chan.c_str(), counter);
 }
 
 void Handlers::OnJoin(std::vector<std::string>& cmd)
