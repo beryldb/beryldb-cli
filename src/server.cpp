@@ -1152,7 +1152,7 @@ static void CommandParser(char *request)
 
 			break;
 
-			case BRLD_SLIST_REPLY:
+			case BRLD_SLIST_ITEM:
 			
 				Kernel->Handler.OnSlist(params, msg);
 				return;
