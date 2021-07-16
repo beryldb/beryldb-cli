@@ -201,9 +201,9 @@ static bool InternalTest()
 
     for (int i = 0; i < x; i++)
     {
-//       Methods::Set(convto_string(i), convto_string(i));
-  //     Methods::Get(convto_string(i));
-          Methods::rkey();
+       Methods::Set(convto_string(i), convto_string(i));
+       Methods::Get(convto_string(i));
+//          Methods::rkey();
     }
     
 //    exit(0);
@@ -229,9 +229,11 @@ void Handlers::Test()
     for (int i = 0; i < x; i++)
     {
          /* Requests 100 random keys. */
-        
-         Methods::Set(convto_string(i), convto_string(i));         
-         Methods::Get(convto_string(i));         
+    
+//          Methods::L();
+              
+         Methods::LPush("x", convto_string(i));         
+         //Methods::Get(convto_string(i));         
     }
     
     Methods::Get("hello4");

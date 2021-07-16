@@ -927,6 +927,10 @@ static int InitConnection(void)
 
 	struct addrinfo *p;
 
+	struct timeval timeout;      
+	timeout.tv_sec = 5;
+	timeout.tv_usec = 0;
+    
 	for (p = res; p != NULL; p = p->ai_next) 
 	{
 		if ((conn = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) 
@@ -934,6 +938,8 @@ static int InitConnection(void)
 			Kernel->Exit(EXIT_CODE_SOCKETSTREAM, true);
 			continue;
 		}
+
+		setsockopt(conn, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval));
 
 		if (connect(conn, p->ai_addr, p->ai_addrlen) == -1) 
 		{
@@ -1146,7 +1152,7 @@ static void CommandParser(char *request)
 
 			break;
 
-			case BRLD_SLIST_REPLY:
+			case BRLD_SLIST_ITEM:
 			
 				Kernel->Handler.OnSlist(params, msg);
 				return;

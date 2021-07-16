@@ -29,7 +29,7 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Downloading:
 
 ```
-https://github.com/beryldb/beryldb-cli/archive/refs/heads/1.0.zip
+wget https://github.com/beryldb/beryldb-cli/archive/refs/heads/1.0.zip
 unzip 1.0.zip
 cd beryldb-cli-1.0/
 ```
@@ -92,7 +92,6 @@ Inside the root directory, you will find:
 
 ## External Links
 
-* **IRC**: irc.libera.chat - #beryl
 * [Documentation](https://docs.beryl.dev/cli/installation)
 * [GitHub](https://github.com/beryldb/beryldb-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
