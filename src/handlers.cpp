@@ -402,7 +402,7 @@ void Handlers::Local(std::string& buffer)
             
             Handlers::Test();
     }
-    else if (first.compare("cmds") == 0)
+    else if (first.compare("counter") == 0)
     {
           Daemon::sprint(DTYPE_R, "%s", convto_string(Kernel->Link->commands).c_str());    
     }
