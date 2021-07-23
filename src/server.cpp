@@ -385,32 +385,28 @@ static void UpdateLine(struct State *l)
 	int fd = STDOUT_FILENO;
 	char *buf = l->buf;
 	size_t lenb = l->lenb;
-	size_t lenu8 = l->lenu8;
-	size_t reserverd_position = l->reserverd_position;
+	size_t reserved_position = l->reserverd_position;
+	size_t ch = plenu8, txtlenb = 0;
 	struct abuf ab;
 
 	l->cols = get_columns(STDIN_FILENO, STDOUT_FILENO);
 
-	while ((plenu8 + reserverd_position) >= l->cols) 
+	while ((plenu8 + reserved_position) >= l->cols) 
 	{
-		size_t movedBy = ReservedNext(buf, 0);
-		buf += movedBy;
-		lenb += movedBy;
-		lenu8--;
-		reserverd_position--;
+		buf += ReservedNext(buf, 0);
+		reserved_position--;
 	}
 
-	while ((plenu8 + lenu8) > l->cols) 
+	while (txtlenb < lenb && ch++ < l->cols)
 	{
-		lenu8--;
-		lenb = u8Prev(buf, lenb);
+		txtlenb += ReservedNext(buf + txtlenb, 0);
 	}
 
 	abInit(&ab);
 
 	snprintf(seq, sizeof(seq), "\r");
 	A_BufferAppend(&ab, seq, strnlen(seq, MSG_LIMIT));
-	A_BufferAppend(&ab,l->prompt, l->plenb);
+	A_BufferAppend(&ab, l->prompt, l->plenb);
 	
 	if (!Kernel->display_select)
 	{
@@ -423,22 +419,22 @@ static void UpdateLine(struct State *l)
         }
 	
 	A_BufferAppend(&ab, "> ", 2);
-	A_BufferAppend(&ab, buf, lenb);
+	A_BufferAppend(&ab, buf, txtlenb);
 
 	snprintf(seq, sizeof(seq), "\x1b[0K");
 
 	A_BufferAppend(&ab, seq, strnlen(seq, MSG_LIMIT));
 
-	if (reserverd_position + plenu8) 
+	if (reserved_position + plenu8) 
 	{
-		snprintf(seq, sizeof(seq), "\r\x1b[%dC", (int)(reserverd_position + plenu8));
+		snprintf(seq, sizeof(seq), "\r\x1b[%dC", (int)(reserved_position + plenu8));
 	} 
 	else 
 	{
 		snprintf(seq, sizeof(seq), "\r");
 	}
 
-	A_BufferAppend(&ab, seq, strlen(seq));
+	A_BufferAppend(&ab, seq, strnlen(seq, MSG_LIMIT));
 
 	if (write(fd, ab.b, ab.len) == -1) 
 	{
@@ -1290,7 +1286,7 @@ static void UserInput(struct State *l)
                                         Daemon::sprint(DTYPE_R, " ", " ");                     
                                         return;
 				}
-				
+			
 			        engine::space_node_stream CMD(buf);
 			        std::string server;
 				std::vector<std::string> CommandList;

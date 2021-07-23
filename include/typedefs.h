@@ -13,7 +13,7 @@
 
 #pragma once
 
-#define MSG_LIMIT 1073741
+#define MSG_LIMIT 655633
 #define CHA_MAX 200
 #define INS_MAX 200
 #define HIS_MAX 50
