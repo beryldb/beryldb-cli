@@ -26,12 +26,11 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 
 ## Installation
 
-Downloading:
+Clone latest stable version:
 
 ```
-wget https://github.com/beryldb/beryldb-cli/archive/refs/heads/1.0.zip
-unzip 1.0.zip
-cd beryldb-cli-1.0/
+git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git --depth=5
+cd beryldb-cli/
 ```
 
 You may now build Beryl-cli:

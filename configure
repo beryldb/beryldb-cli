@@ -318,7 +318,7 @@ my $question = <<"EOQ";
 <|BOLD Manual:|> $config{MANUAL_DIR}
 <|BOLD Script:|> $config{SCRIPT_DIR}
 
-Would you like to change these settings?
+Would you like to change these settings? (Recommended: no)
 EOQ
 if (prompt_bool $interactive_setup, $question, 0) 
 {
