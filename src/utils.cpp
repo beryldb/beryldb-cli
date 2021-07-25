@@ -64,17 +64,17 @@ void Emerald::CommandLine()
         
         struct option longopts[] =
         {
-                        { "version",  no_argument,       &do_version,    1 },
-                        { "debug",    no_argument,       &do_debug,     1   },
-                        { "port",     required_argument, NULL,   	'p' },
-                        { "host",     required_argument, NULL,   	'h' },
-                        { "pass",     required_argument, NULL,   	'd'},
-                        { "login",    required_argument, NULL,          'l'},
-                        { "use",      required_argument, NULL,          'u'},
-                        { "join",     required_argument, NULL,          'j'},
-                        { "test",     no_argument,       &do_tests,     't'},
-                        { "rhist",    no_argument,       &do_rhist, 	'r' },
-                        { 0, 0, 0, 0 }
+                        { "version",  no_argument,       &do_version,    1   },
+                        { "debug",    no_argument,       &do_debug,      1   },
+                        { "port",     required_argument, NULL,   	 'p' },
+                        { "host",     required_argument, NULL,   	 'h' },
+                        { "pass",     required_argument, NULL,   	 'd' },
+                        { "login",    required_argument, NULL,           'l' },
+                        { "use",      required_argument, NULL,           'u' },
+                        { "join",     required_argument, NULL,           'j' },
+                        { "test",     no_argument,       &do_tests,      't' },
+                        { "rhist",    no_argument,       &do_rhist, 	 'r' },
+                        { 0, 	      0,		 0,		 0   }
         };
         
         char** argv = this->Config->usercmd.argv;
