@@ -61,8 +61,6 @@ class Handlers
         
         std::string OnUptime(std::string& original);
 
-         void OnSlist(std::vector<std::string>& cmd, std::string& original);
-
         static void Local(std::string& buffer);
 
         static void OnError(std::vector<std::string>& cmd, std::string& original);

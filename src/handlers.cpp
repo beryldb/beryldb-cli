@@ -122,47 +122,6 @@ void Handlers::OnPublish(std::vector<std::string>& cmd, std::string& original)
         Daemon::csprint(DTYPE_R, "%s", output.c_str());
 }
 
-void Handlers::OnSlist(std::vector<std::string>& cmd, std::string& original)
-{
-        std::vector<std::string> vec = explode(cmd[0], '!');
-        std::string chan = cmd[4];
-        chan.erase(0, 1);
-        chan.erase(std::remove(chan.begin(), chan.end(), '\n'), chan.end());
-
-        engine::space_node_stream CMD(original);
-        std::string server;
-        std::string users;
-
-        unsigned int counter = 0;
-        bool onemore = false;
-
-        while (CMD.items_extract(server))
-        {       
-                users.append("[" + server + "]");
-                users.append(" ");
-                counter++;
-
-                if (counter % 2 == 0)
-                {
-                     std::cout << "#" << chan << "> " << users;
-                     printf("\x1b[0m\r\n");
-                     onemore  = true;
-                     users.clear();
-                }
-                else
-                {
-                     onemore = false;
-                }
-        }
-
-        if (!onemore)
-        {
-             std::cout << "#" << chan << "> " << users;
-             printf("\x1b[0m\r\n");
-        }
-
-        Daemon::csprint(DTYPE_R, "#%s|total|> %u", chan.c_str(), counter);
-}
 
 void Handlers::OnJoin(std::vector<std::string>& cmd)
 {   
@@ -192,7 +151,7 @@ void Handlers::OnJoin(std::vector<std::string>& cmd)
 static bool InternalTest()
 {
 
-    return true;
+    //return true;
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
@@ -202,7 +161,6 @@ static bool InternalTest()
     {
        Methods::Set(convto_string(i), convto_string(i));
        Methods::Get(convto_string(i));
-//          Methods::rkey();
     }
     
 //    exit(0);
@@ -219,22 +177,6 @@ void Handlers::Test()
 
     slog("TESTS", LOG_DEFAULT, "Calling Handlers::Test()");
        
-    int x = 1000;
-
-/*    Methods::Set("hello2", "world");
-    Methods::Set("hello3", "world");
-    Methods::Set("hello4", "world!");
-  */  
-    for (int i = 0; i < x; i++)
-    {
-         /* Requests 100 random keys. */
-    
-//          Methods::L();
-              
-         Methods::LPush("x", convto_string(i));         
-         //Methods::Get(convto_string(i));         
-    }
-    
     Methods::Get("hello4");
     
     Methods::HSet("hello", "pretty", "world");

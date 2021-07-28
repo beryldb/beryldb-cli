@@ -16,7 +16,7 @@
 #include "engine.h"
 #include "exit.h"
 
-std::unique_ptr<Emerald> Kernel = nullptr;
+std::unique_ptr<Emerald> Kernel = NULL;
 
 EmeraldStart
 {
