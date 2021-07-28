@@ -1148,19 +1148,6 @@ static void CommandParser(char *request)
 
 			break;
 
-			case BRLD_SLIST_ITEM:
-			
-				Kernel->Handler.OnSlist(params, msg);
-				return;
-				
-			break;
-
-
-			case BRLD_END_OF_SLIST:
-			
-				return;
-			break;
-
 			case BRLD_END_STATUS:
 			
 				return;
