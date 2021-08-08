@@ -16,7 +16,7 @@ CXX = @CXX@
 COMPILER = @COMPILER_NAME@
 SYSTEM = @SYSTEM_NAME@
 BUILDPATH ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))/build/@COMPILER_NAME@-@COMPILER_VERSION@
-CORECXXFLAGS = -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -pipe -Iinclude -Wall -Wextra -Wfatal-errors -Wno-write-strings -Wno-missing-field-initializers -Wshadow -Wno-switch -std=c++14
+CORECXXFLAGS = -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -pipe -Iinclude -Wall -Wextra -Wfatal-errors -Wno-write-strings -Wno-missing-field-initializers -Wshadow -Wno-switch
 LDLIBS = -lstdc++
 CORELDFLAGS = -rdynamic -L.
 PICLDFLAGS = -fPIC -shared -rdynamic

@@ -155,14 +155,17 @@ static bool InternalTest()
     
     slog("TESTS", LOG_DEFAULT, "Calling Internals::Test()");
 
-    int x = 100;
+    int x = 1000;
 
     for (int i = 0; i < x; i++)
     {
-       Methods::Set(convto_string(i), convto_string(i));
-       Methods::Get(convto_string(i));
+  //     Methods::Setex(100, convto_string(i), convto_string(i));
+         Methods::Set(convto_string(i), convto_string(i));
+
+//       Methods::Get(convto_string(i));
     }
     
+    Methods::Search("*");
 //    exit(0);
     return false;
 }

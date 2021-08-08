@@ -71,6 +71,11 @@ void Methods::LGet(const std::string& key)
         Server::Write("lget %s\r\n", key.c_str());
 }
 
+void Methods::Search(const std::string& key)
+{
+        Server::Write("find %s\r\n", key.c_str());
+}
+
 void Methods::Find(const std::string& key)
 {
         Server::Write("find %s\r\n", key.c_str());
