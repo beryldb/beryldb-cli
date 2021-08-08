@@ -123,6 +123,15 @@ if ($interactive_setup)
 	}
 }
 
+unless (run_test $RealDir, -w $RealDir, 'writable') 
+{
+        show_error <<"EOE";
+Source directory <|GREEN $RealDir|> is not writable. This error might be because you downloaded
+Beryldb-cli as root and then compiled using this current user. In order to fix this issue,
+you must download Beryldb-cli's source code again.
+EOE
+};
+
 $config{CXX} = locate_compiler($config{CXX} // $ENV{CXX});
 
 unless ($config{CXX}) 

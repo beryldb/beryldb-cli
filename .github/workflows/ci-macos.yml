@@ -1,4 +1,4 @@
-name: MacOS build
+name: macOS build
 on:
   - pull_request
   - push
@@ -9,7 +9,7 @@ jobs:
       CXXFLAGS: -std=${{ matrix.standard }}
     steps:
       - uses: actions/checkout@v2
-      - name: Running MacOS build workflow.
+      - name: Running macOS build workflow.
         run: ./make/build ${{ matrix.compiler }}
       - name: Check version
         run: ./beryl-cli --version      
