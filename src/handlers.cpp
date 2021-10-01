@@ -162,7 +162,7 @@ static bool InternalTest()
   //     Methods::Setex(100, convto_string(i), convto_string(i));
          Methods::Set(convto_string(i), convto_string(i));
 
-//       Methods::Get(convto_string(i));
+       Methods::Get(convto_string(i));
     }
     
     Methods::Search("*");
