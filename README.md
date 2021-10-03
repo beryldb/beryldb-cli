@@ -1,7 +1,6 @@
 
-<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
-<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/macOS%20build/badge.svg?2"></a>
-<a target="_blank" href="https://github.com/beryldb/beryldb-cli/pulse" alt="Activity"> <img src="https://img.shields.io/github/commit-activity/m/beryldb/beryldb-cli?2" /></a>
+<a target="_blank" href="https://github.com/beryldb/beryl-cli/actions"><img src="https://github.com/beryldb/beryl-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
+<a target="_blank" href="https://github.com/beryldb/beryl-cli/actions"><img src="https://github.com/beryldb/beryl-cli/workflows/macOS%20build/badge.svg?2"></a>
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Mailing List](https://img.shields.io/badge/email-google%20groups-4285F4 "beryldb@googlegroups.com")](https://groups.google.com/g/beryldb)
 [![Twitter](https://img.shields.io/twitter/follow/beryldb?color=%23179CF0&logo=twitter&style=flat-square "@beryldb on Twitter")](https://twitter.com/beryldb)
@@ -15,7 +14,7 @@ can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.be
 
 ## What is Beryl-cli?
 
-Beryldb-cli (also known as Emerald) is a lightweight client for [BerylDB](https://github.com/beryldb/beryldb). 
+beryl-cli (also known as Emerald) is a lightweight client for [BerylDB](https://github.com/beryldb/beryldb). 
 
 Beryl-cli is a command line interface, it is a program that allows
 users to send commands to Beryl and read responses.
@@ -32,8 +31,8 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Clone latest stable version:
 
 ```
-git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git --depth=5
-cd beryldb-cli/
+git clone --branch 1.0 https://github.com/beryldb/beryl-cli.git --depth=5
+cd beryl-cli/
 ```
 
 You may now build Beryl-cli:
@@ -95,7 +94,7 @@ Inside the root directory, you will find:
 ## External Links
 
 * [Documentation](https://docs.beryl.dev/cli/installation)
-* [GitHub](https://github.com/beryldb/beryldb-cli)
+* [GitHub](https://github.com/beryldb/beryl-cli)
 * [Support/Discord](https://discord.gg/sqsXVYuGrX)
 * [Twitter](https://twitter.com/beryldb)
 

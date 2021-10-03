@@ -127,8 +127,8 @@ unless (run_test $RealDir, -w $RealDir, 'writable')
 {
         show_error <<"EOE";
 Source directory <|GREEN $RealDir|> is not writable. This error might be because you downloaded
-Beryldb-cli as root and then compiled using this current user. In order to fix this issue,
-you must download Beryldb-cli's source code again.
+beryl-cli as root and then compiled using this current user. In order to fix this issue,
+you must download beryl-cli's source code again.
 EOE
 };
 
@@ -189,13 +189,13 @@ if (defined $set_portable)
 elsif (defined $set_system) 
 {
 	$config{BASE_DIR}    = $set_prefix      // '/';
-	$config{CONFIG_DIR}  = $set_RealDir  // '/etc/beryl';
-	$config{DATA_DIR}    = $set_data_dir    // '/var/lib/beryl';
-	$config{EXAMPLE_DIR} = $set_example_dir // '/usr/share/doc/beryl';
-	$config{LOG_DIR}     = $set_log_dir     // '/var/log/beryl';
+	$config{CONFIG_DIR}  = $set_RealDir  // '/etc/beryl-cli';
+	$config{DATA_DIR}    = $set_data_dir    // '/var/lib/beryl-cli';
+	$config{EXAMPLE_DIR} = $set_example_dir // '/usr/share/doc/beryl-cli';
+	$config{LOG_DIR}     = $set_log_dir     // '/var/log/beryl-cli';
 	$config{MANUAL_DIR}  = $set_manual_dir  // '/usr/share/man/man1';
 	$config{RUNTIME_DIR} = $set_runtime_dir // '/var/run';
-	$config{SCRIPT_DIR}  = $set_script_dir  // '/usr/share/beryl';
+	$config{SCRIPT_DIR}  = $set_script_dir  // '/usr/share/beryl-cli';
 } 
 else 
 {
