@@ -88,12 +88,12 @@ void Methods::use(const std::string& value)
 
 void Methods::LogIn(const std::string& session, const std::string& login, const std::string& pass)
 {
+        Server::Write("ILOGIN %s %s %s\r\n", session.c_str(), pass.c_str(), login.c_str());
+
         if (!Kernel->Config->select.empty() && Kernel->Config->select != "1")
         {
              Methods::use(Kernel->Config->select);
         }
-
-        Server::Write("ILOGIN %s %s %s\r\n", session.c_str(), pass.c_str(), login.c_str());
 }
 
 void Methods::Command(const std::string& cmd)

@@ -204,10 +204,6 @@ void Handlers::OnMyUse(std::vector<std::string>& cmd)
              Kernel->display_select = false;
      }
      
-     if (Kernel->Connected)
-     {
-         Daemon::sprint(DTYPE_R, "OK");             
-     }
 }
 
 void Handlers::OnYourFlags(std::vector<std::string>& cmd)
