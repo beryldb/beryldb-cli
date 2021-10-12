@@ -1,6 +1,6 @@
 
-<a target="_blank" href="https://github.com/beryldb/beryl-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
-<a target="_blank" href="https://github.com/beryldb/beryl-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/macOS%20build/badge.svg?2"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/macOS%20build/badge.svg?2"></a>
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Mailing List](https://img.shields.io/badge/email-google%20groups-4285F4 "beryldb@googlegroups.com")](https://groups.google.com/g/beryldb)
 [![Twitter](https://img.shields.io/twitter/follow/beryldb?color=%23179CF0&logo=twitter&style=flat-square "@beryldb on Twitter")](https://twitter.com/beryldb)
@@ -31,8 +31,8 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Clone latest stable version:
 
 ```
-git clone --branch 1.0 https://github.com/beryldb/beryl-cli.git --depth=5
-cd beryl-cli/
+git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git --depth=5
+cd beryldb-cli/
 ```
 
 You may now build Beryl-cli:
