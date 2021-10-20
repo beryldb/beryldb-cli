@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "Emerald-0.9.2"
+echo "Emerald-1.0.0"

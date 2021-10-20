@@ -31,11 +31,11 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Clone latest stable version:
 
 ```
-git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git --depth=5
+git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git
 cd beryldb-cli/
 ```
 
-You may now build Beryl-cli:
+You may now build beryldb-cli:
 
 ```
 ./configure
