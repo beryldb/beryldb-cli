@@ -4,13 +4,13 @@
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Mailing List](https://img.shields.io/badge/email-google%20groups-4285F4 "beryldb@googlegroups.com")](https://groups.google.com/g/beryldb)
 [![Twitter](https://img.shields.io/twitter/follow/beryldb?color=%23179CF0&logo=twitter&style=flat-square "@beryldb on Twitter")](https://twitter.com/beryldb)
-[![Discord Server](https://img.shields.io/discord/823028202318200912?color=7289da&logo=discord "Discord Server")](https://discord.gg/GRCEuMdYRt)
+[![Discord Server](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/23f6w9sgAd)
 <br>
 
 This README is brief introduction to Beryl-cli. For extended information, you
-can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/installation)
+can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/)
 
-![Logo](https://docs.beryl.dev/img/smaller.png??)
+![Logo](https://static.beryl.dev/smaller.png)
 
 ## What is Beryl-cli?
 
@@ -95,6 +95,6 @@ Inside the root directory, you will find:
 
 * [Documentation](https://docs.beryl.dev/cli/installation)
 * [GitHub](https://github.com/beryldb/beryl-cli)
-* [Support/Discord](https://discord.gg/sqsXVYuGrX)
+* [Support/Discord](https://discord.gg/23f6w9sgAd)
 * [Twitter](https://twitter.com/beryldb)
 
