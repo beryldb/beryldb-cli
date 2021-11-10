@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://static.beryl.dev/smaller.png">
+</p>
 
 <a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
 <a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/macOS%20build/badge.svg?2"></a>
@@ -9,8 +12,6 @@
 
 This README is brief introduction to Beryl-cli. For extended information, you
 can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/)
-
-![Logo](https://static.beryl.dev/smaller.png)
 
 ## What is Beryl-cli?
 
@@ -31,27 +32,27 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Clone latest stable version:
 
 ```
-git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git
-cd beryldb-cli/
+$ git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git
+$ cd beryldb-cli/
 ```
 
 You may now build beryldb-cli:
 
 ```
-./configure
-make -j2 install
+$ ./configure
+$ make -j2 install
 ```
 
 ## Running
 
 ```
-./beryl-cli
+$ ./beryl-cli
 ```
 
 In case you are running your server in a remote server:
 
 ```
-./beryl-cli --host=example.beryl.dev
+$ ./beryl-cli --host=example.beryl.dev
 ```
 
 ## Usage
