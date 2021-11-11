@@ -92,6 +92,21 @@ Inside the root directory, you will find:
 * `etc`: Libraries developed by 3rd party organizations.
 * `make`: Contains several Perl-based functions to compile the cli.
 
+## Join our community 👋
+
+We invite people from different backgrounds 🌈👨❤️ :raising_hand::older_man:  
+
+If you are just getting started as programmer, there are several ways that you can
+collaborate. There is no need to be a senior programmer. At BerylDB, we
+are problem solvers and welcome people having this vision 👍
+
+### How do I get involved?
+ 
+ - 🎓 Check our pending issues, or create your own.
+ - 🌵 Contribute to our Drivers ([Node.js](https://github.com/beryldb/node-beryl), [PHP](https://github.com/beryldb/php-beryl), [Python](https://github.com/beryldb/python-beryl)).
+ - 🙋 Become a QA: Test our software and report back ([Check our Google group](https://groups.google.com/g/beryldb)).
+ - 💬 Get to know our team and join our [Discord server](https://discord.gg/23f6w9sgAd).
+
 ## External Links
 
 * [Documentation](https://docs.beryl.dev/cli/installation)
