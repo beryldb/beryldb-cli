@@ -1,16 +1,17 @@
+<p align="center">
+  <img src="https://static.beryl.dev/smaller.png">
+</p>
 
-<a target="_blank" href="https://github.com/beryldb/beryl-cli/actions"><img src="https://github.com/beryldb/beryl-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
-<a target="_blank" href="https://github.com/beryldb/beryl-cli/actions"><img src="https://github.com/beryldb/beryl-cli/workflows/macOS%20build/badge.svg?2"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/Ubuntu%20build/badge.svg?2"></a>
+<a target="_blank" href="https://github.com/beryldb/beryldb-cli/actions"><img src="https://github.com/beryldb/beryldb-cli/workflows/macOS%20build/badge.svg?2"></a>
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Mailing List](https://img.shields.io/badge/email-google%20groups-4285F4 "beryldb@googlegroups.com")](https://groups.google.com/g/beryldb)
 [![Twitter](https://img.shields.io/twitter/follow/beryldb?color=%23179CF0&logo=twitter&style=flat-square "@beryldb on Twitter")](https://twitter.com/beryldb)
-[![Discord Server](https://img.shields.io/discord/823028202318200912?color=7289da&logo=discord "Discord Server")](https://discord.gg/GRCEuMdYRt)
+[![Discord Server](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/23f6w9sgAd)
 <br>
 
 This README is brief introduction to Beryl-cli. For extended information, you
-can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/installation)
-
-![Logo](https://docs.beryl.dev/img/smaller.png??)
+can visit our documentation site at [docs.beryl.dev/clients/cli](https://docs.beryl.dev/cli/)
 
 ## What is Beryl-cli?
 
@@ -31,27 +32,27 @@ Beryl-cli is supported in MacOS, BSD and Linux systems.
 Clone latest stable version:
 
 ```
-git clone --branch 1.0 https://github.com/beryldb/beryl-cli.git --depth=5
-cd beryl-cli/
+$ git clone --branch 1.0 https://github.com/beryldb/beryldb-cli.git
+$ cd beryldb-cli/
 ```
 
-You may now build Beryl-cli:
+You may now build beryldb-cli:
 
 ```
-./configure
-make -j2 install
+$ ./configure
+$ make -j2 install
 ```
 
 ## Running
 
 ```
-./beryl-cli
+$ ./beryl-cli
 ```
 
 In case you are running your server in a remote server:
 
 ```
-./beryl-cli --host=example.beryl.dev
+$ ./beryl-cli --host=example.beryl.dev
 ```
 
 ## Usage
@@ -91,10 +92,25 @@ Inside the root directory, you will find:
 * `etc`: Libraries developed by 3rd party organizations.
 * `make`: Contains several Perl-based functions to compile the cli.
 
+## Join our community 👋
+
+We invite people from different backgrounds 🌈👨❤️ :raising_hand::older_man:  
+
+If you are just getting started as programmer, there are several ways that you can
+collaborate. There is no need to be a senior programmer. At BerylDB, we
+are problem solvers and welcome people having this vision 👍
+
+### How do I get involved?
+ 
+ - 🎓 Check our pending issues, or create your own.
+ - 🌵 Contribute to our Drivers ([Node.js](https://github.com/beryldb/node-beryl), [PHP](https://github.com/beryldb/php-beryl), [Python](https://github.com/beryldb/python-beryl)).
+ - 🙋 Become a QA: Test our software and report back ([Check our Google group](https://groups.google.com/g/beryldb)).
+ - 💬 Get to know our team and join our [Discord server](https://discord.gg/23f6w9sgAd).
+
 ## External Links
 
 * [Documentation](https://docs.beryl.dev/cli/installation)
 * [GitHub](https://github.com/beryldb/beryl-cli)
-* [Support/Discord](https://discord.gg/sqsXVYuGrX)
+* [Support/Discord](https://discord.gg/23f6w9sgAd)
 * [Twitter](https://twitter.com/beryldb)
 
